@@ -428,7 +428,7 @@ tqdm = "^4.66.1"
 
 [package.source]
 type = "git"
-url = "ssh://git@gitlab.gistools.geog.uni-heidelberg.de:2022/climate-action/climatoology.git"
+url = "ssh://git@gitlab.heigit.org:2022/climate-action/climatoology.git"
 reference = "5.0.0"
 resolved_reference = "52566b9b28603e1aabeb01d831dc7996f3414cb7"
 
