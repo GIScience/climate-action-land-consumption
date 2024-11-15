@@ -11,7 +11,7 @@ from ohsome import OhsomeClient
 from land_consumption.artifact import build_table_artifact
 from land_consumption.calculation import calculate_land_consumption
 from land_consumption.input import ComputeInput
-from land_consumption.utils import calculate_area, fetch_osm_area
+from land_consumption.utils import calculate_area, fetch_osm_area, get_ohsome_filter, LandUseCategory
 
 log = logging.getLogger(__name__)
 
@@ -50,7 +50,9 @@ class LandConsumption(Operator[ComputeInput]):
 
     def compute(self, resources: ComputationResources, params: ComputeInput) -> List[_Artifact]:
         log.info(f'Handling compute request: {params.model_dump()} in context: {resources}')
-        building_area = fetch_osm_area(aoi=params.get_aoi_geom(), osm_filter='', ohsome=self.ohsome)
+        building_area = fetch_osm_area(
+            aoi=params.get_aoi_geom(), osm_filter=get_ohsome_filter(LandUseCategory.BUILDINGS), ohsome=self.ohsome
+        )
 
         aoi_area = calculate_area(gpd.GeoSeries(data=[params.get_aoi_geom()], crs=4326))
 
@@ -68,11 +70,12 @@ class LandConsumption(Operator[ComputeInput]):
         log.debug('Creating table artifact for land consumption data.')
 
         total_land_consumed = land_consumption_df['% Land Consumed by known classes'].sum()
+        total_land_area = land_consumption_df['Total Land Area [ha]'].sum()
         total_row = pd.DataFrame(
             {
                 'Land Use': ['Total'],
-                'Total Land Area [ha]': [100],
-                '% Land Area': [100],
+                'Total Land Area [ha]': [total_land_area],
+                '% Land Area': [100.0],
                 '% Land Consumed by known classes': [total_land_consumed],
             }
         )

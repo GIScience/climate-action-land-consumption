@@ -1,9 +1,11 @@
 import pandas as pd
 
-from land_consumption.utils import LandUseCategory, CONSUMPTION_FACTOR_LOOKUP
+from land_consumption.utils import LandUseCategory, CONSUMPTION_FACTOR_LOOKUP, SQM_TO_HA_FACTOR
 
 
 def calculate_land_consumption(aoi_area: float, building_area: float) -> pd.DataFrame:
+    building_area = building_area * SQM_TO_HA_FACTOR
+    aoi_area = aoi_area * SQM_TO_HA_FACTOR
     building_proportion = building_area / aoi_area
 
     table = pd.DataFrame(

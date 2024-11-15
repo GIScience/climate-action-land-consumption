@@ -7,6 +7,7 @@ from climatoology.base.computation import ComputationResources
 
 
 def build_table_artifact(data: pd.DataFrame, resources: ComputationResources) -> _Artifact:
+    data = data.round(2)
     return create_table_artifact(
         data=data,
         title='Land Consumption by Land Use Type',
