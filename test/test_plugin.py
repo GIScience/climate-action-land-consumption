@@ -3,10 +3,7 @@ def test_plugin_info_request(operator, expected_info_output):
 
 
 def test_plugin_compute_request(
-    operator,
-    expected_compute_input,
-    expected_compute_output,
-    compute_resources,
+    operator, expected_compute_input, expected_compute_output, compute_resources, request_ohsome
 ):
     assert (
         operator.compute(
