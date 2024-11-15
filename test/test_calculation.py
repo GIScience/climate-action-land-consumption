@@ -14,6 +14,6 @@ def test_calculate_land_consumption():
         }
     )
 
-    computed_output = calculate_land_consumption(aoi_area=1.0, building_area=0.25)
+    computed_output = calculate_land_consumption(aoi_area=10000.0, building_area=2500)
 
     pd.testing.assert_frame_equal(computed_output, expected_output)

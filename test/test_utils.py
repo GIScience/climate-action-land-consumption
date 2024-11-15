@@ -1,5 +1,4 @@
 import geopandas as gpd
-import pandas as pd
 import pytest
 import shapely
 from ohsome import OhsomeClient
@@ -21,11 +20,11 @@ def test_fetch_osm_area(responses_mock):
 
     aoi_input = shapely.MultiPolygon([[[(0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 0.0)]]])
 
-    expected_osm_data = pd.DataFrame(data={'area': [1.0]})
+    expected_osm_area = 1.0
 
-    computed_osm_data = fetch_osm_area(aoi=aoi_input, osm_filter='dummy=yes', ohsome=OhsomeClient())
+    computed_osm_area = fetch_osm_area(aoi=aoi_input, osm_filter='dummy=yes', ohsome=OhsomeClient())
 
-    pd.testing.assert_frame_equal(computed_osm_data, expected_osm_data)
+    assert computed_osm_area == expected_osm_area
 
 
 def test_calculate_area():

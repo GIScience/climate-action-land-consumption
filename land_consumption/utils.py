@@ -7,6 +7,8 @@ from ohsome import OhsomeClient
 
 log = logging.getLogger(__name__)
 
+SQM_TO_HA_FACTOR = 1.0 / (100.0 * 100.0)
+
 
 class LandUseCategory(Enum):
     BUILDINGS = 'Buildings'
@@ -17,11 +19,9 @@ class LandUseCategory(Enum):
 CONSUMPTION_FACTOR_LOOKUP = {LandUseCategory.BUILDINGS: 1.0, LandUseCategory.UNKNOWN: None}
 
 
-def fetch_osm_area(aoi: shapely.MultiPolygon, osm_filter: str, ohsome: OhsomeClient) -> gpd.GeoDataFrame:
+def fetch_osm_area(aoi: shapely.MultiPolygon, osm_filter: str, ohsome: OhsomeClient) -> float:
     area = ohsome.elements.area.post(bpolys=aoi, filter=osm_filter).as_dataframe()
-    area = area.reset_index(drop=True)
-    area = area.rename(columns={'value': 'area'})
-    return area[['area']]
+    return area.value.sum()
 
 
 def get_ohsome_filter(category: LandUseCategory) -> str:
