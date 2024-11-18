@@ -54,6 +54,11 @@ def expected_info_output() -> Info:
                 affiliation='HeiGIT gGmbH',
                 website='https://heigit.org/heigit-team/',
             ),
+            PluginAuthor(
+                name='Moritz Schott',
+                affiliation='HeiGIT gGmbH',
+                website='https://heigit.org/heigit-team/',
+            ),
         ],
         version='dummy',
         concerns=[Concern.CLIMATE_ACTION__GHG_EMISSION],
