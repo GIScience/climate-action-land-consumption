@@ -60,6 +60,12 @@ def test_get_ohsome_filter_building():
     assert computed_filter == expected_filter
 
 
+def test_get_ohsome_filter_parkinglot():
+    expected_filter = 'geometry:polygon and amenity=parking and parking=surface'
+    computed_filter = get_ohsome_filter(LandUseCategory.PARKING_LOTS)
+    assert computed_filter == expected_filter
+
+
 def test_get_ohsome_filter_unknown():
     with pytest.raises(ValueError, match='LandUseCategory.UNKNOWN'):
         get_ohsome_filter(LandUseCategory.UNKNOWN)

@@ -55,13 +55,20 @@ class LandConsumption(Operator[ComputeInput]):
 
     def compute(self, resources: ComputationResources, params: ComputeInput) -> List[_Artifact]:
         log.info(f'Handling compute request: {params.model_dump()} in context: {resources}')
+        aoi_geom = params.get_aoi_geom()
         building_area = fetch_osm_area(
-            aoi=params.get_aoi_geom(), osm_filter=get_ohsome_filter(LandUseCategory.BUILDINGS), ohsome=self.ohsome
+            aoi=aoi_geom, osm_filter=get_ohsome_filter(LandUseCategory.BUILDINGS), ohsome=self.ohsome
+        )
+
+        parking_area = fetch_osm_area(
+            aoi=aoi_geom, osm_filter=get_ohsome_filter(LandUseCategory.PARKING_LOTS), ohsome=self.ohsome
         )
 
         aoi_area = calculate_area(gpd.GeoSeries(data=[params.get_aoi_geom()], crs=4326))
 
-        land_consumption_df = calculate_land_consumption(aoi_area=aoi_area, building_area=building_area)
+        land_consumption_df = calculate_land_consumption(
+            aoi_area=aoi_area, building_area=building_area, parking_area=parking_area
+        )
         land_consumption_table = LandConsumption.get_table(land_consumption_df)
 
         table_artifact = build_table_artifact(data=land_consumption_table, resources=resources)
