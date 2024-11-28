@@ -11,6 +11,8 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 - dummy table was removed
 
+- code modified for compatibility with climatoology 6.0.0
+
 ### Added
 
 - request building area from Ohsome API and calculate fraction of area of interest covered by buildings ([#8](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/8))

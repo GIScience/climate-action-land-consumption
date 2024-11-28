@@ -4,7 +4,9 @@ from typing import List
 
 import geopandas as gpd
 import pandas as pd
-from climatoology.base.operator import ComputationResources, Concern, Info, Operator, PluginAuthor, _Artifact
+import shapely
+from climatoology.base.baseoperator import ComputationResources, BaseOperator, _Artifact, AoiProperties
+from climatoology.base.info import generate_plugin_info, _Info, PluginAuthor, Concern
 from climatoology.utility.api import LulcUtility
 from ohsome import OhsomeClient
 
@@ -16,14 +18,15 @@ from land_consumption.utils import calculate_area, fetch_osm_area, get_ohsome_fi
 log = logging.getLogger(__name__)
 
 
-class LandConsumption(Operator[ComputeInput]):
+class LandConsumption(BaseOperator[ComputeInput]):
     def __init__(self, lulc_utility: LulcUtility):
+        super().__init__()
         self.lulc_utility = lulc_utility
         self.ohsome = OhsomeClient(user_agent='CA Plugin Land Consumption')
         log.debug('Initialised Land consumption Operator')
 
-    def info(self) -> Info:
-        info = Info(
+    def info(self) -> _Info:
+        info = generate_plugin_info(
             name='Land Consumption',
             icon=Path('resources/info/icon.jpeg'),
             authors=[
@@ -45,17 +48,23 @@ class LandConsumption(Operator[ComputeInput]):
             ],
             version='dummy',
             concerns=[Concern.CLIMATE_ACTION__GHG_EMISSION],
-            purpose=Path('resources/info/purpose.md').read_text(),
-            methodology=Path('resources/info/methodology.md').read_text(),
+            purpose=Path('resources/info/purpose.md'),
+            methodology=Path('resources/info/methodology.md'),
             sources=Path('resources/info/sources.bib'),
         )
         log.info(f'Return info {info.model_dump()}')
 
         return info
 
-    def compute(self, resources: ComputationResources, params: ComputeInput) -> List[_Artifact]:
+    def compute(
+        self,
+        resources: ComputationResources,
+        aoi: shapely.MultiPolygon,
+        aoi_properties: AoiProperties,
+        params: ComputeInput,
+    ) -> List[_Artifact]:
         log.info(f'Handling compute request: {params.model_dump()} in context: {resources}')
-        aoi_geom = params.get_aoi_geom()
+        aoi_geom = aoi
         building_area = fetch_osm_area(
             aoi=aoi_geom, osm_filter=get_ohsome_filter(LandUseCategory.BUILDINGS), ohsome=self.ohsome
         )
@@ -64,7 +73,7 @@ class LandConsumption(Operator[ComputeInput]):
             aoi=aoi_geom, osm_filter=get_ohsome_filter(LandUseCategory.PARKING_LOTS), ohsome=self.ohsome
         )
 
-        aoi_area = calculate_area(gpd.GeoSeries(data=[params.get_aoi_geom()], crs=4326))
+        aoi_area = calculate_area(gpd.GeoSeries(data=[aoi], crs=4326))
 
         land_consumption_df = calculate_land_consumption(
             aoi_area=aoi_area, building_area=building_area, parking_area=parking_area
