@@ -11,7 +11,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 - dummy table was removed
 
-- code modified for compatibility with climatoology 6.0.0
+- code modified for compatibility with climatoology 6.0.2
 
 ### Added
 
