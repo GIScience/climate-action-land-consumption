@@ -1,4 +1,6 @@
 import pandas as pd
+from pathlib import Path
+
 from climatoology.base.artifact import (
     create_table_artifact,
     _Artifact,
@@ -11,11 +13,8 @@ def build_table_artifact(data: pd.DataFrame, resources: ComputationResources) ->
     return create_table_artifact(
         data=data,
         title='Land Consumption by Land Use Type',
-        caption='The proportion of land consumed by different land uses, weighted by land consumption factor.',
-        description='A table with proportion of land consumed in a given area of interest. Consuming land in this '
-        'context refers to the transformation of natural landscapes to artificial or seminatural landscapes. The resultant '
-        'table therefore calculates how much natural land is left in an area versus how much has been consumed or '
-        'transformed into artifical or seminatural land.',
+        caption='The proportion of land consumed by different land uses, weighted by soil sealing factors.',
+        description=Path('resources/info/description.md').read_text(),
         resources=resources,
         filename='table_landconsumption',
     )

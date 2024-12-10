@@ -14,6 +14,13 @@ class Settings(BaseSettings):
     lulc_port: int
     lulc_path: str
 
+    # TODO: refactor env variables: create RestCatalog already here or allow these variables to be set in the .env file without referencing them here
+    ohsome_iceberg_uri: str
+    ohsome_minio_endpoint: str
+    ohsome_minio_access_key: str
+    ohsome_minio_access_key_id: str
+    ohsome_minio_region: str
+
     model_config = SettingsConfigDict(env_file='.env')
 
 

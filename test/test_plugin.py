@@ -1,5 +1,5 @@
+from climatoology.base.baseoperator import _Artifact
 from climatoology.base.info import _Info
-from climatoology.base.artifact import _Artifact
 
 
 def test_plugin_info_request(operator):
@@ -13,6 +13,7 @@ def test_plugin_compute_request(
     request_ohsome,
     default_aoi,
     default_aoi_properties,
+    mock_get_osm_from_parquet,
 ):
     computed_artifacts = operator.compute(
         resources=compute_resources,

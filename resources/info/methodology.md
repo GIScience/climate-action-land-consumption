@@ -1,9 +1,9 @@
-Definition: land consumption is calculated as the proportion of artificial and modified land. Factors are assigned to calculate the degree of consumption.
+Definition: for now, land consumption is calculated as the fraction of soil that has been sealed with impervious surfaces, such as asphalt. Different land use types are weighted according to a land-consumption factors representing their average rate of soil sealing.
 
-Description: V1 of Land Consumption calculates the proportion of land consumed at one given time. The time is an input by the user and we associate it with the closest corine version in the past.
+Description: this `demo` version of Land Consumption calculates the proportion of soil sealed based on the most recent OpenStreetMap (OSM) data.
 
-Required Input: a single date and bbox
+Required Input: an area of interest.
 
-Required Output: V1 will output text and a graph. Text will state proportion of land consumed and graph will state the proportion of land consumed by different land uses.
+Required Output: the demo outputs a table with the proportion of land consumed by different land uses.
 
-Methodology: Plugin works by taking date and bbox input to match to corine lulc. Corine data transformed by land consumption factors ranging 0 to 1 (0 unconsumed, 1 totally consumed). Factors come from WWF Austria. Consumption value for whole bbox averaged to get proportion consumed. This is the text output. We then iteratively calculate the proportion consumed by each land use and output these percentages to populate a graph.
+Methodology: the plugin requests OSM data for the area of interest, calculates the area of different land use classes, and weighs them by their respective land consumption factors.
