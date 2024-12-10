@@ -9,14 +9,19 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ### Changed
 
-- dummy table was removed
-
+- updated documentation to reflect latest methodology
 - code modified for compatibility with climatoology 6.0.2
+- request data as GeoParquet instead of Ohsome API
 
 ### Added
 
-- request building area from Ohsome API and calculate fraction of area of interest covered by buildings ([#8](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/8))
-- request parking lot area from Ohsome API, calculate land consumed by parking lots, adding one row to results table ([#9](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/9))
+- calculate fraction of area of interest covered by buildings ([#8](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/8))
+- calculate land consumed by parking lots, adding one row to results table ([#9](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/9))
+- buffer the road LineStrings to its width or the mode (most used value) for that road type, if no value for a particular road type is found within AOI then use a default value, calculate area of the buffered roads, calculate land consumed by roads, adding one row to results table((#11)[https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/11])
+
+### Removed
+
+- dummy table was removed
 
 ## [Dummy](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/Dummy)
 - output dummy table output with the percentage of an area of interest consumed by different land uses

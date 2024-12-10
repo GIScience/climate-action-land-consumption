@@ -20,11 +20,8 @@ def test_build_table_artifact(compute_resources):
         name='Land Consumption by Land Use Type',
         modality=ArtifactModality.TABLE,
         file_path=Path(compute_resources.computation_dir / 'table_landconsumption.csv'),
-        summary='The proportion of land consumed by different land uses, weighted by land consumption factor.',
-        description='A table with proportion of land consumed in a given area of interest. Consuming land in this '
-        'context refers to the transformation of natural landscapes to artificial or seminatural '
-        'landscapes. The resultant table therefore calculates how much natural land is left in an area '
-        'versus how much has been consumed or transformed into artifical or seminatural land.',
+        summary='The proportion of land consumed by different land uses, weighted by soil sealing factors.',
+        description=Path('resources/info/description.md').read_text(),
     )
     computed_output = build_table_artifact(data=input, resources=compute_resources)
 

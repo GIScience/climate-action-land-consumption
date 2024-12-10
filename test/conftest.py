@@ -1,6 +1,7 @@
+import ast
 import uuid
 from functools import partial
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 import geopandas as gpd
 import pytest
@@ -11,10 +12,12 @@ from climatoology.base.computation import ComputationScope
 from climatoology.base.baseoperator import AoiProperties
 from climatoology.utility.api import LabelDescriptor, LabelResponse
 from ohsome import OhsomeClient
+from shapely.geometry.polygon import Polygon
 from urllib3 import Retry
 
 from land_consumption.input import ComputeInput
 from land_consumption.operator_worker import LandConsumption
+from land_consumption.utils import LandUseCategory
 
 
 @pytest.fixture
@@ -92,6 +95,16 @@ def lulc_utility():
     yield lulc_utility
 
 
+@pytest.fixture
+def mock_get_osm_from_parquet():
+    osm_from_parquet_gdf = gpd.read_file('resources/test/osm_from_parquet_response.geojson')
+    osm_from_parquet_gdf['tags'] = osm_from_parquet_gdf['tags'].apply(lambda x: ast.literal_eval(x))
+
+    with patch('land_consumption.utils.get_osm_data_from_parquet') as mock_gdf:
+        mock_gdf.return_value = osm_from_parquet_gdf
+        yield mock_gdf
+
+
 @pytest.fixture(scope='module')
 def bpolys():
     """Small bounding boxes."""
@@ -106,6 +119,23 @@ def bpolys():
 
 
 @pytest.fixture(scope='module')
+def multi_polygon():
+    return shapely.MultiPolygon(
+        [
+            [
+                [
+                    (8.692079588124045, 49.41054080364265),
+                    (8.692079588124045, 49.4081998269551),
+                    (8.697014933561888, 49.4081998269551),
+                    (8.697014933561888, 49.41054080364265),
+                    (8.692079588124045, 49.41054080364265),
+                ]
+            ]
+        ]
+    )
+
+
+@pytest.fixture(scope='module')
 def request_ohsome(bpolys):
     return partial(
         OhsomeClient(
@@ -116,3 +146,40 @@ def request_ohsome(bpolys):
         time='2024-01-01',
         timeout=120,
     )
+
+
+@pytest.fixture(scope='module')
+def roads_df():
+    return gpd.read_file('resources/test/roads_response.geojson')
+
+
+@pytest.fixture(scope='module')
+def mock_iceberg_scan(roads_df):
+    df = roads_df.copy()
+    mock_scan_result = MagicMock()
+
+    # Convert tags to dict and geometry to WKT to match the expected output
+    df['tags'] = df['tags'].apply(lambda x: dict(ast.literal_eval(x)))
+    mock_scan_result.return_value = df
+
+    return mock_scan_result
+
+
+@pytest.fixture
+def categories_gdf():
+    """Fixture to create a sample GeoDataFrame for testing."""
+    # Create sample geometries
+    data = {
+        'category': [
+            LandUseCategory.BUILDINGS.name,
+            LandUseCategory.PARKING_LOTS.name,
+            LandUseCategory.PAVED_ROADS.name,
+        ],
+        'geometry': [
+            Polygon([(0, 0), (1, 0), (1, 1), (0, 1), (0, 0)]),  # Building polygon
+            Polygon([(0.5, 0.5), (1.5, 0.5), (1.5, 1.5), (0.5, 1.5), (0.5, 0.5)]),  # Parking lot polygon
+            Polygon([(0, 1), (2, 1), (2, 2), (0, 2), (0, 1)]),  # Paved road polygon
+        ],
+    }
+    gdf = gpd.GeoDataFrame(data, crs='EPSG:4326')
+    return gdf
