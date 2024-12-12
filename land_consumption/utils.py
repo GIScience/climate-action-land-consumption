@@ -1,15 +1,14 @@
 import logging
-import os
 from enum import Enum
-from typing import Tuple
+from typing import Tuple, Callable
 
-import pandas as pd
 import geopandas as gpd
+import pandas as pd
 import shapely
-from dotenv import load_dotenv
 from geopandas import GeoDataFrame
 from pandas import DataFrame
 from pyiceberg.catalog.rest import RestCatalog
+from tqdm import tqdm
 
 log = logging.getLogger(__name__)
 
@@ -133,32 +132,20 @@ def get_filter_functions(category: LandUseCategory) -> callable:
 
 def get_osm_data_from_parquet(
     aoi_geom: shapely.MultiPolygon | shapely.Polygon,
-    row_filter: Tuple[str],
-    selected_fields: Tuple[str],
-    env_file_path='.env',
+    row_filter: str,
+    selected_fields: Tuple[str, str],
+    catalog: RestCatalog,
 ) -> GeoDataFrame:
-    keys_dict = load_env_keys(env_file_path)
-
-    catalog = RestCatalog(
-        name='default',
-        **{
-            'uri': keys_dict['OHSOME_ICEBERG_URI'],
-            's3.endpoint': keys_dict['OHSOME_MINIO_ENDPOINT'],
-            'py-io-impl': 'pyiceberg.io.pyarrow.PyArrowFileIO',
-            's3.access-key-id': keys_dict['OHSOME_MINIO_ACCESS_KEY_ID'],
-            's3.secret-access-key': keys_dict['OHSOME_MINIO_ACCESS_KEY'],
-            's3.region': keys_dict['OHSOME_MINIO_REGION'],
-        },
-    )
-
     namespace = 'geo_sort'
     tablename = 'contributions'
 
     icebergtable = catalog.load_table((namespace, tablename))
-    df = icebergtable.scan(
+    table = icebergtable.scan(
         row_filter=row_filter,
         selected_fields=selected_fields,
-    ).to_pandas()
+    )
+    df = table.to_pandas()
+    log.debug(f'Retrieved {df.shape[0]} rows from iceberg')
 
     df['tags'] = df['tags'].apply(lambda x: dict(x))
 
@@ -253,7 +240,7 @@ def calculate_area(gdf: GeoDataFrame) -> GeoDataFrame:
     return gdf
 
 
-def get_union(category_gdf: GeoDataFrame):
+def get_union(category_gdf: GeoDataFrame) -> GeoDataFrame:
     if category_gdf.empty:
         return category_gdf
     category_gdf = GeoDataFrame(geometry=[category_gdf.unary_union])
@@ -273,11 +260,11 @@ def clip_geometries(categories_gdf: GeoDataFrame) -> GeoDataFrame:
     return clipped_gdf
 
 
-def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon):
+def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog: RestCatalog):
     xmin, ymin, xmax, ymax = aoi_geom.bounds
     categories_gdf = gpd.GeoDataFrame()
 
-    def get_processing_function(category: LandUseCategory) -> str:
+    def get_processing_function(category: LandUseCategory) -> Callable[[GeoDataFrame], GeoDataFrame]:
         if category in {LandUseCategory.BUILDINGS, LandUseCategory.PARKING_LOTS, LandUseCategory.BUILT_UP}:
             return get_union
         elif category in {LandUseCategory.PAVED_ROADS, LandUseCategory.UNPAVED_ROADS}:
@@ -285,27 +272,27 @@ def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon):
         else:
             raise ValueError(f'{category} does not have a processing function')
 
-    def process_roads(category_gdf: GeoDataFrame):
+    def process_roads(category_gdf: GeoDataFrame) -> GeoDataFrame:
         if category_gdf.empty:
             return get_union(category_gdf)
         roads_with_width = assign_road_width(category_gdf)
 
         return generate_buffer(roads_with_width)
 
-    for geom_type, categories in GEOM_TYPE_LOOKUP.items():
+    for geom_type, categories in tqdm(GEOM_TYPE_LOOKUP.items()):
         status = 'latest'
 
         row_filter = (
             f"status = '{status}' "
-            f'and geometry_type IN ({geom_type})'
+            f'and geometry_type IN ({geom_type}) '
             f'and (bbox.xmax >= {xmin} and bbox.xmin <= {xmax}) '
             f'and (bbox.ymax >= {ymin} and bbox.ymin <= {ymax}) '
         )
 
         selected_fields = ('tags', 'geometry')
 
-        polygon_gdf = get_osm_data_from_parquet(aoi_geom, row_filter, selected_fields)
-        for category in categories:
+        polygon_gdf = get_osm_data_from_parquet(aoi_geom, row_filter, selected_fields, catalog=catalog)
+        for category in tqdm(categories, leave=False):
             log.info(f'Processing category {category}')
             category_gdf = polygon_gdf[polygon_gdf['tags'].apply(get_filter_functions(category))]
             if category_gdf.empty:
@@ -317,16 +304,3 @@ def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon):
     categories_gdf = clip_geometries(categories_gdf)
 
     return categories_gdf
-
-
-def load_env_keys(env_file_path):
-    path = os.path.join(os.getcwd(), env_file_path)
-    normalized_path = os.path.abspath(path)
-    if not os.path.exists(normalized_path):
-        raise FileNotFoundError(f'The specified .env file does not exist: {normalized_path}')
-
-    load_dotenv(env_file_path)
-
-    env_keys = {key: os.getenv(key) for key in os.environ}
-
-    return env_keys
