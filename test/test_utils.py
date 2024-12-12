@@ -123,21 +123,21 @@ def test_generate_buffer_from_gdf(roads_df):
 
 
 @patch('land_consumption.utils.get_osm_data_from_parquet')
-def test_get_categories_gdf_no_features(mock_get_osm_data):
+def test_get_categories_gdf_no_features(mock_get_osm_data, default_ohsome_catalog):
     mock_get_osm_data.return_value = gpd.GeoDataFrame(
         {'tags': [{'building': 'no'}, {'no_highway': 'primary'}]},
         geometry=[Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]), LineString([(0, 0), (1, 1)])],
     )
 
     aoi_geom = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
-    categories_gdf = get_categories_gdf(aoi_geom)
+    categories_gdf = get_categories_gdf(aoi_geom, catalog=default_ohsome_catalog)
 
     assert not categories_gdf.empty
     assert 'category' in categories_gdf.columns
 
 
 @patch('land_consumption.utils.get_osm_data_from_parquet')
-def test_get_categories_gdf_with_features(mock_get_osm_data):
+def test_get_categories_gdf_with_features(mock_get_osm_data, default_ohsome_catalog):
     mock_get_osm_data.return_value = gpd.GeoDataFrame(
         {
             'tags': [
@@ -156,7 +156,7 @@ def test_get_categories_gdf_with_features(mock_get_osm_data):
     )
 
     aoi_geom = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
-    categories_gdf = get_categories_gdf(aoi_geom)
+    categories_gdf = get_categories_gdf(aoi_geom, catalog=default_ohsome_catalog)
 
     assert not categories_gdf.empty
     assert 'category' in categories_gdf.columns

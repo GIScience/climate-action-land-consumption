@@ -1,3 +1,4 @@
+import importlib
 import logging
 from pathlib import Path
 from typing import List
@@ -5,16 +6,14 @@ from typing import List
 import geopandas as gpd
 import pandas as pd
 import shapely
-
-from climatoology.utility.api import LulcUtility
 from climatoology.base.baseoperator import BaseOperator, _Artifact, AoiProperties, ComputationResources
 from climatoology.base.info import Concern, _Info, PluginAuthor, generate_plugin_info
-from ohsome import OhsomeClient
+from pyiceberg.catalog.rest import RestCatalog
+from semver import Version
 
 from land_consumption.artifact import build_table_artifact
 from land_consumption.calculation import calculate_land_consumption
 from land_consumption.input import ComputeInput
-
 from land_consumption.utils import (
     calculate_area,
     get_categories_gdf,
@@ -24,10 +23,9 @@ log = logging.getLogger(__name__)
 
 
 class LandConsumption(BaseOperator[ComputeInput]):
-    def __init__(self, lulc_utility: LulcUtility):
+    def __init__(self, ohsome_catalog: RestCatalog):
         super().__init__()
-        self.lulc_utility = lulc_utility
-        self.ohsome = OhsomeClient(user_agent='CA Plugin Land Consumption')
+        self.ohsome_catalog = ohsome_catalog
         log.debug('Initialised Land consumption Operator')
 
     def info(self) -> _Info:
@@ -66,8 +64,8 @@ class LandConsumption(BaseOperator[ComputeInput]):
                     website='https://heigit.org/heigit-team/',
                 ),
             ],
-            version='demo',
-            concerns=[Concern.CLIMATE_ACTION__GHG_EMISSION],
+            version=Version.parse(importlib.metadata.version('land-consumption')),
+            concerns={Concern.CLIMATE_ACTION__GHG_EMISSION},
             purpose=Path('resources/info/purpose.md'),
             methodology=Path('resources/info/methodology.md'),
             sources=Path('resources/info/sources.bib'),
@@ -83,11 +81,13 @@ class LandConsumption(BaseOperator[ComputeInput]):
         aoi_properties: AoiProperties,
         params: ComputeInput,
     ) -> List[_Artifact]:
-        log.info(f'Handling compute request: {params.model_dump()} in context: {resources}')
+        log.info(
+            f'Handling compute request: {params.model_dump()} in region {aoi_properties.model_dump()} in context: {resources}'
+        )
 
         aoi_area = calculate_area(gpd.GeoDataFrame(geometry=[aoi], crs=4326)).iloc[0]['area']
 
-        categories_gdf = get_categories_gdf(aoi)
+        categories_gdf = get_categories_gdf(aoi, catalog=self.ohsome_catalog)
 
         log.info('Calculating area for each category')
         categories_gdf = calculate_area(categories_gdf)

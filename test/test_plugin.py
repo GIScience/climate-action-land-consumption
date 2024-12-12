@@ -10,7 +10,6 @@ def test_plugin_compute_request(
     operator,
     expected_compute_input,
     compute_resources,
-    request_ohsome,
     default_aoi,
     default_aoi_properties,
     mock_get_osm_from_parquet,
