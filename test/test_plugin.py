@@ -21,6 +21,6 @@ def test_plugin_compute_request(
         params=expected_compute_input,
     )
 
-    assert len(computed_artifacts) == 1
+    assert len(computed_artifacts) == 2
     for artifact in computed_artifacts:
         assert isinstance(artifact, _Artifact)

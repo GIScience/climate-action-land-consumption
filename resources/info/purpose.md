@@ -1,2 +1,2 @@
 The purpose of this tool is to estimate the proportion and type of land consumption in a certain area.
-In its current form it estimates the proportion of land consumed by buildings, parking lots, streets (paved and unpaved), and other built-up areas. These findings are then reported back as a table.
+In its current form it estimates the proportion of land consumed by buildings, parking lots, streets (paved and unpaved), and other built-up areas, both in aggregate and proportionally amongst land use classes such as commercial, residential, and industrial. These findings are then reported back as a table.
