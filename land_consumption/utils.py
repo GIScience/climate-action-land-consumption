@@ -16,43 +16,51 @@ SQM_TO_HA_FACTOR = 1.0 / (100.0 * 100.0)
 
 
 # Order in which the categories are clipped
-class LandUseCategory(Enum):
+class LandObjectCategory(Enum):
     BUILDINGS = 'Buildings'
     PARKING_LOTS = 'Parking lots'
     PAVED_ROADS = 'Paved Roads'
     UNPAVED_ROADS = 'Unpaved Roads'
+    BUILT_UP = 'Built up land'
+    UNKNOWN = 'Unknown'
+
+
+class LandUseCategory(Enum):
     BUILT_UP = 'Other built up area'
-    UNKNOWN = 'Unknown consumption'
+    COMMERCIAL = 'Commercial built up area'
+    RESIDENTIAL = 'Residential built up area'
+    INDUSTRIAL = 'Industrial built up area'
+    UNKNOWN = 'Unknown'
 
 
 # arbitrary, could e user input or flexible
 CONSUMPTION_FACTOR_LOOKUP = {
-    LandUseCategory.BUILDINGS: 1.0,
-    LandUseCategory.PARKING_LOTS: 0.8,
-    LandUseCategory.BUILT_UP: 0.75,
-    LandUseCategory.PAVED_ROADS: 1,
-    LandUseCategory.UNPAVED_ROADS: 0.2,
-    LandUseCategory.UNKNOWN: None,
+    LandObjectCategory.BUILDINGS: 1.0,
+    LandObjectCategory.PARKING_LOTS: 0.8,
+    LandObjectCategory.PAVED_ROADS: 1,
+    LandObjectCategory.UNPAVED_ROADS: 0.2,
+    LandObjectCategory.BUILT_UP: 0.75,
+    LandObjectCategory.UNKNOWN: None,
 }
 
 GEOM_TYPE_LOOKUP = {
-    "'Polygon', 'MultiPolygon'": [LandUseCategory.BUILDINGS, LandUseCategory.PARKING_LOTS, LandUseCategory.BUILT_UP],
-    "'LineString', 'MultiLineString'": [LandUseCategory.PAVED_ROADS, LandUseCategory.UNPAVED_ROADS],
+    "'Polygon', 'MultiPolygon'": [LandObjectCategory.BUILDINGS, LandObjectCategory.PARKING_LOTS],
+    "'LineString', 'MultiLineString'": [LandObjectCategory.PAVED_ROADS, LandObjectCategory.UNPAVED_ROADS],
 }
 
 
-def get_filter_functions(category: LandUseCategory) -> callable:
+def get_land_object_filter(category: LandObjectCategory) -> callable:
     match category:
-        case LandUseCategory.BUILDINGS:
+        case LandObjectCategory.BUILDINGS:
             return lambda x: 'building' in x.keys() and x['building'] != 'no'
-        case LandUseCategory.PARKING_LOTS:
+        case LandObjectCategory.PARKING_LOTS:
             return (
                 lambda x: 'amenity' in x.keys()
                 and x['amenity'] == 'parking'
                 and 'parking' in x.keys()
                 and x['parking'] == 'surface'
             )
-        case LandUseCategory.PAVED_ROADS:
+        case LandObjectCategory.PAVED_ROADS:
             return lambda x: 'highway' in x.keys() and (
                 (
                     'surface' in x.keys()
@@ -82,7 +90,7 @@ def get_filter_functions(category: LandUseCategory) -> callable:
                 )
                 or 'surface' not in x.keys()
             )
-        case LandUseCategory.UNPAVED_ROADS:
+        case LandObjectCategory.UNPAVED_ROADS:
             return (
                 lambda x: 'highway' in x.keys()
                 and 'surface' in x.keys()
@@ -108,26 +116,23 @@ def get_filter_functions(category: LandUseCategory) -> callable:
                     'user_defined',
                 )
             )
-
-        case LandUseCategory.BUILT_UP:
-            return lambda x: 'landuse' in x.keys() and (
-                x['landuse']
-                in (
-                    'residential',
-                    'garages',
-                    'railway',
-                    'industrial',
-                    'commercial',
-                    'retail',
-                    'harbour',
-                    'port',
-                    'lock',
-                    'marina',
-                )
-                or ('amenity' in x.keys() and x['amenity'] in ('university', 'school'))
-            )
         case _:
             raise ValueError(f'{category} does not have a filter function')
+
+
+def get_land_use_filter(tags: dict) -> LandUseCategory | None:
+    landuse = tags.get('landuse')
+    match landuse:
+        case 'garages' | 'railway' | 'harbour' | 'port' | 'lock' | 'marina':
+            return LandUseCategory.BUILT_UP
+        case 'commercial' | 'retail':
+            return LandUseCategory.COMMERCIAL
+        case 'residential':
+            return LandUseCategory.RESIDENTIAL
+        case 'industrial':
+            return LandUseCategory.INDUSTRIAL
+        case _:
+            return LandUseCategory.UNKNOWN
 
 
 def get_osm_data_from_parquet(
@@ -157,7 +162,6 @@ def get_osm_data_from_parquet(
 
 
 def get_mode_values_for_road_types(highways_with_width: DataFrame) -> DataFrame:
-    # our assumption values of road width for a specific road type
     highways_with_width = highways_with_width.dropna(subset=['width'])
     width_per_type = highways_with_width.groupby(['type'])['width'].agg(lambda x: pd.Series.mode(x).max()).to_dict()
     return width_per_type
@@ -175,7 +179,6 @@ def assign_road_width(highway_df: GeoDataFrame) -> GeoDataFrame:
 
     mask = highway_df['width'].isna()
 
-    # Update 'width' only where the mask is True, with default value 3
     highway_df.loc[mask, 'width'] = highway_df.loc[mask, 'type'].apply(lambda x: width_per_type.get(x, 3))
 
     return highway_df
@@ -189,44 +192,33 @@ def get_road_type(tags: dict) -> str | None:
     return tags.get('highway', None)
 
 
-# Function to safely extract highway number of lanes
 def get_number_of_lanes(tags: dict) -> int:
-    # Assumption: If no lane info then its single lane road
     return tags.get('lanes', 1)
 
 
 def generate_buffer(highway_df: DataFrame) -> GeoDataFrame:
-    # Create a new GeoDataFrame with buffered geometries
     highway_gdf = gpd.GeoDataFrame(highway_df, geometry='geometry').set_crs('epsg:4326')
 
-    # Check for and fix invalid geometries
     highway_gdf['geometry'] = highway_gdf['geometry'].apply(
         lambda geom: geom if geom.is_valid else geom.buffer(0)  # Buffer(0) can fix minor issues
     )
 
-    # estimate UTM projection in meters for the data we have
     all_buffered_highways = highway_gdf.to_crs(highway_gdf.estimate_utm_crs())
 
-    # Buffer in the projected CRS using width_value
     all_buffered_highways['geometry'] = all_buffered_highways.apply(
         lambda row: row['geometry'].buffer(row['width'] / 2, resolution=4, cap_style='flat'),
         axis=1,
     )
 
-    # Reproject the buffered geometries back to EPSG:4326
     all_buffered_highways_gdf = all_buffered_highways.to_crs(4326)
 
-    # Set the final GeoDataFrame geometry
     all_buffered_highways_gdf = gpd.GeoDataFrame(all_buffered_highways_gdf, geometry='geometry', crs='EPSG:4326')
 
     return get_union(all_buffered_highways_gdf)
 
 
 def calculate_area(gdf: GeoDataFrame) -> GeoDataFrame:
-    gdf.index = range(len(gdf))
-    if gdf.empty:
-        gdf['area'] = 0.0
-        return gdf
+    gdf.reset_index(inplace=True)
 
     gdf['area'] = 0.0
 
@@ -243,18 +235,18 @@ def calculate_area(gdf: GeoDataFrame) -> GeoDataFrame:
 def get_union(category_gdf: GeoDataFrame) -> GeoDataFrame:
     if category_gdf.empty:
         return category_gdf
-    category_gdf = GeoDataFrame(geometry=[category_gdf.unary_union])
+    category_gdf = GeoDataFrame(geometry=[category_gdf.union_all()])
     return category_gdf
 
 
 def clip_geometries(categories_gdf: GeoDataFrame) -> GeoDataFrame:
     clipped_gdf = gpd.GeoDataFrame()
-    for category in LandUseCategory:
-        if category != LandUseCategory.UNKNOWN:
+    for category in LandObjectCategory:
+        if category != LandObjectCategory.UNKNOWN:
             category_gdf = categories_gdf[categories_gdf['category'] == category.name]
             if not category_gdf['geometry'].isnull().all():
                 if not clipped_gdf.empty:
-                    category_gdf['geometry'] = category_gdf.geometry.difference(clipped_gdf.unary_union)
+                    category_gdf['geometry'] = category_gdf.geometry.difference(clipped_gdf.union_all())
             clipped_gdf = pd.concat([clipped_gdf, category_gdf])
     clipped_gdf = clipped_gdf.set_crs(4326)
     return clipped_gdf
@@ -264,10 +256,10 @@ def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog
     xmin, ymin, xmax, ymax = aoi_geom.bounds
     categories_gdf = gpd.GeoDataFrame()
 
-    def get_processing_function(category: LandUseCategory) -> Callable[[GeoDataFrame], GeoDataFrame]:
-        if category in {LandUseCategory.BUILDINGS, LandUseCategory.PARKING_LOTS, LandUseCategory.BUILT_UP}:
+    def get_processing_function(category: LandObjectCategory) -> Callable[[GeoDataFrame], GeoDataFrame]:
+        if category in {LandObjectCategory.BUILDINGS, LandObjectCategory.PARKING_LOTS}:
             return get_union
-        elif category in {LandUseCategory.PAVED_ROADS, LandUseCategory.UNPAVED_ROADS}:
+        elif category in {LandObjectCategory.PAVED_ROADS, LandObjectCategory.UNPAVED_ROADS}:
             return process_roads
         else:
             raise ValueError(f'{category} does not have a processing function')
@@ -279,6 +271,7 @@ def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog
 
         return generate_buffer(roads_with_width)
 
+    landuse_polygons = []
     for geom_type, categories in tqdm(GEOM_TYPE_LOOKUP.items()):
         status = 'latest'
 
@@ -294,13 +287,41 @@ def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog
         polygon_gdf = get_osm_data_from_parquet(aoi_geom, row_filter, selected_fields, catalog=catalog)
         for category in tqdm(categories, leave=False):
             log.info(f'Processing category {category}')
-            category_gdf = polygon_gdf[polygon_gdf['tags'].apply(get_filter_functions(category))]
+            category_gdf = polygon_gdf[polygon_gdf['tags'].apply(get_land_object_filter(category))]
             if category_gdf.empty:
                 category_gdf = gpd.GeoDataFrame(columns=polygon_gdf.columns)
             category_gdf = get_processing_function(category)(category_gdf)
             category_gdf['category'] = [category.name]
             categories_gdf = pd.concat([categories_gdf, category_gdf])
 
-    categories_gdf = clip_geometries(categories_gdf)
+        polygon_gdf['landuse_category'] = polygon_gdf.tags.apply(get_land_use_filter)
+        for category in LandUseCategory:
+            landuse_gdf = polygon_gdf[polygon_gdf['landuse_category'] == category]
+            landuse_polygons.append(landuse_gdf)
 
-    return categories_gdf
+    categories_gdf = clip_geometries(categories_gdf)
+    landuses_gdf = pd.concat(landuse_polygons)
+    landuses_gdf = landuses_gdf[landuses_gdf['geometry'].geom_type.isin(['MultiPolygon', 'Polygon'])]
+    landuses_gdf = landuses_gdf.dissolve(by='landuse_category', sort=False)
+
+    category_by_landuse = []
+    non_matching_landuse = []
+    for category in landuses_gdf.index:
+        landuse_geom = landuses_gdf.at[category, 'geometry']
+        clipped_categories_gdf = categories_gdf.clip(landuse_geom)
+        clipped_categories_gdf['landuse_category'] = category.name
+        category_by_landuse.append(clipped_categories_gdf)
+        remaining_landuse = landuse_geom.difference(categories_gdf.union_all())
+        remaining_gdf = gpd.GeoDataFrame(
+            {'geometry': [remaining_landuse], 'category': 'BUILT_UP', 'landuse_category': [category.name]}
+        )
+        non_matching_landuse.append(remaining_gdf)
+
+    landobjects_with_landuse = pd.concat(category_by_landuse + non_matching_landuse)
+    landobjects_with_landuse.loc[
+        (landobjects_with_landuse['category'] == 'BUILT_UP')
+        & (landobjects_with_landuse['landuse_category'] == 'UNKNOWN'),
+        'category',
+    ] = 'UNKNOWN'
+
+    return landobjects_with_landuse

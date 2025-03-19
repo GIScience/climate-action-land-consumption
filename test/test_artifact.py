@@ -17,12 +17,15 @@ def test_build_table_artifact(compute_resources):
         }
     )
     expected_output = _Artifact(
-        name='Land Consumption by Land Use Type',
+        name='Basic Report',
         modality=ArtifactModality.TABLE,
-        file_path=Path(compute_resources.computation_dir / 'table_landconsumption.csv'),
+        file_path=Path(compute_resources.computation_dir / 'table_landconsumption_objects.csv'),
         summary='The proportion of land consumed by different land uses, weighted by soil sealing factors.',
         description=Path('resources/info/description.md').read_text(),
+        primary=True,
     )
-    computed_output = build_table_artifact(data=input, resources=compute_resources)
+    computed_output = build_table_artifact(
+        data=input, primary=True, resources=compute_resources, title='Basic Report', filename_suffix='objects'
+    )
 
     assert computed_output == expected_output

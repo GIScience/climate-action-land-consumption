@@ -13,7 +13,7 @@ from shapely.geometry.polygon import Polygon
 
 from land_consumption.input import ComputeInput
 from land_consumption.operator_worker import LandConsumption
-from land_consumption.utils import LandUseCategory
+from land_consumption.utils import LandObjectCategory
 
 
 @pytest.fixture
@@ -127,9 +127,9 @@ def categories_gdf():
     # Create sample geometries
     data = {
         'category': [
-            LandUseCategory.BUILDINGS.name,
-            LandUseCategory.PARKING_LOTS.name,
-            LandUseCategory.PAVED_ROADS.name,
+            LandObjectCategory.BUILDINGS.name,
+            LandObjectCategory.PARKING_LOTS.name,
+            LandObjectCategory.PAVED_ROADS.name,
         ],
         'geometry': [
             Polygon([(0, 0), (1, 0), (1, 1), (0, 1), (0, 0)]),  # Building polygon

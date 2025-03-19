@@ -7,6 +7,12 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption)
 
+### Added
+
+- output changed to include both basic and detailed reports on land consumption
+- detailed report calculates land consumption by land use classes (e.g. commercial) in addition to consumption by land use objects (e.g. buildings)
+- updated documentation to reflect latest methodology
+
 ### Changed
 
 - updated documentation to reflect latest methodology

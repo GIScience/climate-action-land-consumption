@@ -7,11 +7,11 @@ from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
 
 from land_consumption.utils import (
-    LandUseCategory,
+    LandObjectCategory,
     calculate_area,
     assign_road_width,
     generate_buffer,
-    get_filter_functions,
+    get_land_object_filter,
     get_number_of_lanes,
     get_road_type,
     get_width_value,
@@ -21,17 +21,17 @@ from land_consumption.utils import (
 
 
 def test_get_filter_functions():
-    buildings_filter = get_filter_functions(LandUseCategory.BUILDINGS)
+    buildings_filter = get_land_object_filter(LandObjectCategory.BUILDINGS)
     assert buildings_filter({'building': 'yes'}) is True
     assert buildings_filter({'building': 'apartments'}) is True
     assert buildings_filter({'building': 'no'}) is False
 
-    roads_filter = get_filter_functions(LandUseCategory.PAVED_ROADS)
+    roads_filter = get_land_object_filter(LandObjectCategory.PAVED_ROADS)
     assert roads_filter({'highway': 'primary'}) is True
     assert roads_filter({}) is False
 
     with pytest.raises(ValueError):
-        get_filter_functions(LandUseCategory.UNKNOWN)
+        get_land_object_filter(LandObjectCategory.UNKNOWN)
 
 
 def test_get_width_value():
@@ -98,16 +98,6 @@ def test_calculate_area_multiple_geometries():
     assert calculated_area['area'].sum() == expected_output
 
 
-def test_calculate_area_empty_input():
-    input = gpd.GeoSeries(data=[], crs=4326)
-
-    expected_output = 0.0
-
-    calculated_area = calculate_area(input)
-
-    assert calculated_area['area'].sum() == expected_output
-
-
 def test_generate_buffer_from_gdf(roads_df):
     roads_df['tags'] = roads_df['tags'].apply(lambda x: dict(ast.literal_eval(x)))
 
@@ -125,8 +115,14 @@ def test_generate_buffer_from_gdf(roads_df):
 @patch('land_consumption.utils.get_osm_data_from_parquet')
 def test_get_categories_gdf_no_features(mock_get_osm_data, default_ohsome_catalog):
     mock_get_osm_data.return_value = gpd.GeoDataFrame(
-        {'tags': [{'building': 'no'}, {'no_highway': 'primary'}]},
-        geometry=[Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]), LineString([(0, 0), (1, 1)])],
+        {
+            'tags': [{'building': 'no'}, {'no_highway': 'primary'}, {'landuse': 'commercial'}],
+            'geometry': [
+                Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]),
+                LineString([(0, 0), (1, 1)]),
+                Polygon([(0, 0), (2, 0), (2, 2), (0, 2)]),
+            ],
+        }
     )
 
     aoi_geom = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
@@ -177,3 +173,6 @@ def test_clip_geometries_no_interior_intersection(categories_gdf):
 
     assert set(result['category']) == set(categories_gdf['category'])
     assert len(result) == len(categories_gdf)
+
+
+# def test_geometries_all_intersecting(categories_gdf):

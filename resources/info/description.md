@@ -1,7 +1,7 @@
 A table with proportion of land consumed in a given area of interest. Consuming land in this context refers to the
-sealing of soil with impervious surfaces. The output table reports how much soil in an area has been sealed.
+total area taken up by buildings, streets, and other built up areas. The output table reports how much land has been concealed and how much soil in an area has been sealed.
 
-We consider the following land use classes:
+We consider the following land use objects and classes:
 - Buildings: OSM tag `building=*`
 - Parking Lots: OSM tags `amenity=parking` and `parking=surface`. This does not include areas used for parking on the side of the street nor parking buildings.
 - Paved Roads: OSM tags `highway=*` and `surface` tags corresponding to paved surfaces. When the road surface is not available, we assume the road is paved.
