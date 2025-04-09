@@ -26,7 +26,7 @@ def test_get_filter_functions():
     assert buildings_filter({'building': 'apartments'}) is True
     assert buildings_filter({'building': 'no'}) is False
 
-    roads_filter = get_land_object_filter(LandObjectCategory.PAVED_ROADS)
+    roads_filter = get_land_object_filter(LandObjectCategory.ROADS)
     assert roads_filter({'highway': 'primary'}) is True
     assert roads_filter({}) is False
 

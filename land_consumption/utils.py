@@ -19,8 +19,7 @@ SQM_TO_HA_FACTOR = 1.0 / (100.0 * 100.0)
 class LandObjectCategory(Enum):
     BUILDINGS = 'Buildings'
     PARKING_LOTS = 'Parking lots'
-    PAVED_ROADS = 'Paved Roads'
-    UNPAVED_ROADS = 'Unpaved Roads'
+    ROADS = 'Roads'
     BUILT_UP = 'Built up land'
     UNKNOWN = 'Unknown'
 
@@ -37,15 +36,14 @@ class LandUseCategory(Enum):
 CONSUMPTION_FACTOR_LOOKUP = {
     LandObjectCategory.BUILDINGS: 1.0,
     LandObjectCategory.PARKING_LOTS: 0.8,
-    LandObjectCategory.PAVED_ROADS: 1,
-    LandObjectCategory.UNPAVED_ROADS: 0.2,
+    LandObjectCategory.ROADS: 1,
     LandObjectCategory.BUILT_UP: 0.75,
     LandObjectCategory.UNKNOWN: None,
 }
 
 GEOM_TYPE_LOOKUP = {
     "'Polygon', 'MultiPolygon'": [LandObjectCategory.BUILDINGS, LandObjectCategory.PARKING_LOTS],
-    "'LineString', 'MultiLineString'": [LandObjectCategory.PAVED_ROADS, LandObjectCategory.UNPAVED_ROADS],
+    "'LineString', 'MultiLineString'": [LandObjectCategory.ROADS],
 }
 
 
@@ -60,62 +58,8 @@ def get_land_object_filter(category: LandObjectCategory) -> callable:
                 and 'parking' in x.keys()
                 and x['parking'] == 'surface'
             )
-        case LandObjectCategory.PAVED_ROADS:
-            return lambda x: 'highway' in x.keys() and (
-                (
-                    'surface' in x.keys()
-                    and x['surface']
-                    in (
-                        'paved',
-                        'asphalt',
-                        'chipseal',
-                        'concrete',
-                        'concrete:lanes',
-                        'concrete:plates',
-                        'paving_stones',
-                        'paving_stones:lanes',
-                        'grass_paver',
-                        'sett',
-                        'unhewn_cobblestone',
-                        'cobblestone',
-                        'cobblestone:flattened',
-                        'bricks',
-                        'metal',
-                        'metal_grid',
-                        'wood',
-                        'stepping_stones',
-                        'rubber',
-                        'tiles',
-                    )
-                )
-                or 'surface' not in x.keys()
-            )
-        case LandObjectCategory.UNPAVED_ROADS:
-            return (
-                lambda x: 'highway' in x.keys()
-                and 'surface' in x.keys()
-                and x['surface']
-                in (
-                    'unpaved',
-                    'compacted',
-                    'fine_gravel',
-                    'gravel',
-                    'shells',
-                    'rock',
-                    'pebblestone',
-                    'ground',
-                    'dirt',
-                    'earth',
-                    'grass',
-                    'mud',
-                    'sand',
-                    'woodchips',
-                    'snow',
-                    'ice',
-                    'salt',
-                    'user_defined',
-                )
-            )
+        case LandObjectCategory.ROADS:
+            return lambda x: 'highway' in x.keys()
         case _:
             raise ValueError(f'{category} does not have a filter function')
 
@@ -259,7 +203,7 @@ def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog
     def get_processing_function(category: LandObjectCategory) -> Callable[[GeoDataFrame], GeoDataFrame]:
         if category in {LandObjectCategory.BUILDINGS, LandObjectCategory.PARKING_LOTS}:
             return get_union
-        elif category in {LandObjectCategory.PAVED_ROADS, LandObjectCategory.UNPAVED_ROADS}:
+        elif category in {LandObjectCategory.ROADS}:
             return process_roads
         else:
             raise ValueError(f'{category} does not have a processing function')
