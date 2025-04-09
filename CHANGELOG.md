@@ -7,6 +7,10 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption)
 
+### Changed
+
+- combined unpaved and paved road types into one class
+
 ### Added
 
 - output changed to include both basic and detailed reports on land consumption

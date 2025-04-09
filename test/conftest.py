@@ -129,7 +129,7 @@ def categories_gdf():
         'category': [
             LandObjectCategory.BUILDINGS.name,
             LandObjectCategory.PARKING_LOTS.name,
-            LandObjectCategory.PAVED_ROADS.name,
+            LandObjectCategory.ROADS.name,
         ],
         'geometry': [
             Polygon([(0, 0), (1, 0), (1, 1), (0, 1), (0, 0)]),  # Building polygon

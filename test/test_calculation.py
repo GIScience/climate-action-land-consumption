@@ -10,7 +10,7 @@ def test_calculate_land_consumption():
     aoi_area = 10000
     area_df = gpd.GeoDataFrame(
         {
-            'category': ['BUILDINGS', 'PARKING_LOTS', 'PAVED_ROADS', 'BUILT_UP'],
+            'category': ['BUILDINGS', 'PARKING_LOTS', 'ROADS', 'BUILT_UP'],
             'landuse_category': ['COMMERCIAL', 'COMMERCIAL', 'COMMERCIAL', 'COMMERCIAL'],
             'area': [4000, 3000, 2000, 500],
         }
