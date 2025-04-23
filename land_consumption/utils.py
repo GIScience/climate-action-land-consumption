@@ -32,15 +32,6 @@ class LandUseCategory(Enum):
     UNKNOWN = 'Unknown'
 
 
-# arbitrary, could e user input or flexible
-CONSUMPTION_FACTOR_LOOKUP = {
-    LandObjectCategory.BUILDINGS: 1.0,
-    LandObjectCategory.PARKING_LOTS: 0.8,
-    LandObjectCategory.ROADS: 1,
-    LandObjectCategory.BUILT_UP: 0.75,
-    LandObjectCategory.UNKNOWN: None,
-}
-
 GEOM_TYPE_LOOKUP = {
     "'Polygon', 'MultiPolygon'": [LandObjectCategory.BUILDINGS, LandObjectCategory.PARKING_LOTS],
     "'LineString', 'MultiLineString'": [LandObjectCategory.ROADS],
