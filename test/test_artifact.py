@@ -12,7 +12,6 @@ def test_build_table_artifact(compute_resources):
             'Land Use': ['Buildings', 'Unknown consumption', 'Total'],
             'Total Land Area [ha]': [20, 80, 100],
             '% Land Area': [20, 80, 100],
-            'Consumption Factor': [1, None, None],
             '% Land Consumed by known classes': [20, None, 20],
         }
     )

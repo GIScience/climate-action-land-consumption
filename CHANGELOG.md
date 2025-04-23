@@ -7,6 +7,11 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption)
 
+### Added
+
+- split basic and detailed reports into two different functions
+- added sort to detailed reports to ensure rows in correct order regardless of osm data
+
 ### Changed
 
 - combined unpaved and paved road types into one class
