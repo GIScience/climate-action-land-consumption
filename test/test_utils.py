@@ -31,7 +31,7 @@ def test_get_filter_functions():
     assert roads_filter({}) is False
 
     with pytest.raises(ValueError):
-        get_land_object_filter(LandObjectCategory.UNKNOWN)
+        get_land_object_filter(LandObjectCategory.OTHER)
 
 
 def test_get_width_value():

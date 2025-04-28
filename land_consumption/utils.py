@@ -21,7 +21,7 @@ class LandObjectCategory(Enum):
     PARKING_LOTS = 'Parking lots'
     ROADS = 'Roads'
     BUILT_UP = 'Built up land'
-    UNKNOWN = 'Unknown'
+    OTHER = 'Other'
 
 
 class LandUseCategory(Enum):
@@ -29,7 +29,8 @@ class LandUseCategory(Enum):
     COMMERCIAL = 'Commercial built up area'
     RESIDENTIAL = 'Residential built up area'
     INDUSTRIAL = 'Industrial built up area'
-    UNKNOWN = 'Unknown'
+    AGRICULTURAL = 'Agricultural areas'
+    OTHER = 'Other land uses'
 
 
 GEOM_TYPE_LOOKUP = {
@@ -66,8 +67,10 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
             return LandUseCategory.RESIDENTIAL
         case 'industrial':
             return LandUseCategory.INDUSTRIAL
+        case 'allotments' | 'farmland' | 'farmyard' | 'meadow' | 'orchard' | 'orchard' | 'plant_nursery' | 'vineyard':
+            return LandUseCategory.AGRICULTURAL
         case _:
-            return LandUseCategory.UNKNOWN
+            return LandUseCategory.OTHER
 
 
 def get_osm_data_from_parquet(
@@ -177,7 +180,7 @@ def get_union(category_gdf: GeoDataFrame) -> GeoDataFrame:
 def clip_geometries(categories_gdf: GeoDataFrame) -> GeoDataFrame:
     clipped_gdf = gpd.GeoDataFrame()
     for category in LandObjectCategory:
-        if category != LandObjectCategory.UNKNOWN:
+        if category != LandObjectCategory.OTHER:
             category_gdf = categories_gdf[categories_gdf['category'] == category.name]
             if not category_gdf['geometry'].isnull().all():
                 if not clipped_gdf.empty:
@@ -255,8 +258,17 @@ def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog
     landobjects_with_landuse = pd.concat(category_by_landuse + non_matching_landuse)
     landobjects_with_landuse.loc[
         (landobjects_with_landuse['category'] == 'BUILT_UP')
-        & (landobjects_with_landuse['landuse_category'] == 'UNKNOWN'),
+        & (landobjects_with_landuse['landuse_category'] == 'OTHER'),
         'category',
-    ] = 'UNKNOWN'
+    ] = 'OTHER'
 
     return landobjects_with_landuse
+
+
+def custom_land_use_sort(row):
+    if row['Land Use Class'] == 'Subtotal':
+        return 2
+    elif row['Land Use Class'] == 'Other land uses':
+        return 1
+    else:
+        return 0
