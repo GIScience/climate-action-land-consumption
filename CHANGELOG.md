@@ -17,6 +17,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 - relabeled unknown class to other
 - combined unpaved and paved road types into one class
+- updated climatoology to v6.3.1
 
 ### Added
 
