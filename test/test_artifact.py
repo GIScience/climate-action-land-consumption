@@ -19,7 +19,7 @@ def test_build_table_artifact(compute_resources):
         name='Basic Report',
         modality=ArtifactModality.TABLE,
         file_path=Path(compute_resources.computation_dir / 'table_landconsumption_objects.csv'),
-        summary='The proportion of land consumed by different land uses, weighted by soil sealing factors.',
+        summary='The proportion of land consumed by different land uses and land use objects.',
         description=Path('resources/info/description.md').read_text(),
         primary=True,
     )

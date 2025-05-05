@@ -127,33 +127,33 @@ class LandConsumption(BaseOperator[ComputeInput]):
         log.debug('Creating basic table artifact for land consumption data.')
 
         land_consumption_df = (
-            land_consumption_df.groupby('Land Use Objects', as_index=False)
+            land_consumption_df.groupby('Land Use Object', as_index=False)
             .sum(numeric_only=True)
             .merge(
-                land_consumption_df['Land Use Objects'].drop_duplicates(),
-                on='Land Use Objects',
+                land_consumption_df['Land Use Object'].drop_duplicates(),
+                on='Land Use Object',
                 how='left',
             )
         )
-        land_consumption_df.loc[land_consumption_df['Land Use Objects'] == 'Other', '% of Consumed Land Area'] = None
+        land_consumption_df.loc[land_consumption_df['Land Use Object'] == 'Other', '% of Consumed Land Area'] = None
 
         total_land_area = land_consumption_df['Total Land Area [ha]'].sum()
         total_row = pd.DataFrame(
             {
-                'Land Use Objects': ['Total'],
+                'Land Use Object': ['Total'],
                 'Total Land Area [ha]': [total_land_area],
                 '% of Consumed Land Area': [100.0],
                 '% Land Area': [100.0],
             }
         )
 
-        other_row = land_consumption_df[land_consumption_df['Land Use Objects'] == 'Other']
-        land_consumption_df = land_consumption_df[land_consumption_df['Land Use Objects'] != 'Other']
+        other_row = land_consumption_df[land_consumption_df['Land Use Object'] == 'Other']
+        land_consumption_df = land_consumption_df[land_consumption_df['Land Use Object'] != 'Other']
 
         land_consumption_table = pd.concat([land_consumption_df, other_row], ignore_index=True)
         land_consumption_table = pd.concat([land_consumption_table, total_row], ignore_index=True)
 
-        land_consumption_table.set_index('Land Use Objects', inplace=True)
+        land_consumption_table.set_index('Land Use Object', inplace=True)
 
         return land_consumption_table
 
@@ -163,7 +163,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
         total_land_area = land_consumption_df['Total Land Area [ha]'].sum()
         total_row = pd.DataFrame(
             {
-                'Land Use Objects': ['Total'],
+                'Land Use Object': ['Total'],
                 'Land Use Class': [''],
                 'Total Land Area [ha]': [total_land_area],
                 '% of Consumed Land Area': [100.0],
@@ -171,24 +171,24 @@ class LandConsumption(BaseOperator[ComputeInput]):
             }
         )
 
-        other_row = land_consumption_df[land_consumption_df['Land Use Objects'] == 'Other']
-        land_consumption_df = land_consumption_df[land_consumption_df['Land Use Objects'] != 'Other']
-        subtotal_land_consumed = land_consumption_df.groupby('Land Use Objects', as_index=False).sum(numeric_only=True)
+        other_row = land_consumption_df[land_consumption_df['Land Use Object'] == 'Other']
+        land_consumption_df = land_consumption_df[land_consumption_df['Land Use Object'] != 'Other']
+        subtotal_land_consumed = land_consumption_df.groupby('Land Use Object', as_index=False).sum(numeric_only=True)
         subtotal_land_consumed['Land Use Class'] = 'Subtotal'
 
         land_consumption_df = pd.concat([land_consumption_df, subtotal_land_consumed])
 
         land_consumption_df['sort_order'] = land_consumption_df.apply(custom_land_use_sort, axis=1)
-        land_consumption_df = land_consumption_df.sort_values(
-            ['Land Use Objects', 'sort_order', 'Land Use Class']
-        ).drop(columns=['sort_order'])
+        land_consumption_df = land_consumption_df.sort_values(['Land Use Object', 'sort_order', 'Land Use Class']).drop(
+            columns=['sort_order']
+        )
 
         land_consumption_table = pd.concat([land_consumption_df, other_row], ignore_index=True)
         land_consumption_table = pd.concat([land_consumption_table, total_row], ignore_index=True)
-        land_consumption_table['Land Use Objects'] = land_consumption_table['Land Use Objects'].mask(
-            land_consumption_table['Land Use Objects'].duplicated(), ''
+        land_consumption_table['Land Use Object'] = land_consumption_table['Land Use Object'].mask(
+            land_consumption_table['Land Use Object'].duplicated(), ''
         )
 
-        land_consumption_table.set_index('Land Use Objects', inplace=True)
+        land_consumption_table.set_index('Land Use Object', inplace=True)
 
         return land_consumption_table
