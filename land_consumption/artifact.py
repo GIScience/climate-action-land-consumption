@@ -16,7 +16,7 @@ def build_table_artifact(
     return create_table_artifact(
         data=data,
         title=title,
-        caption='The proportion of land consumed by different land uses, weighted by soil sealing factors.',
+        caption='The proportion of land consumed by different land uses and land use objects.',
         description=Path('resources/info/description.md').read_text(),
         resources=resources,
         primary=primary,

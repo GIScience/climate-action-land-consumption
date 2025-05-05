@@ -25,11 +25,11 @@ class LandObjectCategory(Enum):
 
 
 class LandUseCategory(Enum):
-    BUILT_UP = 'Other built up area'
-    COMMERCIAL = 'Commercial built up area'
-    RESIDENTIAL = 'Residential built up area'
-    INDUSTRIAL = 'Industrial built up area'
-    AGRICULTURAL = 'Agricultural areas'
+    BUILT_UP = 'Other built up areas'
+    COMMERCIAL = 'Commercial'
+    RESIDENTIAL = 'Residential'
+    INDUSTRIAL = 'Industrial'
+    AGRICULTURAL = 'Agricultural'
     OTHER = 'Other land uses'
 
 
@@ -59,7 +59,18 @@ def get_land_object_filter(category: LandObjectCategory) -> callable:
 def get_land_use_filter(tags: dict) -> LandUseCategory | None:
     landuse = tags.get('landuse')
     match landuse:
-        case 'garages' | 'railway' | 'harbour' | 'port' | 'lock' | 'marina':
+        case (
+            'garages'
+            | 'railway'
+            | 'harbour'
+            | 'port'
+            | 'lock'
+            | 'marina'
+            | 'construction'
+            | 'brownfield'
+            | 'military'
+            | 'religious'
+        ):
             return LandUseCategory.BUILT_UP
         case 'commercial' | 'retail':
             return LandUseCategory.COMMERCIAL
