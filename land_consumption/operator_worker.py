@@ -70,6 +70,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
             purpose=Path('resources/info/purpose.md'),
             methodology=Path('resources/info/methodology.md'),
             sources=Path('resources/info/sources.bib'),
+            demo_input_parameters=ComputeInput(),
         )
         log.info(f'Return info {info.model_dump()}')
 
