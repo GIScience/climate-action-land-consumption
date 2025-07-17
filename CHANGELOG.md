@@ -12,32 +12,26 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 - update to metadata and description
 - added agriculture class to land use
 - split basic and detailed reports into two different functions
-- added sort to detailed reports to ensure rows in correct order regardless of osm data
+- output changed to include both basic and detailed reports on land consumption
+- detailed report calculates land consumption by land use classes (e.g. commercial) in addition to consumption by land use objects (e.g. buildings)
+- updated documentation to reflect latest methodology
+- calculate fraction of area of interest covered by buildings ([#8](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/8))
+- calculate land consumed by parking lots, adding one row to results table ([#9](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/9))
+- buffer the road LineStrings to its width or the mode (most used value) for that road type, if no value for a particular road type is found within AOI then use a default value, calculate area of the buffered roads, calculate land consumed by roads, adding one row to results table((#11)[https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/11])
+
 
 ### Changed
 
+- removed duplicate masking of agricultural class
+- combined table sorting logic into one function
+- properly assigned leftover agricultural land to its own class
 - relabeled unknown class to other
 - combined unpaved and paved road types into one class
 - updated climatoology to v6.3.1
 - include demo_input_parameters in operator worker file
-
-### Added
-
-- output changed to include both basic and detailed reports on land consumption
-- detailed report calculates land consumption by land use classes (e.g. commercial) in addition to consumption by land use objects (e.g. buildings)
-- updated documentation to reflect latest methodology
-
-### Changed
-
 - updated documentation to reflect latest methodology
 - code modified for compatibility with climatoology 6.0.2
 - request data as GeoParquet instead of Ohsome API
-
-### Added
-
-- calculate fraction of area of interest covered by buildings ([#8](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/8))
-- calculate land consumed by parking lots, adding one row to results table ([#9](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/9))
-- buffer the road LineStrings to its width or the mode (most used value) for that road type, if no value for a particular road type is found within AOI then use a default value, calculate area of the buffered roads, calculate land consumed by roads, adding one row to results table((#11)[https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/11])
 
 ### Removed
 
