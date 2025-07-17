@@ -6,8 +6,8 @@ from land_consumption.operator_worker import LandConsumption
 def test_get_basic_table():
     data = pd.DataFrame(
         {
-            'Land Use Object': ['Buildings', 'Parking lots', 'Other'],
-            'Land Use Class': ['Commercial', 'Commercial', 'Other land uses'],
+            'Land Use Object': ['Buildings', 'Agricultural land', 'Other'],
+            'Land Use Class': ['Commercial', 'Agricultural', 'Other land uses'],
             'Total Land Area [ha]': [20.0, 10.0, 70.0],
             '% of Consumed Land Area': [66.67, 33.33, None],
             '% Land Area': [20.0, 10.0, 70.0],
@@ -16,7 +16,19 @@ def test_get_basic_table():
 
     expected_data = pd.DataFrame(
         {
-            'Land Use Object': ['Buildings', 'Parking lots', 'Other', 'Total'],
+            'Land Use Object': pd.Categorical(
+                ['Buildings', 'Agricultural land', 'Other', 'Total'],
+                categories=[
+                    'Buildings',
+                    'Built up land',
+                    'Parking lots',
+                    'Roads',
+                    'Agricultural land',
+                    'Other',
+                    'Total',
+                ],
+                ordered=True,
+            ),
             'Total Land Area [ha]': [20.0, 10.0, 70.0, 100.0],
             '% of Consumed Land Area': [66.67, 33.33, None, 100.0],
             '% Land Area': [20.0, 10.0, 70.0, 100.0],
@@ -32,11 +44,11 @@ def test_get_basic_table():
 def test_get_detailed_table():
     data = pd.DataFrame(
         {
-            'Land Use Object': ['Buildings', 'Buildings', 'Parking lots', 'Other'],
+            'Land Use Object': ['Buildings', 'Buildings', 'Agricultural land', 'Other'],
             'Land Use Class': [
                 'Commercial',
                 'Industrial',
-                'Commercial',
+                '',
                 'Other',
             ],
             'Total Land Area [ha]': [10.0, 10.0, 10.0, 70.0],
@@ -47,19 +59,18 @@ def test_get_detailed_table():
 
     expected_data = pd.DataFrame(
         {
-            'Land Use Object': ['Buildings', '', '', 'Parking lots', '', 'Other', 'Total'],
+            'Land Use Object': ['Buildings', '', '', 'Agricultural land', 'Other', 'Total'],
             'Land Use Class': [
                 'Commercial',
                 'Industrial',
                 'Subtotal',
-                'Commercial',
-                'Subtotal',
+                '',
                 'Other',
                 '',
             ],
-            'Total Land Area [ha]': [10.0, 10.0, 20.0, 10.0, 10.0, 70.0, 100.0],
-            '% of Consumed Land Area': [33.33, 33.33, 66.66, 33.33, 33.33, None, 100.0],
-            '% Land Area': [10.0, 10.0, 20.0, 10.0, 10.0, 70.0, 100.0],
+            'Total Land Area [ha]': [10.0, 10.0, 20.0, 10.0, 70.0, 100.0],
+            '% of Consumed Land Area': [33.33, 33.33, 66.66, 33.33, None, 100.0],
+            '% Land Area': [10.0, 10.0, 20.0, 10.0, 70.0, 100.0],
         }
     )
     expected_data.set_index('Land Use Object', inplace=True)
@@ -82,7 +93,19 @@ def test_get_basic_table_non_100():
 
     expected_data = pd.DataFrame(
         {
-            'Land Use Object': ['Buildings', 'Parking lots', 'Other', 'Total'],
+            'Land Use Object': pd.Categorical(
+                ['Buildings', 'Parking lots', 'Other', 'Total'],
+                categories=[
+                    'Buildings',
+                    'Built up land',
+                    'Parking lots',
+                    'Roads',
+                    'Agricultural land',
+                    'Other',
+                    'Total',
+                ],
+                ordered=True,
+            ),
             'Total Land Area [ha]': [2.0, 1.0, 1.0, 4.0],
             '% of Consumed Land Area': [66.67, 33.33, None, 100.0],
             '% Land Area': [50.0, 25.0, 25.0, 100.0],

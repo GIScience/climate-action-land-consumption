@@ -17,6 +17,10 @@ def calculate_land_consumption(aoi_area: float, area_df: GeoDataFrame) -> pd.Dat
     area_df['Land Use Object'] = area_df['category'].apply(lambda x: LandObjectCategory[x].value)
     area_df['Land Use Class'] = area_df['landuse_category'].apply(lambda x: LandUseCategory[x].value)
 
+    agri_mask = (area_df['Land Use Object'] == 'Built up land') & (area_df['Land Use Class'] == 'Agricultural')
+    area_df.loc[agri_mask, 'Land Use Object'] = 'Agricultural land'
+    area_df.loc[agri_mask, 'Land Use Class'] = ''
+
     return area_df[
         [
             'Land Use Object',

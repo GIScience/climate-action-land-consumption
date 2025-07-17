@@ -276,10 +276,37 @@ def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog
     return landobjects_with_landuse
 
 
-def custom_land_use_sort(row):
-    if row['Land Use Class'] == 'Subtotal':
-        return 2
-    elif row['Land Use Class'] == 'Other land uses':
-        return 1
+def sort_land_consumption_table(
+    df: pd.DataFrame,
+    use_detailed_sort: bool = False,
+) -> pd.DataFrame:
+    category_order = [
+        'Buildings',
+        'Built up land',
+        'Parking lots',
+        'Roads',
+        'Agricultural land',
+        'Other',
+        'Total',
+    ]
+
+    df['Land Use Object'] = pd.Categorical(df['Land Use Object'], categories=category_order, ordered=True)
+
+    if use_detailed_sort:
+
+        def custom_land_use_sort(row):
+            if row['Land Use Class'] == 'Subtotal':
+                return 2
+            elif row['Land Use Class'] == 'Other land uses':
+                return 1
+            else:
+                return 0
+
+        df['__sort_order'] = df.apply(custom_land_use_sort, axis=1)
+        df = df.sort_values(by=['Land Use Object', '__sort_order', 'Land Use Class'])
+        df.drop(columns='__sort_order', inplace=True)
     else:
-        return 0
+        df = df.sort_values('Land Use Object')
+
+    df.set_index('Land Use Object', inplace=True)
+    return df

@@ -17,7 +17,7 @@ from land_consumption.input import ComputeInput
 from land_consumption.utils import (
     calculate_area,
     get_categories_gdf,
-    custom_land_use_sort,
+    sort_land_consumption_table,
 )
 
 log = logging.getLogger(__name__)
@@ -148,13 +148,8 @@ class LandConsumption(BaseOperator[ComputeInput]):
             }
         )
 
-        other_row = land_consumption_df[land_consumption_df['Land Use Object'] == 'Other']
-        land_consumption_df = land_consumption_df[land_consumption_df['Land Use Object'] != 'Other']
-
-        land_consumption_table = pd.concat([land_consumption_df, other_row], ignore_index=True)
-        land_consumption_table = pd.concat([land_consumption_table, total_row], ignore_index=True)
-
-        land_consumption_table.set_index('Land Use Object', inplace=True)
+        land_consumption_table = pd.concat([land_consumption_df, total_row], ignore_index=True)
+        land_consumption_table = sort_land_consumption_table(land_consumption_table)
 
         return land_consumption_table
 
@@ -172,24 +167,22 @@ class LandConsumption(BaseOperator[ComputeInput]):
             }
         )
 
-        other_row = land_consumption_df[land_consumption_df['Land Use Object'] == 'Other']
-        land_consumption_df = land_consumption_df[land_consumption_df['Land Use Object'] != 'Other']
-        subtotal_land_consumed = land_consumption_df.groupby('Land Use Object', as_index=False).sum(numeric_only=True)
+        subtotal_land_consumed = (
+            land_consumption_df[~land_consumption_df['Land Use Object'].isin(['Agricultural land', 'Other'])]
+            .groupby('Land Use Object', as_index=False)
+            .sum(numeric_only=True)
+        )
         subtotal_land_consumed['Land Use Class'] = 'Subtotal'
 
-        land_consumption_df = pd.concat([land_consumption_df, subtotal_land_consumed])
+        land_consumption_table = pd.concat([land_consumption_df, subtotal_land_consumed, total_row], ignore_index=True)
 
-        land_consumption_df['sort_order'] = land_consumption_df.apply(custom_land_use_sort, axis=1)
-        land_consumption_df = land_consumption_df.sort_values(['Land Use Object', 'sort_order', 'Land Use Class']).drop(
-            columns=['sort_order']
-        )
+        land_consumption_table = sort_land_consumption_table(land_consumption_table, use_detailed_sort=True)
 
-        land_consumption_table = pd.concat([land_consumption_df, other_row], ignore_index=True)
-        land_consumption_table = pd.concat([land_consumption_table, total_row], ignore_index=True)
+        land_consumption_table = land_consumption_table.reset_index()
+        land_consumption_table['Land Use Object'] = land_consumption_table['Land Use Object'].astype(str)
         land_consumption_table['Land Use Object'] = land_consumption_table['Land Use Object'].mask(
             land_consumption_table['Land Use Object'].duplicated(), ''
         )
-
         land_consumption_table.set_index('Land Use Object', inplace=True)
 
         return land_consumption_table
