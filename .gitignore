@@ -1,8 +1,12 @@
 .env
 .env.base
 .idea/
+.vscode/
 __pycache__/
 .pytest_cache/
+
+.coverage
+coverage.xml
 
 CI_JOB_TOKEN
 
