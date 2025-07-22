@@ -22,6 +22,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ### Changed
 
+- fixed double counting of osm features
 - removed duplicate masking of agricultural class
 - combined table sorting logic into one function
 - properly assigned leftover agricultural land to its own class

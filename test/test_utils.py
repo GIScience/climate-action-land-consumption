@@ -173,6 +173,3 @@ def test_clip_geometries_no_interior_intersection(categories_gdf):
 
     assert set(result['category']) == set(categories_gdf['category'])
     assert len(result) == len(categories_gdf)
-
-
-# def test_geometries_all_intersecting(categories_gdf):

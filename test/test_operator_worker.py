@@ -9,8 +9,8 @@ def test_get_basic_table():
             'Land Use Object': ['Buildings', 'Agricultural land', 'Other'],
             'Land Use Class': ['Commercial', 'Agricultural', 'Other land uses'],
             'Total Land Area [ha]': [20.0, 10.0, 70.0],
-            '% of Consumed Land Area': [66.67, 33.33, None],
-            '% Land Area': [20.0, 10.0, 70.0],
+            '% of Consumed Land Area': [100.0, None, None],
+            '% Settled Land Area': [20.0, 10.0, 70.0],
         }
     )
 
@@ -30,8 +30,8 @@ def test_get_basic_table():
                 ordered=True,
             ),
             'Total Land Area [ha]': [20.0, 10.0, 70.0, 100.0],
-            '% of Consumed Land Area': [66.67, 33.33, None, 100.0],
-            '% Land Area': [20.0, 10.0, 70.0, 100.0],
+            '% of Consumed Land Area': [100.0, None, None, 100.0],
+            '% Settled Land Area': [20.0, 10.0, 70.0, 100.0],
         }
     )
     expected_data.set_index('Land Use Object', inplace=True)
@@ -53,7 +53,7 @@ def test_get_detailed_table():
             ],
             'Total Land Area [ha]': [10.0, 10.0, 10.0, 70.0],
             '% of Consumed Land Area': [33.33, 33.33, 33.33, None],
-            '% Land Area': [10.0, 10.0, 10.0, 70.0],
+            '% Settled Land Area': [10.0, 10.0, 10.0, 70.0],
         }
     )
 
@@ -70,7 +70,7 @@ def test_get_detailed_table():
             ],
             'Total Land Area [ha]': [10.0, 10.0, 20.0, 10.0, 70.0, 100.0],
             '% of Consumed Land Area': [33.33, 33.33, 66.66, 33.33, None, 100.0],
-            '% Land Area': [10.0, 10.0, 20.0, 10.0, 70.0, 100.0],
+            '% Settled Land Area': [10.0, 10.0, 20.0, 10.0, 70.0, 100.0],
         }
     )
     expected_data.set_index('Land Use Object', inplace=True)
@@ -87,7 +87,7 @@ def test_get_basic_table_non_100():
             'Land Use Class': ['Commercial', 'Commercial', 'Other'],
             'Total Land Area [ha]': [2.0, 1.0, 1.0],
             '% of Consumed Land Area': [66.67, 33.33, None],
-            '% Land Area': [50.0, 25.0, 25.0],
+            '% Settled Land Area': [50.0, 25.0, 25.0],
         }
     )
 
@@ -108,7 +108,7 @@ def test_get_basic_table_non_100():
             ),
             'Total Land Area [ha]': [2.0, 1.0, 1.0, 4.0],
             '% of Consumed Land Area': [66.67, 33.33, None, 100.0],
-            '% Land Area': [50.0, 25.0, 25.0, 100.0],
+            '% Settled Land Area': [50.0, 25.0, 25.0, 100.0],
         }
     )
     expected_data.set_index('Land Use Object', inplace=True)
@@ -125,7 +125,7 @@ def test_get_detailed_table_non_100():
             'Land Use Class': ['Commercial', 'Commercial', 'Other'],
             'Total Land Area [ha]': [2.0, 1.0, 1.0],
             '% of Consumed Land Area': [66.67, 33.33, None],
-            '% Land Area': [50.0, 25.0, 25.0],
+            '% Settled Land Area': [50.0, 25.0, 25.0],
         }
     )
 
@@ -142,7 +142,7 @@ def test_get_detailed_table_non_100():
             ],
             'Total Land Area [ha]': [2.0, 2.0, 1.0, 1.0, 1.0, 4.0],
             '% of Consumed Land Area': [66.67, 66.67, 33.33, 33.33, None, 100.0],
-            '% Land Area': [50.0, 50.0, 25.0, 25.0, 25.0, 100.0],
+            '% Settled Land Area': [50.0, 50.0, 25.0, 25.0, 25.0, 100.0],
         }
     )
     expected_data.set_index('Land Use Object', inplace=True)
@@ -159,7 +159,7 @@ def test_table_sorted():
             'Land Use Class': ['Residential', 'Other land uses'],
             'Total Land Area [ha]': [2.0, 1.0],
             '% of Consumed Land Area': [66.67, 33.33],
-            '% Land Area': [66.67, 33.33],
+            '% Settled Land Area': [66.67, 33.33],
         }
     )
 
@@ -174,7 +174,7 @@ def test_table_sorted():
             ],
             'Total Land Area [ha]': [2.0, 1.0, 3.0, 3.0],
             '% of Consumed Land Area': [66.67, 33.33, 100.0, 100.0],
-            '% Land Area': [66.67, 33.33, 100.0, 100.0],
+            '% Settled Land Area': [66.67, 33.33, 100.0, 100.0],
         }
     )
     expected_data.set_index('Land Use Object', inplace=True)
