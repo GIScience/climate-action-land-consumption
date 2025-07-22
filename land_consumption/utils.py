@@ -15,7 +15,6 @@ log = logging.getLogger(__name__)
 SQM_TO_HA_FACTOR = 1.0 / (100.0 * 100.0)
 
 
-# Order in which the categories are clipped
 class LandObjectCategory(Enum):
     BUILDINGS = 'Buildings'
     PARKING_LOTS = 'Parking lots'
@@ -25,10 +24,10 @@ class LandObjectCategory(Enum):
 
 
 class LandUseCategory(Enum):
-    BUILT_UP = 'Other built up areas'
     COMMERCIAL = 'Commercial'
     RESIDENTIAL = 'Residential'
     INDUSTRIAL = 'Industrial'
+    BUILT_UP = 'Other built up areas'
     AGRICULTURAL = 'Agricultural'
     OTHER = 'Other land uses'
 
@@ -201,7 +200,9 @@ def clip_geometries(categories_gdf: GeoDataFrame) -> GeoDataFrame:
     return clipped_gdf
 
 
-def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog: RestCatalog):
+def request_osm_features(
+    aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog: RestCatalog
+) -> dict[str, gpd.GeoDataFrame]:
     xmin, ymin, xmax, ymax = aoi_geom.bounds
     categories_gdf = gpd.GeoDataFrame()
 
@@ -240,7 +241,7 @@ def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog
             if category_gdf.empty:
                 category_gdf = gpd.GeoDataFrame(columns=polygon_gdf.columns)
             category_gdf = get_processing_function(category)(category_gdf)
-            category_gdf['category'] = [category.name]
+            category_gdf['category'] = [category]
             categories_gdf = pd.concat([categories_gdf, category_gdf])
 
         polygon_gdf['landuse_category'] = polygon_gdf.tags.apply(get_land_use_filter)
@@ -248,32 +249,74 @@ def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog
             landuse_gdf = polygon_gdf[polygon_gdf['landuse_category'] == category]
             landuse_polygons.append(landuse_gdf)
 
+    return {
+        'land_objects': categories_gdf,
+        'land_use': gpd.GeoDataFrame(pd.concat(landuse_polygons, ignore_index=True)),
+    }
+
+
+def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
+    category_priority = list(LandObjectCategory)
+    landuse_priority = list(LandUseCategory)
+
     categories_gdf = clip_geometries(categories_gdf)
-    landuses_gdf = pd.concat(landuse_polygons)
-    landuses_gdf = landuses_gdf[landuses_gdf['geometry'].geom_type.isin(['MultiPolygon', 'Polygon'])]
+    landuses_gdf = landuses_gdf.explode(ignore_index=True)
+    landuses_gdf = landuses_gdf[landuses_gdf['geometry'].geom_type.isin(['Polygon', 'MultiPolygon'])]
+
     landuses_gdf = landuses_gdf.dissolve(by='landuse_category', sort=False)
+    landuses_gdf['priority'] = landuses_gdf.index.map(landuse_priority.index)
+    landuses_gdf = landuses_gdf.sort_values('priority')
 
     category_by_landuse = []
     non_matching_landuse = []
-    for category in landuses_gdf.index:
-        landuse_geom = landuses_gdf.at[category, 'geometry']
+    used_geom = None
+
+    for landuse_category, row in landuses_gdf.iterrows():
+        landuse_geom = row.geometry
+
+        if used_geom:
+            landuse_geom = landuse_geom.difference(used_geom)
+        if landuse_geom.is_empty:
+            continue
+
         clipped_categories_gdf = categories_gdf.clip(landuse_geom)
-        clipped_categories_gdf['landuse_category'] = category.name
-        category_by_landuse.append(clipped_categories_gdf)
-        remaining_landuse = landuse_geom.difference(categories_gdf.union_all())
-        remaining_gdf = gpd.GeoDataFrame(
-            {'geometry': [remaining_landuse], 'category': 'BUILT_UP', 'landuse_category': [category.name]}
+        clipped_categories_gdf = clipped_categories_gdf.sort_values(
+            'category', key=lambda x: x.map(lambda cat: category_priority.index(cat))
         )
-        non_matching_landuse.append(remaining_gdf)
+        clipped_categories_gdf['landuse_category'] = landuse_category
+        category_by_landuse.append(clipped_categories_gdf)
+
+        remaining_landuse = landuse_geom.difference(clipped_categories_gdf.union_all())
+        if not remaining_landuse.is_empty:
+            remaining_gdf = gpd.GeoDataFrame(
+                {
+                    'geometry': [remaining_landuse],
+                    'category': LandObjectCategory.BUILT_UP,
+                    'landuse_category': landuse_category,
+                },
+                crs=categories_gdf.crs,
+            )
+            non_matching_landuse.append(remaining_gdf)
+
+        if used_geom:
+            used_geom = used_geom.union(landuse_geom)
+        else:
+            used_geom = landuse_geom
 
     landobjects_with_landuse = pd.concat(category_by_landuse + non_matching_landuse)
+
     landobjects_with_landuse.loc[
-        (landobjects_with_landuse['category'] == 'BUILT_UP')
-        & (landobjects_with_landuse['landuse_category'] == 'OTHER'),
+        (landobjects_with_landuse['category'] == LandObjectCategory.BUILT_UP)
+        & (landobjects_with_landuse['landuse_category'] == LandObjectCategory.OTHER),
         'category',
-    ] = 'OTHER'
+    ] = LandObjectCategory.OTHER
 
     return landobjects_with_landuse
+
+
+def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog: RestCatalog) -> gpd.GeoDataFrame:
+    features = request_osm_features(aoi_geom, catalog)
+    return clean_overlapping_features(features['land_objects'], features['land_use'])
 
 
 def sort_land_consumption_table(

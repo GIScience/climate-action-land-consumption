@@ -129,14 +129,13 @@ class LandConsumption(BaseOperator[ComputeInput]):
 
         land_consumption_df = (
             land_consumption_df.groupby('Land Use Object', as_index=False)
-            .sum(numeric_only=True)
+            .sum(numeric_only=True, min_count=1)
             .merge(
                 land_consumption_df['Land Use Object'].drop_duplicates(),
                 on='Land Use Object',
                 how='left',
             )
         )
-        land_consumption_df.loc[land_consumption_df['Land Use Object'] == 'Other', '% of Consumed Land Area'] = None
 
         total_land_area = land_consumption_df['Total Land Area [ha]'].sum()
         total_row = pd.DataFrame(
@@ -144,7 +143,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
                 'Land Use Object': ['Total'],
                 'Total Land Area [ha]': [total_land_area],
                 '% of Consumed Land Area': [100.0],
-                '% Land Area': [100.0],
+                '% Settled Land Area': [100.0],
             }
         )
 
@@ -153,6 +152,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
 
         return land_consumption_table
 
+    @staticmethod
     def get_detailed_table(land_consumption_df: pd.DataFrame) -> pd.DataFrame:
         log.debug('Creating detailed table artifact for land consumption data.')
 
@@ -163,7 +163,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
                 'Land Use Class': [''],
                 'Total Land Area [ha]': [total_land_area],
                 '% of Consumed Land Area': [100.0],
-                '% Land Area': [100.0],
+                '% Settled Land Area': [100.0],
             }
         )
 
