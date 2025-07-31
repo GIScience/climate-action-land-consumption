@@ -27,8 +27,9 @@ class LandUseCategory(Enum):
     COMMERCIAL = 'Commercial'
     RESIDENTIAL = 'Residential'
     INDUSTRIAL = 'Industrial'
-    BUILT_UP = 'Other built up areas'
+    BUILT_UP = 'Infrastructural and Institutional'
     AGRICULTURAL = 'Agricultural'
+    NATURAL = 'Natural'
     OTHER = 'Other land uses'
 
 
@@ -57,6 +58,8 @@ def get_land_object_filter(category: LandObjectCategory) -> callable:
 
 def get_land_use_filter(tags: dict) -> LandUseCategory | None:
     landuse = tags.get('landuse')
+    natural = tags.get('natural')
+    leisure = tags.get('leisure')
     match landuse:
         case (
             'garages'
@@ -79,8 +82,14 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
             return LandUseCategory.INDUSTRIAL
         case 'allotments' | 'farmland' | 'farmyard' | 'meadow' | 'orchard' | 'orchard' | 'plant_nursery' | 'vineyard':
             return LandUseCategory.AGRICULTURAL
-        case _:
-            return LandUseCategory.OTHER
+        case 'beach' | 'forest':
+            return LandUseCategory.NATURAL
+    if leisure == 'nature_reserve':
+        return LandUseCategory.NATURAL
+    if natural is not None:
+        return LandUseCategory.NATURAL
+
+    return LandUseCategory.OTHER
 
 
 def get_osm_data_from_parquet(
@@ -329,6 +338,7 @@ def sort_land_consumption_table(
         'Parking lots',
         'Roads',
         'Agricultural land',
+        'Natural land',
         'Other',
         'Total',
     ]

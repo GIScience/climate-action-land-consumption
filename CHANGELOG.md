@@ -9,6 +9,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ### Added
 
+- add natural land class
 - add detailed treemap artifact
 - update to metadata and description
 - added agriculture class to land use
@@ -23,6 +24,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ### Changed
 
+- renamed other built up areas to infrastructural and institutional
 - fixed double counting of osm features
 - removed duplicate masking of agricultural class
 - combined table sorting logic into one function
