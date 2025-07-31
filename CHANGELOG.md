@@ -9,6 +9,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ### Added
 
+- add detailed treemap artifact
 - update to metadata and description
 - added agriculture class to land use
 - split basic and detailed reports into two different functions

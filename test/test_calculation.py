@@ -32,19 +32,19 @@ def test_calculate_land_consumption():
             'Land Use Class': ['Commercial', '', 'Other land uses'],
             'Total Land Area [ha]': [0.4, 0.3, 0.05],
             '% of Consumed Land Area': [100, None, None],
-            '% Settled Land Area': [40.0, 30.0, 5.0],
+            '% of Settled Land Area': [40.0, 30.0, 5.0],
         }
     )
 
     result = calculate_land_consumption(aoi_area, area_df)
 
     assert 'Total Land Area [ha]' in result.columns
-    assert '% Settled Land Area' in result.columns
+    assert '% of Settled Land Area' in result.columns
     assert '% of Consumed Land Area' in result.columns
 
     assert result.loc[0, 'Total Land Area [ha]'] == 4000 * SQM_TO_HA_FACTOR
 
-    assert result.loc[0, '% Settled Land Area'] == pytest.approx(
+    assert result.loc[0, '% of Settled Land Area'] == pytest.approx(
         (4000 * SQM_TO_HA_FACTOR) / (aoi_area * SQM_TO_HA_FACTOR) * 100
     )
 

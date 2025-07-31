@@ -6,12 +6,14 @@ from typing import List
 import geopandas as gpd
 import pandas as pd
 import shapely
+import plotly.express as px
+from plotly.graph_objs import Figure
 from climatoology.base.baseoperator import BaseOperator, _Artifact, AoiProperties, ComputationResources
 from climatoology.base.info import Concern, _Info, PluginAuthor, generate_plugin_info
 from pyiceberg.catalog.rest import RestCatalog
 from semver import Version
 
-from land_consumption.artifact import build_table_artifact
+from land_consumption.artifact import build_table_artifact, build_treemap_artifact
 from land_consumption.calculation import calculate_land_consumption
 from land_consumption.input import ComputeInput
 from land_consumption.utils import (
@@ -99,26 +101,33 @@ class LandConsumption(BaseOperator[ComputeInput]):
             area_df=categories_gdf,
         )
 
-        landobjects_consumption_table = LandConsumption.get_basic_table(land_consumption_df)
+        landobjects_consumption_table = self.get_basic_table(land_consumption_df)
 
-        landconsumer_consumption_table = LandConsumption.get_detailed_table(land_consumption_df)
+        landconsumer_consumption_table = self.get_detailed_table(land_consumption_df)
 
         landconsumer_table_artifact = build_table_artifact(
             data=landconsumer_consumption_table,
             primary=False,
             resources=resources,
-            title='Detailed Report',
-            filename_suffix='consumer',
+            title='detailed',
         )
         landobjects_table_artifact = build_table_artifact(
             data=landobjects_consumption_table,
-            primary=True,
+            primary=False,
             resources=resources,
-            title='Basic Report',
-            filename_suffix='objects',
+            title='basic',
         )
 
-        artifacts = [landconsumer_table_artifact, landobjects_table_artifact]
+        treemap = self.create_treemap(land_consumption_df)
+
+        treemap_artifact = build_treemap_artifact(
+            figure=treemap,
+            resources=resources,
+            primary=True,
+        )
+
+        artifacts = [landconsumer_table_artifact, landobjects_table_artifact, treemap_artifact]
+
         log.debug(f'Returning {len(artifacts)} artifacts.')
 
         return artifacts
@@ -143,7 +152,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
                 'Land Use Object': ['Total'],
                 'Total Land Area [ha]': [total_land_area],
                 '% of Consumed Land Area': [100.0],
-                '% Settled Land Area': [100.0],
+                '% of Settled Land Area': [100.0],
             }
         )
 
@@ -163,7 +172,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
                 'Land Use Class': [''],
                 'Total Land Area [ha]': [total_land_area],
                 '% of Consumed Land Area': [100.0],
-                '% Settled Land Area': [100.0],
+                '% of Settled Land Area': [100.0],
             }
         )
 
@@ -186,3 +195,68 @@ class LandConsumption(BaseOperator[ComputeInput]):
         land_consumption_table.set_index('Land Use Object', inplace=True)
 
         return land_consumption_table
+
+    @staticmethod
+    def create_treemap(landconsumer_consumption_table: pd.DataFrame) -> Figure:
+        log.debug('Creating treemap for land consumption.')
+
+        landconsumer_consumption_table.loc[
+            (landconsumer_consumption_table['Land Use Object'] == 'Agricultural land')
+            & (landconsumer_consumption_table['Land Use Class'] == ''),
+            '% of Consumed Land Area',
+        ] = 0
+
+        landconsumer_consumption_table['label'] = landconsumer_consumption_table.apply(
+            lambda row: (
+                f"{row['Land Use Class']}<br><br>"
+                f"Total Land Area [ha]: {row['Total Land Area [ha]']} ha<br>"
+                f"% of Consumed Land Area: {row['% of Consumed Land Area']}%<br>"
+                f"% of Settled Land Area: {row['% of Settled Land Area']}%"
+            ),
+            axis=1,
+        )
+
+        treemap = px.treemap(
+            landconsumer_consumption_table,
+            path=[px.Constant('Land Use Overview'), 'Land Use Object', 'Land Use Class'],
+            values='Total Land Area [ha]',
+            color='Land Use Object',
+            custom_data=['label', 'Land Use Object', 'Land Use Class'],
+            color_discrete_map={
+                '(?)': '#ffffe5',
+                'Buildings': '#ec7014',
+                'Agricultural land': '#fee391',
+                'Roads': '#993404',
+                'Parking lots': '#662506',
+                'Built up land': '#fec44f',
+            },
+        )
+
+        treemap.update_traces(
+            texttemplate='%{customdata[0]}',
+            textinfo='text',
+            hovertemplate=(
+                'Land Use Object: %{customdata[1]}<br>'
+                + 'Land Use Class: %{customdata[2]}<br>'
+                + 'Total Land Area [ha]: %{value} ha<br>'
+                + '<extra></extra>'
+            ),
+        )
+
+        treemap.update_layout(
+            title='Land Consumption by Land Use Object and Class',
+            margin=dict(t=50, l=25, r=25, b=25),
+            paper_bgcolor='white',
+            plot_bgcolor='white',
+        )
+
+        trace = treemap.data[0]
+
+        for i in range(trace.customdata.shape[0]):
+            for j in range(trace.customdata.shape[1]):
+                if trace.customdata[i][j] == '(?)':
+                    trace.customdata[i][j] = ''
+
+        trace.labels = [label if label != '(?)' else '' for label in trace.labels]
+
+        return treemap

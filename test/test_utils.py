@@ -160,6 +160,7 @@ def test_get_categories_gdf_with_features(mock_get_osm_data, default_ohsome_cata
 
 
 def test_clip_geometries_no_interior_intersection(categories_gdf):
+    categories_gdf['category'] = categories_gdf['category'].map(lambda x: LandObjectCategory[x])
     result = clip_geometries(categories_gdf)
 
     assert result.crs.to_string() == 'EPSG:4326'
