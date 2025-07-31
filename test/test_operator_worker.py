@@ -6,32 +6,33 @@ from land_consumption.operator_worker import LandConsumption
 def test_get_basic_table():
     data = pd.DataFrame(
         {
-            'Land Use Object': ['Buildings', 'Agricultural land', 'Other'],
-            'Land Use Class': ['Commercial', 'Agricultural', 'Other land uses'],
-            'Total Land Area [ha]': [20.0, 10.0, 70.0],
-            '% of Consumed Land Area': [100.0, None, None],
-            '% of Settled Land Area': [20.0, 10.0, 70.0],
+            'Land Use Object': ['Buildings', 'Agricultural land', 'Natural land', 'Other'],
+            'Land Use Class': ['Commercial', '', '', 'Other land uses'],
+            'Total Land Area [ha]': [20.0, 10.0, 10.0, 60.0],
+            '% of Consumed Land Area': [100.0, None, None, None],
+            '% of Settled Land Area': [20.0, 10.0, None, 60.0],
         }
     )
 
     expected_data = pd.DataFrame(
         {
             'Land Use Object': pd.Categorical(
-                ['Buildings', 'Agricultural land', 'Other', 'Total'],
+                ['Buildings', 'Agricultural land', 'Natural land', 'Other', 'Total'],
                 categories=[
                     'Buildings',
                     'Built up land',
                     'Parking lots',
                     'Roads',
                     'Agricultural land',
+                    'Natural land',
                     'Other',
                     'Total',
                 ],
                 ordered=True,
             ),
-            'Total Land Area [ha]': [20.0, 10.0, 70.0, 100.0],
-            '% of Consumed Land Area': [100.0, None, None, 100.0],
-            '% of Settled Land Area': [20.0, 10.0, 70.0, 100.0],
+            'Total Land Area [ha]': [20.0, 10.0, 10.0, 60.0, 100.0],
+            '% of Consumed Land Area': [100.0, None, None, None, 100.0],
+            '% of Settled Land Area': [20.0, 10.0, None, 60.0, 100.0],
         }
     )
     expected_data.set_index('Land Use Object', inplace=True)
@@ -44,33 +45,35 @@ def test_get_basic_table():
 def test_get_detailed_table():
     data = pd.DataFrame(
         {
-            'Land Use Object': ['Buildings', 'Buildings', 'Agricultural land', 'Other'],
+            'Land Use Object': ['Buildings', 'Buildings', 'Agricultural land', 'Natural land', 'Other'],
             'Land Use Class': [
                 'Commercial',
                 'Industrial',
                 '',
+                '',
                 'Other',
             ],
-            'Total Land Area [ha]': [10.0, 10.0, 10.0, 70.0],
-            '% of Consumed Land Area': [33.33, 33.33, 33.33, None],
-            '% of Settled Land Area': [10.0, 10.0, 10.0, 70.0],
+            'Total Land Area [ha]': [10.0, 10.0, 10.0, 10.0, 60.0],
+            '% of Consumed Land Area': [50.0, 50.0, None, None, None],
+            '% of Settled Land Area': [10.0, 10.0, 10.0, None, 60.0],
         }
     )
 
     expected_data = pd.DataFrame(
         {
-            'Land Use Object': ['Buildings', '', '', 'Agricultural land', 'Other', 'Total'],
+            'Land Use Object': ['Buildings', '', '', 'Agricultural land', 'Natural land', 'Other', 'Total'],
             'Land Use Class': [
                 'Commercial',
                 'Industrial',
                 'Subtotal',
                 '',
+                '',
                 'Other',
                 '',
             ],
-            'Total Land Area [ha]': [10.0, 10.0, 20.0, 10.0, 70.0, 100.0],
-            '% of Consumed Land Area': [33.33, 33.33, 66.66, 33.33, None, 100.0],
-            '% of Settled Land Area': [10.0, 10.0, 20.0, 10.0, 70.0, 100.0],
+            'Total Land Area [ha]': [10.0, 10.0, 20.0, 10.0, 10.0, 60.0, 100.0],
+            '% of Consumed Land Area': [50.0, 50.0, 100.0, None, None, None, 100.0],
+            '% of Settled Land Area': [10.0, 10.0, 20.0, 10.0, None, 60.0, 100.0],
         }
     )
     expected_data.set_index('Land Use Object', inplace=True)
@@ -101,6 +104,7 @@ def test_get_basic_table_non_100():
                     'Parking lots',
                     'Roads',
                     'Agricultural land',
+                    'Natural land',
                     'Other',
                     'Total',
                 ],
@@ -187,11 +191,11 @@ def test_table_sorted():
 def test_get_treemap():
     data = pd.DataFrame(
         {
-            'Land Use Object': ['Buildings', 'Building', 'Other'],
-            'Land Use Class': ['Commercial', 'Industrial', 'Other'],
-            'Total Land Area [ha]': [2.0, 1.0, 1.0],
-            '% of Consumed Land Area': [66.67, 33.33, None],
-            '% of Settled Land Area': [50.0, 25.0, 25.0],
+            'Land Use Object': ['Buildings', 'Building', 'Natural land', 'Other'],
+            'Land Use Class': ['Commercial', 'Industrial', '', 'Other'],
+            'Total Land Area [ha]': [2.0, 1.0, 1.0, 1.0],
+            '% of Consumed Land Area': [66.67, 33.33, None, None],
+            '% of Settled Land Area': [50.0, 25.0, None, 25.0],
         }
     )
 
@@ -204,7 +208,9 @@ def test_get_treemap():
         'Land Use Overview/Building',
         'Land Use Overview/Buildings/Commercial',
         'Land Use Overview/Buildings',
+        'Land Use Overview/Natural land/',
+        'Land Use Overview/Natural land',
         'Land Use Overview/Other/Other',
         'Land Use Overview/Other',
     ] in fig.data[0].ids
-    assert [4.0, 1.0, 1.0, 2.0, 2.0, 1.0, 1.0] in fig.data[0].values
+    assert [5.0, 1.0, 1.0, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0] in fig.data[0].values
