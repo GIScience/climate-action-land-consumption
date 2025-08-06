@@ -1,9 +1,10 @@
 FROM python:3.11.5-bookworm
+SHELL ["/bin/bash", "-c"]
 
 ENV PACKAGE_NAME='land_consumption'
 
 
-RUN pip install --no-cache-dir poetry==1.7.1
+RUN pip install --no-cache-dir poetry==2.1.1
 
 COPY pyproject.toml poetry.lock ./
 
@@ -15,6 +16,9 @@ RUN --mount=type=secret,id=CI_JOB_TOKEN,env=CI_JOB_TOKEN \
 COPY $PACKAGE_NAME $PACKAGE_NAME
 COPY resources resources
 COPY README.md ./README.md
+
+ARG CI_COMMIT_SHORT_SHA
+RUN if [[ -n "${CI_COMMIT_SHORT_SHA}" ]]; then sed -E -i "s/^(version = \"[^+]*)\"/\\1+${CI_COMMIT_SHORT_SHA}\"/" pyproject.toml; fi;
 
 RUN poetry install --no-ansi --no-interaction --all-extras --without dev,test
 
