@@ -77,7 +77,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
 
         return info
 
-    def compute(
+    def compute(  # dead: disable
         self,
         resources: ComputationResources,
         aoi: shapely.MultiPolygon,
@@ -202,10 +202,10 @@ class LandConsumption(BaseOperator[ComputeInput]):
 
         landconsumer_consumption_table['label'] = landconsumer_consumption_table.apply(
             lambda row: (
-                f"{row['Land Use Class']}<br><br>"
-                f"Total Land Area [ha]: {row['Total Land Area [ha]']} ha<br>"
-                f"% of Consumed Land Area: {row['% of Consumed Land Area']}%<br>"
-                f"% of Settled Land Area: {row['% of Settled Land Area']}%"
+                f'{row["Land Use Class"]}<br><br>'
+                f'Total Land Area [ha]: {row["Total Land Area [ha]"]} ha<br>'
+                f'% of Consumed Land Area: {row["% of Consumed Land Area"]}%<br>'
+                f'% of Settled Land Area: {row["% of Settled Land Area"]}%'
             ),
             axis=1,
         )

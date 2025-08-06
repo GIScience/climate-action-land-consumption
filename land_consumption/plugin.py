@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     ohsome_minio_access_key_id: str
     ohsome_minio_region: str = 'eu-central-1'
 
-    model_config = SettingsConfigDict(env_file='.env')
+    model_config = SettingsConfigDict(env_file='.env')  # dead: disable
 
 
 def init_plugin() -> int:
