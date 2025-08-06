@@ -16,8 +16,8 @@ def calculate_land_consumption(area_df: GeoDataFrame) -> pd.DataFrame:
     area_df['Land Use Object'] = area_df['category'].apply(lambda x: x.value)
     area_df['Land Use Class'] = area_df['landuse_category'].apply(lambda x: x.value)
 
-    mask = (area_df['Land Use Object'] == 'Built up land') & (
-        area_df['Land Use Class'].isin(['Agricultural', 'Natural'])
+    mask = (area_df['category'] == LandObjectCategory.BUILT_UP) & (
+        area_df['landuse_category'].isin([LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL])
     )
 
     area_df.loc[mask, 'Land Use Object'] = area_df.loc[mask, 'Land Use Class'].map(
