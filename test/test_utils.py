@@ -156,7 +156,7 @@ def test_get_categories_gdf_with_features(mock_get_osm_data, default_ohsome_cata
 
     assert not categories_gdf.empty
     assert 'category' in categories_gdf.columns
-    assert categories_gdf.unary_union.area == pytest.approx(aoi_geom.area)
+    assert categories_gdf.union_all().area == pytest.approx(aoi_geom.area)
 
 
 def test_clip_geometries_no_interior_intersection(categories_gdf):
