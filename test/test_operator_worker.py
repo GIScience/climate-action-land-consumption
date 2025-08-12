@@ -48,7 +48,7 @@ def test_get_detailed_table():
             'Land Use Object': ['Buildings', 'Buildings', 'Agricultural land', 'Natural land', 'Other'],
             'Land Use Class': [
                 'Commercial',
-                'Industrial',
+                'Institutional',
                 '',
                 '',
                 'Other',
@@ -64,7 +64,7 @@ def test_get_detailed_table():
             'Land Use Object': ['Buildings', '', '', 'Agricultural land', 'Natural land', 'Other', 'Total'],
             'Land Use Class': [
                 'Commercial',
-                'Industrial',
+                'Institutional',
                 'Subtotal',
                 '',
                 '',

@@ -27,7 +27,8 @@ class LandUseCategory(Enum):
     COMMERCIAL = 'Commercial'
     RESIDENTIAL = 'Residential'
     INDUSTRIAL = 'Industrial'
-    BUILT_UP = 'Infrastructural and Institutional'
+    INFRASTRUCTURE = 'Infrastructure'
+    INSTITUTIONAL = 'Institutional'
     AGRICULTURAL = 'Agricultural'
     NATURAL = 'Natural'
     OTHER = 'Other land uses'
@@ -60,20 +61,13 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
     landuse = tags.get('landuse')
     natural = tags.get('natural')
     leisure = tags.get('leisure')
+    amenity = tags.get('amenity')
+
     match landuse:
-        case (
-            'garages'
-            | 'railway'
-            | 'harbour'
-            | 'port'
-            | 'lock'
-            | 'marina'
-            | 'construction'
-            | 'brownfield'
-            | 'military'
-            | 'religious'
-        ):
-            return LandUseCategory.BUILT_UP
+        case 'garages' | 'railway' | 'harbour' | 'port' | 'lock' | 'marina':
+            return LandUseCategory.INFRASTRUCTURE
+        case 'military' | 'religious' | 'cemetery':
+            return LandUseCategory.INSTITUTIONAL
         case 'commercial' | 'retail':
             return LandUseCategory.COMMERCIAL
         case 'residential':
@@ -86,6 +80,24 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
             return LandUseCategory.NATURAL
     if leisure == 'nature_reserve':
         return LandUseCategory.NATURAL
+    if amenity in [
+        'university',
+        'school',
+        'college',
+        'hospital',
+        'clinic',
+        'community_centre',
+        'courthouse',
+        'fire_station',
+        'police_station',
+        'prison',
+        'townhall',
+        'monastery',
+        'place_of_worship',
+    ]:
+        return LandUseCategory.INSTITUTIONAL
+    if amenity in ['bus_station', 'ferry_terminal', 'college', 'hospital', 'clinic']:
+        return LandUseCategory.INFRASTRUCTURE
     if natural is not None:
         return LandUseCategory.NATURAL
 
