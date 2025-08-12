@@ -174,14 +174,14 @@ def generate_buffer(highway_df: DataFrame) -> GeoDataFrame:
 
     all_buffered_highways = highway_gdf.to_crs(highway_gdf.estimate_utm_crs())
 
+    all_buffered_highways = all_buffered_highways.dissolve('width', as_index=False)
+
     all_buffered_highways['geometry'] = all_buffered_highways.apply(
-        lambda row: row['geometry'].buffer(row['width'] / 2, resolution=4, cap_style='flat'),
+        lambda row: row['geometry'].buffer(row['width'] / 2, resolution=2, cap_style='flat'),
         axis=1,
     )
 
     all_buffered_highways_gdf = all_buffered_highways.to_crs(4326)
-
-    all_buffered_highways_gdf = gpd.GeoDataFrame(all_buffered_highways_gdf, geometry='geometry', crs='EPSG:4326')
 
     return get_union(all_buffered_highways_gdf)
 
