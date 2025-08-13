@@ -1,6 +1,4 @@
-import importlib
 import logging
-from pathlib import Path
 from typing import List
 
 import pandas as pd
@@ -8,12 +6,12 @@ import shapely
 import plotly.express as px
 from plotly.graph_objs import Figure
 from climatoology.base.baseoperator import BaseOperator, _Artifact, AoiProperties, ComputationResources
-from climatoology.base.info import Concern, _Info, PluginAuthor, generate_plugin_info
+from climatoology.base.info import _Info
 from pyiceberg.catalog.rest import RestCatalog
-from semver import Version
 
 from land_consumption.artifact import build_table_artifact, build_treemap_artifact
 from land_consumption.calculation import calculate_land_consumption
+from land_consumption.info import get_info
 from land_consumption.input import ComputeInput
 from land_consumption.utils import (
     calculate_area,
@@ -31,51 +29,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
         log.debug('Initialised Land consumption Operator')
 
     def info(self) -> _Info:
-        info = generate_plugin_info(
-            name='Land Consumption',
-            icon=Path('resources/info/icon.jpeg'),
-            authors=[
-                PluginAuthor(
-                    name='Charles Hatfield',
-                    affiliation='HeiGIT gGmbH',
-                    website='https://heigit.org/heigit-team/',
-                ),
-                PluginAuthor(
-                    name='Emily Wilke',
-                    affiliation='HeiGIT gGmbH',
-                    website='https://heigit.org/heigit-team/',
-                ),
-                PluginAuthor(
-                    name='Moritz Schott',
-                    affiliation='HeiGIT gGmbH',
-                    website='https://heigit.org/heigit-team/',
-                ),
-                PluginAuthor(
-                    name='Levi Szamek',
-                    affiliation='HeiGIT gGmbH',
-                    website='https://heigit.org/heigit-team/',
-                ),
-                PluginAuthor(
-                    name='Mohammed Rizwan Khan',
-                    affiliation='HeiGIT gGmbH',
-                    website='https://heigit.org/heigit-team/',
-                ),
-                PluginAuthor(
-                    name='Sebastian Block',
-                    affiliation='HeiGIT gGmbH',
-                    website='https://heigit.org/heigit-team/',
-                ),
-            ],
-            version=Version.parse(importlib.metadata.version('land-consumption')),
-            concerns={Concern.CLIMATE_ACTION__GHG_EMISSION},
-            purpose=Path('resources/info/purpose.md'),
-            methodology=Path('resources/info/methodology.md'),
-            sources=Path('resources/info/sources.bib'),
-            demo_input_parameters=ComputeInput(),
-        )
-        log.info(f'Return info {info.model_dump()}')
-
-        return info
+        return get_info()
 
     def compute(  # dead: disable
         self,
