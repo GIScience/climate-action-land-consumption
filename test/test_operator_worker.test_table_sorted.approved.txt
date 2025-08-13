@@ -1,0 +1,5 @@
+Land Use Object,Land Use Class,% of Consumed Land Area,% of Settled Land Area,Total Land Area [ha],% of Total Land Area
+Buildings,Residential,66.67,66.67,2.0,66.67
+,Other land uses,33.33,33.33,1.0,33.33
+,Subtotal,100.0,100.0,3.0,100.0
+Total,,100.0,100.0,3.0,100.0

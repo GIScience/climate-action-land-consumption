@@ -26,16 +26,18 @@ def calculate_land_consumption(area_df: GeoDataFrame) -> pd.DataFrame:
             'Natural': 'Natural land',
         }
     )
-
     area_df.loc[mask, 'Land Use Class'] = ''
+
+    area_df['% of Total Land Area'] = area_df['area'] / area_df['area'].sum() * 100
 
     return area_df[
         [
             'Land Use Object',
             'Land Use Class',
-            'Total Land Area [ha]',
             '% of Consumed Land Area',
             '% of Settled Land Area',
+            'Total Land Area [ha]',
+            '% of Total Land Area',
         ]
     ].round(2)
 

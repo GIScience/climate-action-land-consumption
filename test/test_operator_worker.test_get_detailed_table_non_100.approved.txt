@@ -1,0 +1,7 @@
+Land Use Object,Land Use Class,% of Consumed Land Area,% of Settled Land Area,Total Land Area [ha],% of Total Land Area
+Buildings,Commercial,66.67,50.0,2.0,50.0
+,Subtotal,66.67,50.0,2.0,50.0
+Parking lots,Commercial,33.33,25.0,1.0,25.0
+,Subtotal,33.33,25.0,1.0,25.0
+Other,Other,,25.0,1.0,25.0
+Total,,100.0,100.0,4.0,100.0
