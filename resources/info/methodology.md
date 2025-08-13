@@ -38,10 +38,6 @@ In addition to land use objects, the Land Consumption plugin also considers the 
 
 The basic and detailed tables as well as the treemap include the following three output variables:
 
-**Total Land Area [ha]**
-- The total land area, in hectares, occupied by a given land use object.
-- Example: Buildings occupy 31.22 ha in Bergheim, Heidelberg.
-
 **% of Consumed Land Area**
 - The proportion of consumed land taken up by each land use object.
 - Example: Buildings account for 35.38% of consumed land in Bergheim, Heidelberg.
@@ -49,6 +45,7 @@ The basic and detailed tables as well as the treemap include the following three
 **% of Settled Land Area**
 - The proportion of settled land occupied by each land use object.
 - Example: Buildings account for 22.94% of settled land in Bergheim, Heidelberg.
+
 
 ### Data
 The Land Consumption plugin is based on [OSM](https://www.openstreetmap.org/about) data.

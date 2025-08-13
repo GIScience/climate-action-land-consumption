@@ -1,0 +1,38 @@
+{
+  "Land Use Object":{
+    "0":"Buildings",
+    "1":"Agricultural land",
+    "2":"Natural land",
+    "3":"Other"
+  },
+  "Land Use Class":{
+    "0":"Commercial",
+    "1":"",
+    "2":"",
+    "3":"Other land uses"
+  },
+  "% of Consumed Land Area":{
+    "0":100.0,
+    "1":null,
+    "2":null,
+    "3":null
+  },
+  "% of Settled Land Area":{
+    "0":53.33,
+    "1":40.0,
+    "2":null,
+    "3":6.67
+  },
+  "Total Land Area [ha]":{
+    "0":0.4,
+    "1":0.3,
+    "2":0.05,
+    "3":0.05
+  },
+  "% of Total Land Area":{
+    "0":50.0,
+    "1":37.5,
+    "2":6.25,
+    "3":6.25
+  }
+}

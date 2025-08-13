@@ -9,6 +9,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ### Added
 
+- add % of Total Land Area Column
 - add institutional and infrastructure land use classes
 - add natural land class
 - add detailed treemap artifact

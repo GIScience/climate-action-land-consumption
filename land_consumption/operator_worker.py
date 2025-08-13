@@ -146,9 +146,10 @@ class LandConsumption(BaseOperator[ComputeInput]):
         total_row = pd.DataFrame(
             {
                 'Land Use Object': ['Total'],
-                'Total Land Area [ha]': [total_land_area],
                 '% of Consumed Land Area': [100.0],
                 '% of Settled Land Area': [100.0],
+                'Total Land Area [ha]': [total_land_area],
+                '% of Total Land Area': [100.0],
             }
         )
 
@@ -166,9 +167,10 @@ class LandConsumption(BaseOperator[ComputeInput]):
             {
                 'Land Use Object': ['Total'],
                 'Land Use Class': [''],
-                'Total Land Area [ha]': [total_land_area],
                 '% of Consumed Land Area': [100.0],
                 '% of Settled Land Area': [100.0],
+                'Total Land Area [ha]': [total_land_area],
+                '% of Total Land Area': [100.0],
             }
         )
 
@@ -206,6 +208,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
                 f'Total Land Area [ha]: {row["Total Land Area [ha]"]} ha<br>'
                 f'% of Consumed Land Area: {row["% of Consumed Land Area"]}%<br>'
                 f'% of Settled Land Area: {row["% of Settled Land Area"]}%'
+                f'% of Total Land Area: {row["% of Total Land Area"]}'
             ),
             axis=1,
         )
