@@ -249,8 +249,8 @@ def request_osm_features(
         row_filter = (
             f"status = '{status}' "
             f'and geometry_type IN ({geom_type}) '
-            f'and (bbox.xmax >= {xmin} and bbox.xmin <= {xmax}) '
-            f'and (bbox.ymax >= {ymin} and bbox.ymin <= {ymax}) '
+            f'and (xmax >= {xmin} and xmin <= {xmax}) '
+            f'and (ymax >= {ymin} and ymin <= {ymax}) '
         )
 
         selected_fields = ('tags', 'geometry')
