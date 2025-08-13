@@ -161,8 +161,8 @@ class LandConsumption(BaseOperator[ComputeInput]):
                 f'{row["Land Use Class"]}<br><br>'
                 f'Total Land Area [ha]: {row["Total Land Area [ha]"]} ha<br>'
                 f'% of Consumed Land Area: {row["% of Consumed Land Area"]}%<br>'
-                f'% of Settled Land Area: {row["% of Settled Land Area"]}%'
-                f'% of Total Land Area: {row["% of Total Land Area"]}'
+                f'% of Settled Land Area: {row["% of Settled Land Area"]}%<br>'
+                f'% of Total Land Area: {row["% of Total Land Area"]}%'
             ),
             axis=1,
         )
