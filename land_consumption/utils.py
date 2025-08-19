@@ -8,7 +8,7 @@ import shapely
 from geopandas import GeoDataFrame
 from pandas import DataFrame
 from pyiceberg.catalog.rest import RestCatalog
-from tqdm import tqdm
+from climatoology.utility.exception import ClimatoologyUserError
 
 log = logging.getLogger(__name__)
 
@@ -35,8 +35,8 @@ class LandUseCategory(Enum):
 
 
 GEOM_TYPE_LOOKUP = {
-    "'Polygon', 'MultiPolygon'": [LandObjectCategory.BUILDINGS, LandObjectCategory.PARKING_LOTS],
     "'LineString', 'MultiLineString'": [LandObjectCategory.ROADS],
+    "'Polygon', 'MultiPolygon'": [LandObjectCategory.BUILDINGS, LandObjectCategory.PARKING_LOTS],
 }
 
 
@@ -243,7 +243,7 @@ def request_osm_features(
         return generate_buffer(roads_with_width)
 
     landuse_polygons = []
-    for geom_type, categories in tqdm(GEOM_TYPE_LOOKUP.items()):
+    for geom_type, categories in GEOM_TYPE_LOOKUP.items():
         status = 'latest'
 
         row_filter = (
@@ -256,11 +256,19 @@ def request_osm_features(
         selected_fields = ('tags', 'geometry')
 
         polygon_gdf = get_osm_data_from_parquet(aoi_geom, row_filter, selected_fields, catalog=catalog)
-        for category in tqdm(categories, leave=False):
+        for category in categories:
             log.info(f'Processing category {category}')
             category_gdf = polygon_gdf[polygon_gdf['tags'].apply(get_land_object_filter(category))]
-            if category_gdf.empty:
+
+            try:
+                category_gdf = category_gdf.set_crs('EPSG:4326')
+                # fails as AttributeError if there's no active geometry column e.g. in an empty GeoDataFrame
+
+                check_road_length_limit(category, category_gdf)
+            except AttributeError:
+                log.warning(f'Received empty dataframe for {category}. Continuing with empty GeoDataFrame')
                 category_gdf = gpd.GeoDataFrame(columns=polygon_gdf.columns)
+
             category_gdf = get_processing_function(category)(category_gdf)
             category_gdf['category'] = [category]
             categories_gdf = pd.concat([categories_gdf, category_gdf])
@@ -274,6 +282,21 @@ def request_osm_features(
         'land_objects': categories_gdf,
         'land_use': gpd.GeoDataFrame(pd.concat(landuse_polygons, ignore_index=True)),
     }
+
+
+def check_road_length_limit(category: LandObjectCategory, category_gdf: gpd.GeoDataFrame) -> None:
+    max_road_length = 9300000.0  # based on Munich which barely succeeds within the 30 min time limit
+    try:
+        if (
+            category == LandObjectCategory.ROADS
+            and category_gdf.to_crs(category_gdf.estimate_utm_crs()).length.sum() >= max_road_length
+        ):
+            raise ClimatoologyUserError(
+                f'Road Length exceeds {max_road_length / 1000:.1f} km of allowed road length. Please, select a smaller area ar a sub-region of your selected area.'
+            )
+
+    except ValueError as e:
+        log.warning(f'{e}')
 
 
 def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
@@ -297,6 +320,9 @@ def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: g
 
         if used_geom:
             landuse_geom = landuse_geom.difference(used_geom)
+            if landuse_geom.geom_type == 'GeometryCollection':
+                landuse_geom = gpd.GeoSeries(data=landuse_geom.geoms)
+                landuse_geom = landuse_geom[landuse_geom.geom_type.isin(['Polygon', 'MultiPolygon'])].union_all()
         if landuse_geom.is_empty:
             continue
 

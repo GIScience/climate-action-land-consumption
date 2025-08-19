@@ -6,10 +6,13 @@ import pytest
 from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
 
+from climatoology.utility.exception import ClimatoologyUserError
+
 from land_consumption.utils import (
     LandObjectCategory,
     calculate_area,
     assign_road_width,
+    check_road_length_limit,
     generate_buffer,
     get_land_object_filter,
     get_number_of_lanes,
@@ -157,6 +160,27 @@ def test_get_categories_gdf_with_features(mock_get_osm_data, default_ohsome_cata
     assert not categories_gdf.empty
     assert 'category' in categories_gdf.columns
     assert categories_gdf.union_all().area == pytest.approx(aoi_geom.area)
+
+
+def test_check_road_length_limit():
+    category_pass = LandObjectCategory.PARKING_LOTS
+    category_catch = LandObjectCategory.ROADS
+
+    empty_data_frame = gpd.GeoDataFrame(columns=['tags', 'LandUseCategory'], geometry=[], crs=4326)
+    small_geometries = gpd.GeoDataFrame(
+        data={'tags': [{'highway': 'primary'}]}, geometry=[LineString([(0, 0), (1000, 0)])], crs='EPSG:23032'
+    ).to_crs('EPSG:4326')
+    large_geometries = small_geometries.loc[small_geometries.index.repeat(10000)].reset_index()
+
+    check_road_length_limit(category_pass, empty_data_frame)
+    check_road_length_limit(category_pass, small_geometries)
+    check_road_length_limit(category_pass, large_geometries)
+
+    check_road_length_limit(category_catch, empty_data_frame)
+    check_road_length_limit(category_catch, small_geometries)
+
+    with pytest.raises(ClimatoologyUserError):
+        check_road_length_limit(category_catch, large_geometries)
 
 
 def test_clip_geometries_no_interior_intersection(categories_gdf):
