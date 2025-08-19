@@ -9,6 +9,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ### Added
 
+- add computation limit based on road length to abort computations likely to fail
 - add % of Total Land Area Column
 - add institutional and infrastructure land use classes
 - add natural land class
@@ -38,6 +39,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 - updated documentation to reflect latest methodology
 - code modified for compatibility with climatoology 6.0.2
 - request data as GeoParquet instead of Ohsome API
+- fix crash on improperly clipped geometries
 
 ### Removed
 
