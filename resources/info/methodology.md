@@ -6,7 +6,7 @@ The Land Consumption plugin currently considers the following land use objects w
 
 1. **Buildings**: Tagged as `building=*` in OpenStreetMap (OSM).
 2. **Parking Lots**: Identified using the tags `amenity=parking` and `parking=surface`. Note: This excludes multi-level parking structures and on-street parking.
-3. **Roads**: Tagged as `highway=*`. Road area is calculated using the width tag. If the width is not available,f the most common width for the respective road type in the area (based on its highway tag) is used.
+3. **Roads**: Tagged as `highway=*`. Road area is calculated using the width tag. If the width is not available, the most common width for the respective road type in the area (based on its highway tag) is used.
 4. **Built-up Land**: Refers to areas immediately surrounding OSM objects with `landuse` tags such as `residential`, `commercial`, or `industrial`. These are not discrete objects like buildings or roads, but include surfaces such as paved areas, courtyards, and plazas.
 5. **Agricultural Land**: Includes land tagged as `landuse` with values including: `allotment`, `farmland`, `farmyard`, `meadow`, `orchard`, `plant_nursery`, `vineyard`. Agricultural land is excluded from consumed land calculations.
 6. **Natural land**: Represents undeveloped or natural areas tagged as `natural=*`, `leisure=nature_reserve` or `landuse` with values including: `beach` or `forest`. Natural land is excluded from both consumed and settled land calculations.
