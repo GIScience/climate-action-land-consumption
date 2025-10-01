@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "land-consumption"
-version = "0.0.1"
+version = "1.0.0"
 description = "This is the land consumption indicator."
 authors = ["Charles Hatfield <charles.hatfield@heigit.org>"]
 readme = "README.md"
