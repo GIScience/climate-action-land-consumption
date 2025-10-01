@@ -57,13 +57,11 @@ class LandConsumption(BaseOperator[ComputeInput]):
 
         landconsumer_table_artifact = build_table_artifact(
             data=landconsumer_consumption_table,
-            primary=False,
             resources=resources,
             title='detailed',
         )
         landobjects_table_artifact = build_table_artifact(
             data=landobjects_consumption_table,
-            primary=False,
             resources=resources,
             title='basic',
         )
@@ -73,7 +71,6 @@ class LandConsumption(BaseOperator[ComputeInput]):
         treemap_artifact = build_treemap_artifact(
             figure=treemap,
             resources=resources,
-            primary=True,
         )
 
         artifacts = [landconsumer_table_artifact, landobjects_table_artifact, treemap_artifact]

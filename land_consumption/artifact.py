@@ -9,7 +9,7 @@ from climatoology.base.artifact import (
 from climatoology.base.computation import ComputationResources
 
 
-def build_table_artifact(data: pd.DataFrame, resources: ComputationResources, primary: bool, title: str) -> _Artifact:
+def build_table_artifact(data: pd.DataFrame, resources: ComputationResources, title: str) -> _Artifact:
     data = data.round(2)
     filename = f'table_landconsumption_{title}'
     if title == 'basic':
@@ -34,12 +34,14 @@ def build_table_artifact(data: pd.DataFrame, resources: ComputationResources, pr
         caption=caption,
         description=description,
         resources=resources,
-        primary=primary,
         filename=filename,
     )
 
 
-def build_treemap_artifact(figure: Figure, resources: ComputationResources, primary: bool) -> _Artifact:
+def build_treemap_artifact(
+    figure: Figure,
+    resources: ComputationResources,
+) -> _Artifact:
     return create_plotly_chart_artifact(
         figure=figure,
         title='Land Consumption Treemap',
@@ -53,5 +55,4 @@ def build_treemap_artifact(figure: Figure, resources: ComputationResources, prim
         ),
         resources=resources,
         filename='land_consumption_treemap',
-        primary=primary,
     )

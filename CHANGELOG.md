@@ -27,6 +27,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ### Changed
 
+- change all artifacts to primary
 - renamed other built up areas to infrastructural and institutional
 - fixed double counting of osm features
 - removed duplicate masking of agricultural class
