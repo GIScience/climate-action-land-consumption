@@ -17,7 +17,7 @@ def test_build_table_artifact(compute_resources):
         }
     )
     expected_file_path = Path(compute_resources.computation_dir / 'table_landconsumption_basic.csv')
-    computed_output = build_table_artifact(data=input, primary=True, resources=compute_resources, title='basic')
+    computed_output = build_table_artifact(data=input, resources=compute_resources, title='basic')
 
     assert computed_output.modality == ArtifactModality.TABLE
     assert computed_output.name == 'Basic Report'
@@ -43,7 +43,7 @@ def test_build_treemap_artifact(compute_resources):
     )
     expected_file_path = Path(compute_resources.computation_dir / 'land_consumption_treemap.json')
 
-    computed_output = build_treemap_artifact(figure=input_treemap, resources=compute_resources, primary=True)
+    computed_output = build_treemap_artifact(figure=input_treemap, resources=compute_resources)
 
     assert computed_output.modality == ArtifactModality.CHART_PLOTLY
     assert computed_output.name == 'Land Consumption Treemap'
