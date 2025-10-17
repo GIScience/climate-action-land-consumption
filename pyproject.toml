@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "land-consumption"
-version = "1.0.0"
+version = "1.0.1"
 description = "This is the land consumption indicator."
 authors = ["Charles Hatfield <charles.hatfield@heigit.org>"]
 readme = "README.md"
@@ -14,6 +14,9 @@ shapely = "^2.0.2"
 pyiceberg = "^0.9.0"
 pyarrow = "^21.0.0"
 approvaltests = "^15.1.0"
+duckdb = "^1.4.1"
+memray = "^1.18.0"
+ohsome = "^0.4.0"
 
 
 
@@ -21,6 +24,7 @@ approvaltests = "^15.1.0"
 pytest = "^8.0.0"
 pytest-cov = "^6.0.0"
 requests-mock = "^1.12.1"
+pytest-recording = "^0.13.4" # TODO: remove if not used after fixing the geoparqued size issue
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.0"

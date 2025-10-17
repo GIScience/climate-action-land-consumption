@@ -2,11 +2,13 @@ import logging
 from typing import List
 
 import pandas as pd
-import shapely
 import plotly.express as px
-from plotly.graph_objs import Figure
-from climatoology.base.baseoperator import BaseOperator, _Artifact, AoiProperties, ComputationResources
+import shapely
+from _duckdb import DuckDBPyConnection
+from climatoology.base.baseoperator import AoiProperties, BaseOperator, ComputationResources, _Artifact
 from climatoology.base.info import _Info
+from ohsome import OhsomeClient
+from plotly.graph_objs import Figure
 from pyiceberg.catalog.rest import RestCatalog
 
 from land_consumption.artifact import build_table_artifact, build_treemap_artifact
@@ -23,9 +25,10 @@ log = logging.getLogger(__name__)
 
 
 class LandConsumption(BaseOperator[ComputeInput]):
-    def __init__(self, ohsome_catalog: RestCatalog):
+    def __init__(self, data_connection: RestCatalog | tuple[RestCatalog, DuckDBPyConnection] | OhsomeClient):
         super().__init__()
-        self.ohsome_catalog = ohsome_catalog
+        self.data_connection = data_connection
+
         log.debug('Initialised Land consumption Operator')
 
     def info(self) -> _Info:
@@ -42,7 +45,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
             f'Handling compute request: {params.model_dump()} in region {aoi_properties.model_dump()} in context: {resources}'
         )
 
-        categories_gdf = get_categories_gdf(aoi, catalog=self.ohsome_catalog)
+        categories_gdf = get_categories_gdf(aoi, data_connection=self.data_connection)
 
         log.info('Calculating area for each category')
         categories_gdf = calculate_area(categories_gdf)
