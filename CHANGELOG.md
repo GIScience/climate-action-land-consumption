@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project mostly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.0...main)
+## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.1...main)
+
+## [1.0.1](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.1) - 2025-10-17
+
+### Added
+
+- two more backends for querying the OSM data, in addition to the previous parquet approach: parquet via DuckDB, and
+  ohsome-py. ohsome-py is the default option, while the other options can be selected with the `BACKEND` env variable.
+  This addresses ([#54](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/54))
 
 ## [1.0.0](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.0)
 

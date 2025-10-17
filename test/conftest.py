@@ -51,7 +51,7 @@ def compute_resources():
 
 @pytest.fixture
 def operator(default_ohsome_catalog):
-    return LandConsumption(ohsome_catalog=default_ohsome_catalog)
+    return LandConsumption(data_connection=default_ohsome_catalog)
 
 
 @pytest.fixture

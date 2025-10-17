@@ -1,22 +1,14 @@
 import logging.config
 
+import duckdb
 from climatoology.app.plugin import start_plugin
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from ohsome import OhsomeClient
 from pyiceberg.catalog.rest import RestCatalog
 
 from land_consumption.operator_worker import LandConsumption
+from land_consumption.settings import Backend, Settings
 
 log = logging.getLogger(__name__)
-
-
-class Settings(BaseSettings):
-    ohsome_iceberg_uri: str
-    ohsome_minio_endpoint: str
-    ohsome_minio_access_key: str
-    ohsome_minio_access_key_id: str
-    ohsome_minio_region: str = 'eu-central-1'
-
-    model_config = SettingsConfigDict(env_file='.env')  # dead: disable
 
 
 def init_plugin() -> int:
@@ -28,6 +20,7 @@ def init_plugin() -> int:
     """
     settings = Settings()
 
+    # TODO: refactor later: make optional input optional and only initialise what is needed
     ohsome_catalog = RestCatalog(
         name='default',
         **{
@@ -40,7 +33,43 @@ def init_plugin() -> int:
         },
     )
 
-    operator = LandConsumption(ohsome_catalog=ohsome_catalog)
+    con = duckdb.connect(
+        # config={
+        #     'threads': 10,
+        #     'max_memory': '8GB',
+        #     # 'enable_object_cache': True
+        # }
+    )
+    query = f"""
+        INSTALL spatial;
+        INSTALL httpfs;
+        LOAD spatial;
+        LOAD httpfs;
+
+        DROP SECRET IF EXISTS "__default_s3";
+        CREATE SECRET (
+            TYPE S3,
+            KEY_ID '{settings.ohsome_minio_access_key_id}',
+            SECRET '{settings.ohsome_minio_access_key}',
+            REGION 'eu-central-1',
+            endpoint 'hot.storage.heigit.org',
+            use_ssl true,
+            url_style 'path'
+        );
+    """
+    con.sql(query)
+
+    match settings.backend:
+        case Backend.OHSOME_PY:
+            data_backend = OhsomeClient(user_agent='Land-Consumption Plugin')
+        case Backend.ICEBERG:
+            data_backend = ohsome_catalog
+        case Backend.ICEBERG_DUCKDB:
+            data_backend = (ohsome_catalog, con)
+        case _:
+            raise NotImplementedError(f'Backend {settings.backend} not implemented.')
+
+    operator = LandConsumption(data_connection=data_backend)
 
     log.info(f'Starting plugin: {operator.info().name}')
     return start_plugin(operator=operator)

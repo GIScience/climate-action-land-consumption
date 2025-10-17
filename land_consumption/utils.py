@@ -1,14 +1,16 @@
 import logging
 from enum import Enum
-from typing import Tuple, Callable
+from typing import Callable, Tuple
 
 import geopandas as gpd
 import pandas as pd
 import shapely
+from _duckdb import DuckDBPyConnection
+from climatoology.utility.exception import ClimatoologyUserError
 from geopandas import GeoDataFrame
+from ohsome import OhsomeClient
 from pandas import DataFrame
 from pyiceberg.catalog.rest import RestCatalog
-from climatoology.utility.exception import ClimatoologyUserError
 
 log = logging.getLogger(__name__)
 
@@ -105,7 +107,6 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
 
 
 def get_osm_data_from_parquet(
-    aoi_geom: shapely.MultiPolygon | shapely.Polygon,
     row_filter: str,
     selected_fields: Tuple[str, str],
     catalog: RestCatalog,
@@ -122,12 +123,75 @@ def get_osm_data_from_parquet(
     log.debug(f'Retrieved {df.shape[0]} rows from iceberg')
 
     df['tags'] = df['tags'].apply(lambda x: dict(x))
+    return gpd.GeoDataFrame(df, geometry=gpd.GeoSeries.from_wkt(df['geometry']))
+
+
+def get_osm_data_from_parquet_duckdb(
+    aoi_geom: shapely.MultiPolygon | shapely.Polygon,
+    row_filter: str,
+    selected_fields: Tuple[str, str],
+    catalog: RestCatalog,
+    con: DuckDBPyConnection,
+) -> GeoDataFrame:
+    namespace = 'geo_sort'
+    tablename = 'contributions'
+    icebergtable = catalog.load_table((namespace, tablename))
+    scan = icebergtable.scan(row_filter=row_filter, selected_fields=selected_fields)
+    files = [task.file.file_path for task in scan.plan_files()]
+    log.debug('Parquet files that will be accessed:', files)
+
+    # Get file sizes
+    # settings = Settings()
+    # client = Minio(
+    #     endpoint=settings.ohsome_minio_endpoint,
+    #     access_key=settings.ohsome_minio_access_key_id,
+    #     secret_key=settings.ohsome_minio_access_key,
+    #     region=settings.ohsome_minio_region,
+    # )
+    # sizes = [
+    #     client.stat_object(
+    #         bucket_name='heigit-ohsome-planet', object_name=file.replace('s3a://heigit-ohsome-planet/', '')
+    #     ).size
+    #     for file in files
+    # ]
+    # byte_to_gb_factor=0.00000000093132
+    # print('Total size of files on the server:', sum(sizes) * byte_to_gb_factor, 'GB')
+
+    sql = f"""
+        SELECT
+            osm_id,
+            {','.join(selected_fields)}
+        FROM read_parquet({files}) a
+        WHERE 1=1
+            and ST_Intersects(ST_GeomFromText(a.geometry), ST_GeomFromText('{aoi_geom.wkt}'))
+    """
+    df = con.sql(sql).df()
 
     gdf = gpd.GeoDataFrame(df, geometry=gpd.GeoSeries.from_wkt(df['geometry']))
-
-    gdf = gdf.clip(aoi_geom)
-
+    gdf['tags'] = gdf['tags'].apply(lambda x: dict(x))
     return gdf
+
+
+def get_osm_data_from_ohsomepy(
+    aoi_geom: shapely.MultiPolygon | shapely.Polygon,
+    geom_type: str,
+    selected_fields: Tuple[str, str],
+    client: OhsomeClient,
+) -> GeoDataFrame:
+    if geom_type == "'LineString', 'MultiLineString'":
+        row_filter = 'geometry:line'
+    else:
+        row_filter = 'geometry:polygon'
+
+    ohsome_response = client.elements.geometry.post(
+        properties='tags',
+        bpolys=aoi_geom,
+        filter=row_filter,
+        clipGeometry=True,
+    )
+    gdf = ohsome_response.as_dataframe()
+    gdf = gdf.reset_index(drop=True).rename(columns={'@other_tags': 'tags'})
+    return gdf[list(selected_fields)]
 
 
 def get_mode_values_for_road_types(highways_with_width: DataFrame) -> DataFrame:
@@ -222,7 +286,8 @@ def clip_geometries(categories_gdf: GeoDataFrame) -> GeoDataFrame:
 
 
 def request_osm_features(
-    aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog: RestCatalog
+    aoi_geom: shapely.Polygon | shapely.MultiPolygon,
+    data_connection: RestCatalog | tuple[RestCatalog, DuckDBPyConnection] | OhsomeClient,
 ) -> dict[str, gpd.GeoDataFrame]:
     xmin, ymin, xmax, ymax = aoi_geom.bounds
     categories_gdf = gpd.GeoDataFrame()
@@ -255,7 +320,30 @@ def request_osm_features(
 
         selected_fields = ('tags', 'geometry')
 
-        polygon_gdf = get_osm_data_from_parquet(aoi_geom, row_filter, selected_fields, catalog=catalog)
+        if isinstance(data_connection, RestCatalog):
+            log.info('Getting osm data from parquet')
+            polygon_gdf = get_osm_data_from_parquet(
+                row_filter=row_filter, selected_fields=selected_fields, catalog=data_connection
+            )
+        elif isinstance(data_connection, tuple):
+            log.info('Getting osm data from parquet with DuckDB')
+            polygon_gdf = get_osm_data_from_parquet_duckdb(
+                aoi_geom=aoi_geom,
+                row_filter=row_filter,
+                selected_fields=selected_fields,
+                catalog=data_connection[0],
+                con=data_connection[1],
+            )
+        elif isinstance(data_connection, OhsomeClient):
+            log.info('Getting osm data from ohsome-py')
+            polygon_gdf = get_osm_data_from_ohsomepy(
+                aoi_geom=aoi_geom, geom_type=geom_type, selected_fields=selected_fields, client=data_connection
+            )
+        else:
+            raise NotImplementedError(f'Data connection type not implemented: {data_connection}')
+
+        polygon_gdf = polygon_gdf.clip(aoi_geom)
+
         for category in categories:
             log.info(f'Processing category {category}')
             category_gdf = polygon_gdf[polygon_gdf['tags'].apply(get_land_object_filter(category))]
@@ -361,8 +449,11 @@ def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: g
     return landobjects_with_landuse
 
 
-def get_categories_gdf(aoi_geom: shapely.Polygon | shapely.MultiPolygon, catalog: RestCatalog) -> gpd.GeoDataFrame:
-    features = request_osm_features(aoi_geom, catalog)
+def get_categories_gdf(
+    aoi_geom: shapely.Polygon | shapely.MultiPolygon,
+    data_connection: RestCatalog | tuple[RestCatalog, DuckDBPyConnection] | OhsomeClient,
+) -> gpd.GeoDataFrame:
+    features = request_osm_features(aoi_geom, data_connection)
     return clean_overlapping_features(features['land_objects'], features['land_use'])
 
 

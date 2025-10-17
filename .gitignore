@@ -11,3 +11,5 @@ coverage.xml
 CI_JOB_TOKEN
 
 .DS_Store
+
+playground.py
