@@ -5,14 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project mostly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.1...main)
+## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.2...main)
+
+## [1.0.2](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.2) - 2025-10-22
+
+### Fixed
+
+- fixed bug with invalid OSM geometries from ohsome-py query ([#59](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/59))
+- changed road length to path count prior to ohsome-py query
 
 ## [1.0.1](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.1) - 2025-10-17
-
-### Changed
-
-- changed road length to path count prior to ohsome-py query
-- fixed bug with invalid OSM geometries from ohsome-py query
 
 ### Added
 
