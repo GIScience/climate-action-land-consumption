@@ -9,6 +9,11 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ## [1.0.1](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.1) - 2025-10-17
 
+### Changed
+
+- changed road length to path count prior to ohsome-py query
+- fixed bug with invalid OSM geometries from ohsome-py query
+
 ### Added
 
 - two more backends for querying the OSM data, in addition to the previous parquet approach: parquet via DuckDB, and

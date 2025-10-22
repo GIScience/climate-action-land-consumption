@@ -6,12 +6,13 @@ import pytest
 from climatoology.utility.exception import ClimatoologyUserError
 from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
+from ohsome import OhsomeClient
 
 from land_consumption.utils import (
     LandObjectCategory,
     assign_road_width,
     calculate_area,
-    check_road_length_limit,
+    check_path_count,
     clip_geometries,
     generate_buffer,
     get_categories_gdf,
@@ -19,6 +20,7 @@ from land_consumption.utils import (
     get_number_of_lanes,
     get_road_type,
     get_width_value,
+    clip_to_aoi,
 )
 
 
@@ -161,25 +163,20 @@ def test_get_categories_gdf_with_features(mock_get_osm_data, default_ohsome_cata
     assert categories_gdf.union_all().area == pytest.approx(aoi_geom.area)
 
 
-def test_check_road_length_limit():
-    category_pass = LandObjectCategory.PARKING_LOTS
-    category_catch = LandObjectCategory.ROADS
+def test_check_path_count(default_aoi, responses_mock):
+    with open('resources/test/ohsome_count_response.json', 'rb') as paths_count:
+        responses_mock.post(
+            'https://api.ohsome.org/v1/elements/count',
+            body=paths_count.read(),
+        )
 
-    empty_data_frame = gpd.GeoDataFrame(columns=['tags', 'LandUseCategory'], geometry=[], crs=4326)
-    small_geometries = gpd.GeoDataFrame(
-        data={'tags': [{'highway': 'primary'}]}, geometry=[LineString([(0, 0), (1000, 0)])], crs='EPSG:23032'
-    ).to_crs('EPSG:4326')
-    large_geometries = small_geometries.loc[small_geometries.index.repeat(10000)].reset_index()
-
-    check_road_length_limit(category_pass, empty_data_frame)
-    check_road_length_limit(category_pass, small_geometries)
-    check_road_length_limit(category_pass, large_geometries)
-
-    check_road_length_limit(category_catch, empty_data_frame)
-    check_road_length_limit(category_catch, small_geometries)
-
+    # test false situation
     with pytest.raises(ClimatoologyUserError):
-        check_road_length_limit(category_catch, large_geometries)
+        check_path_count(default_aoi, OhsomeClient(), 5000, filter='geometry:line')
+
+
+def test_check_path_count_polygon(default_aoi):
+    check_path_count(default_aoi, OhsomeClient(), 1, filter='geometry:polygon')
 
 
 def test_clip_geometries_no_interior_intersection(categories_gdf):
@@ -197,6 +194,24 @@ def test_clip_geometries_no_interior_intersection(categories_gdf):
 
     assert set(result['category']) == set(categories_gdf['category'])
     assert len(result) == len(categories_gdf)
+
+
+def test_clip_to_aoi():
+    aoi_geom = Polygon(
+        [
+            (16.369602655, 48.21069154),
+            (16.403734349, 48.21069154),
+            (16.403734349, 48.229465035),
+            (16.369602655, 48.229465035),
+            (16.369602655, 48.21069154),
+        ]
+    )
+    polygon_gdf = gpd.read_file('resources/test/test_clip_to_aoi_data.gpkg')
+    geom_type = "'Polygon', 'MultiPolygon'"
+
+    polygon_gdf = clip_to_aoi(polygon_gdf=polygon_gdf, aoi_geom=aoi_geom, geom_type=geom_type)
+
+    all(polygon_gdf.is_valid)
 
 
 # @pytest.mark.vcr

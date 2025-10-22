@@ -9,6 +9,7 @@ from climatoology.base.baseoperator import AoiProperties
 from climatoology.base.computation import ComputationScope
 from pyiceberg.catalog.rest import RestCatalog
 from requests_mock import Mocker
+import responses
 from shapely.geometry.polygon import Polygon
 
 from land_consumption.input import ComputeInput
@@ -47,6 +48,12 @@ def expected_compute_input() -> ComputeInput:
 def compute_resources():
     with ComputationScope(uuid.uuid4()) as resources:
         yield resources
+
+
+@pytest.fixture()
+def responses_mock():
+    with responses.RequestsMock() as rsps:
+        yield rsps
 
 
 @pytest.fixture

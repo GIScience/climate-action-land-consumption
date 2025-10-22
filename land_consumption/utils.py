@@ -180,8 +180,10 @@ def get_osm_data_from_ohsomepy(
 ) -> GeoDataFrame:
     if geom_type == "'LineString', 'MultiLineString'":
         row_filter = 'geometry:line'
-    else:
+    elif geom_type == "'Polygon', 'MultiPolygon'":
         row_filter = 'geometry:polygon'
+
+    check_path_count(aoi_geom=aoi_geom, client=client, count_limit=100000, filter=geom_type)
 
     ohsome_response = client.elements.geometry.post(
         properties='tags',
@@ -342,7 +344,7 @@ def request_osm_features(
         else:
             raise NotImplementedError(f'Data connection type not implemented: {data_connection}')
 
-        polygon_gdf = polygon_gdf.clip(aoi_geom)
+        polygon_gdf = clip_to_aoi(polygon_gdf=polygon_gdf, aoi_geom=aoi_geom, geom_type=geom_type)
 
         for category in categories:
             log.info(f'Processing category {category}')
@@ -352,7 +354,6 @@ def request_osm_features(
                 category_gdf = category_gdf.set_crs('EPSG:4326')
                 # fails as AttributeError if there's no active geometry column e.g. in an empty GeoDataFrame
 
-                check_road_length_limit(category, category_gdf)
             except AttributeError:
                 log.warning(f'Received empty dataframe for {category}. Continuing with empty GeoDataFrame')
                 category_gdf = gpd.GeoDataFrame(columns=polygon_gdf.columns)
@@ -372,19 +373,19 @@ def request_osm_features(
     }
 
 
-def check_road_length_limit(category: LandObjectCategory, category_gdf: gpd.GeoDataFrame) -> None:
-    max_road_length = 9300000.0  # based on Munich which barely succeeds within the 30 min time limit
-    try:
-        if (
-            category == LandObjectCategory.ROADS
-            and category_gdf.to_crs(category_gdf.estimate_utm_crs()).length.sum() >= max_road_length
-        ):
-            raise ClimatoologyUserError(
-                f'Road Length exceeds {max_road_length / 1000:.1f} km of allowed road length. Please, select a smaller area ar a sub-region of your selected area.'
-            )
-
-    except ValueError as e:
-        log.warning(f'{e}')
+def check_path_count(
+    aoi_geom: shapely.Polygon | shapely.MultiPolygon, client: OhsomeClient, count_limit: int, filter: str
+) -> None:
+    if filter == 'geometry:polygon':
+        return None
+    ohsome_responses = client.elements.count.post(bpolys=aoi_geom, filter=filter).data
+    path_lines_count = sum([response['value'] for response in ohsome_responses['result']])
+    log.info(f'There are {path_lines_count} paths selected.')
+    if path_lines_count > count_limit:
+        raise ClimatoologyUserError(
+            'There are too many OSM objects in the selected area. '
+            'Please select a smaller area or a sub-region of your selected area.'
+        )
 
 
 def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
@@ -492,3 +493,22 @@ def sort_land_consumption_table(
 
     df.set_index('Land Use Object', inplace=True)
     return df
+
+
+def clip_to_aoi(
+    polygon_gdf: gpd.GeoDataFrame,
+    aoi_geom: shapely.Polygon | shapely.MultiPolygon,
+    geom_type: str,
+) -> gpd.GeoDataFrame:
+    if all(polygon_gdf.is_valid):
+        polygon_gdf = polygon_gdf.clip(aoi_geom)
+    else:
+        polygon_gdf['geometry'] = polygon_gdf['geometry'].make_valid()
+        polygon_gdf = polygon_gdf.explode(ignore_index=True)
+
+        target_geoms = [t.strip('\'"') for t in geom_type.split(', ')]
+        polygon_gdf = polygon_gdf[polygon_gdf['geometry'].geom_type.isin(target_geoms)]
+
+        polygon_gdf = polygon_gdf.clip(aoi_geom)
+
+    return polygon_gdf

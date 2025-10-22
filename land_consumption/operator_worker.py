@@ -44,7 +44,6 @@ class LandConsumption(BaseOperator[ComputeInput]):
         log.info(
             f'Handling compute request: {params.model_dump()} in region {aoi_properties.model_dump()} in context: {resources}'
         )
-
         categories_gdf = get_categories_gdf(aoi, data_connection=self.data_connection)
 
         log.info('Calculating area for each category')
