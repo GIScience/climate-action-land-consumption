@@ -11,7 +11,7 @@ climatoology = { git = "ssh://git@gitlab.heigit.org:2022/climate-action/climatoo
 pydantic = "^2.5.3"
 pydantic-settings = "^2.1.0"
 shapely = "^2.0.2"
-pyiceberg = "^0.9.0"
+pyiceberg = "^0.10.0"
 pyarrow = "^21.0.0"
 approvaltests = "^15.1.0"
 duckdb = "^1.4.1"
@@ -24,7 +24,7 @@ ohsome = "^0.4.0"
 pytest = "^8.0.0"
 pytest-cov = "^6.0.0"
 requests-mock = "^1.12.1"
-responses = "^0.24.1"
+responses = "^0.25.0"
 pytest-recording = "^0.13.4" # TODO: remove if not used after fixing the geoparqued size issue
 
 [tool.poetry.group.dev.dependencies]
