@@ -7,6 +7,7 @@ import pytest
 import shapely
 from climatoology.base.baseoperator import AoiProperties
 from climatoology.base.computation import ComputationScope
+from ohsome import OhsomeClient
 from pyiceberg.catalog.rest import RestCatalog
 from requests_mock import Mocker
 import responses
@@ -23,11 +24,11 @@ def default_aoi() -> shapely.MultiPolygon:
         polygons=[
             [
                 [
-                    [12.3, 48.22],
-                    [12.3, 48.34],
-                    [12.48, 48.34],
-                    [12.48, 48.22],
-                    [12.3, 48.22],
+                    [8.66, 49.425],
+                    [8.66, 49.43],
+                    [8.67, 49.43],
+                    [8.67, 49.425],
+                    [8.66, 49.425],
                 ]
             ]
         ]
@@ -57,8 +58,8 @@ def responses_mock():
 
 
 @pytest.fixture
-def operator(default_ohsome_catalog):
-    return LandConsumption(data_connection=default_ohsome_catalog)
+def default_operator():
+    return LandConsumption(data_connection=OhsomeClient(user_agent='Land-Consumption Test'))
 
 
 @pytest.fixture

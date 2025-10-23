@@ -1,5 +1,4 @@
 import ast
-from unittest.mock import patch
 
 import geopandas as gpd
 import pytest
@@ -116,51 +115,21 @@ def test_generate_buffer_from_gdf(roads_df):
     assert ~buffered_roads['geometry'].is_empty.all() & buffered_roads['geometry'].notna().all()
 
 
-@patch('land_consumption.utils.get_osm_data_from_parquet')
-def test_get_categories_gdf_no_features(mock_get_osm_data, default_ohsome_catalog):
-    mock_get_osm_data.return_value = gpd.GeoDataFrame(
-        {
-            'tags': [{'building': 'no'}, {'no_highway': 'primary'}, {'landuse': 'commercial'}],
-            'geometry': [
-                Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]),
-                LineString([(0, 0), (1, 1)]),
-                Polygon([(0, 0), (2, 0), (2, 2), (0, 2)]),
-            ],
-        }
-    )
-
-    aoi_geom = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
-    categories_gdf = get_categories_gdf(aoi_geom, data_connection=default_ohsome_catalog)
+@pytest.mark.vcr
+def test_get_categories_gdf_no_features(default_aoi):
+    categories_gdf = get_categories_gdf(default_aoi, data_connection=OhsomeClient(user_agent='Land-Consumption Test'))
 
     assert not categories_gdf.empty
     assert 'category' in categories_gdf.columns
 
 
-@patch('land_consumption.utils.get_osm_data_from_parquet')
-def test_get_categories_gdf_with_features(mock_get_osm_data, default_ohsome_catalog):
-    mock_get_osm_data.return_value = gpd.GeoDataFrame(
-        {
-            'tags': [
-                {'building': 'yes'},
-                {'highway': 'primary'},
-                {'amenity': 'parking', 'parking': 'surface'},
-                {'landuse': 'residential'},
-            ]
-        },
-        geometry=[
-            Polygon([(0, 0), (0.25, 0), (0.25, 0.25), (0, 0.25)]),
-            LineString([(0, 0), (1, 1)]),
-            Polygon([(0, 0), (0.5, 0), (0.5, 0.5), (0, 0.5)]),
-            Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]),
-        ],
-    )
-
-    aoi_geom = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
-    categories_gdf = get_categories_gdf(aoi_geom, data_connection=default_ohsome_catalog)
+@pytest.mark.vcr
+def test_get_categories_gdf_with_features(default_aoi):
+    categories_gdf = get_categories_gdf(default_aoi, data_connection=OhsomeClient(user_agent='Land-Consumption Test'))
 
     assert not categories_gdf.empty
     assert 'category' in categories_gdf.columns
-    assert categories_gdf.union_all().area == pytest.approx(aoi_geom.area)
+    assert categories_gdf.union_all().area == pytest.approx(default_aoi.area)
 
 
 def test_check_path_count(default_aoi, responses_mock):

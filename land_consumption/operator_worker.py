@@ -28,6 +28,8 @@ class LandConsumption(BaseOperator[ComputeInput]):
     def __init__(self, data_connection: RestCatalog | tuple[RestCatalog, DuckDBPyConnection] | OhsomeClient):
         super().__init__()
         self.data_connection = data_connection
+        if isinstance(data_connection, RestCatalog) or isinstance(data_connection, tuple):
+            log.warning(f'Data connection {data_connection} is not tested')
 
         log.debug('Initialised Land consumption Operator')
 
