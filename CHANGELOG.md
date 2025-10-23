@@ -7,12 +7,15 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.3...main)
 
+### Added
 
-## [1.0.3](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.2) - 2025-10-23
+- added tests for ohsome-py data connection and warn if using other data connections ([#60](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/60))
+
+## [1.0.3](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.3) - 2025-10-23
 
 ### Fixed
 
-- fixed bug with ohsome-py filter for checking path count, not yet tested ([#60](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/59))
+- fixed bug with ohsome-py filter for checking path count, not yet tested ([#60](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/60))
 
 ## [1.0.2](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.2) - 2025-10-22
 
