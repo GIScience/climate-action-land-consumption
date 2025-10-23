@@ -4,9 +4,9 @@ from unittest.mock import patch
 import geopandas as gpd
 import pytest
 from climatoology.utility.exception import ClimatoologyUserError
+from ohsome import OhsomeClient
 from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
-from ohsome import OhsomeClient
 
 from land_consumption.utils import (
     LandObjectCategory,
@@ -14,13 +14,13 @@ from land_consumption.utils import (
     calculate_area,
     check_path_count,
     clip_geometries,
+    clip_to_aoi,
     generate_buffer,
     get_categories_gdf,
     get_land_object_filter,
     get_number_of_lanes,
     get_road_type,
     get_width_value,
-    clip_to_aoi,
 )
 
 
@@ -172,11 +172,11 @@ def test_check_path_count(default_aoi, responses_mock):
 
     # test false situation
     with pytest.raises(ClimatoologyUserError):
-        check_path_count(default_aoi, OhsomeClient(), 5000, filter='geometry:line')
+        check_path_count(default_aoi, OhsomeClient(), 5000, row_filter='geometry:line')
 
 
 def test_check_path_count_polygon(default_aoi):
-    check_path_count(default_aoi, OhsomeClient(), 1, filter='geometry:polygon')
+    check_path_count(default_aoi, OhsomeClient(), 1, row_filter='geometry:polygon')
 
 
 def test_clip_geometries_no_interior_intersection(categories_gdf):
@@ -211,7 +211,7 @@ def test_clip_to_aoi():
 
     polygon_gdf = clip_to_aoi(polygon_gdf=polygon_gdf, aoi_geom=aoi_geom, geom_type=geom_type)
 
-    all(polygon_gdf.is_valid)
+    assert all(polygon_gdf.is_valid)
 
 
 # @pytest.mark.vcr

@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project mostly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.2...main)
+## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.3...main)
+
+
+## [1.0.3](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.2) - 2025-10-23
+
+### Fixed
+
+- fixed bug with ohsome-py filter for checking path count, not yet tested ([#60](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/59))
 
 ## [1.0.2](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.2) - 2025-10-22
 
