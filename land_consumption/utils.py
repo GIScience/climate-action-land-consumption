@@ -183,7 +183,7 @@ def get_osm_data_from_ohsomepy(
     elif geom_type == "'Polygon', 'MultiPolygon'":
         row_filter = 'geometry:polygon'
 
-    check_path_count(aoi_geom=aoi_geom, client=client, count_limit=100000, filter=geom_type)
+    check_path_count(aoi_geom=aoi_geom, client=client, count_limit=100000, row_filter=row_filter)
 
     ohsome_response = client.elements.geometry.post(
         properties='tags',
@@ -374,11 +374,11 @@ def request_osm_features(
 
 
 def check_path_count(
-    aoi_geom: shapely.Polygon | shapely.MultiPolygon, client: OhsomeClient, count_limit: int, filter: str
+    aoi_geom: shapely.Polygon | shapely.MultiPolygon, client: OhsomeClient, count_limit: int, row_filter: str
 ) -> None:
-    if filter == 'geometry:polygon':
+    if row_filter == 'geometry:polygon':
         return None
-    ohsome_responses = client.elements.count.post(bpolys=aoi_geom, filter=filter).data
+    ohsome_responses = client.elements.count.post(bpolys=aoi_geom, filter=row_filter).data
     path_lines_count = sum([response['value'] for response in ohsome_responses['result']])
     log.info(f'There are {path_lines_count} paths selected.')
     if path_lines_count > count_limit:
