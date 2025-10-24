@@ -5,11 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project mostly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.3...main)
+## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.4...main)
+
+## [1.0.4](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.4) - 2025-10-24
 
 ### Added
 
-- added tests for ohsome-py data connection and warn if using other data connections ([#60](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/60))
+- added tests for ohsome-py data connection and warn if using other data
+  connections ([#60](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/60))
+
+### Fixed
+
+- explode geometries before `make_valid` to avoid mixed-dimension
+  inputs ([#61](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/61))
 
 ## [1.0.3](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.3) - 2025-10-23
 
