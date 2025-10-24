@@ -503,6 +503,8 @@ def clip_to_aoi(
     if all(polygon_gdf.is_valid):
         polygon_gdf = polygon_gdf.clip(aoi_geom)
     else:
+        # make_valid doesn't work with mixed-dimension geometries, so explode first
+        polygon_gdf = polygon_gdf.explode(ignore_index=True)
         polygon_gdf['geometry'] = polygon_gdf['geometry'].make_valid()
         polygon_gdf = polygon_gdf.explode(ignore_index=True)
 
