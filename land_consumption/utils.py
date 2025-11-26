@@ -36,6 +36,55 @@ class LandUseCategory(Enum):
     OTHER = 'Other land uses'
 
 
+LANDUSE_VALUE_MAP = {
+    'garages': LandUseCategory.INFRASTRUCTURE,
+    'railway': LandUseCategory.INFRASTRUCTURE,
+    'harbour': LandUseCategory.INFRASTRUCTURE,
+    'port': LandUseCategory.INFRASTRUCTURE,
+    'lock': LandUseCategory.INFRASTRUCTURE,
+    'marina': LandUseCategory.INFRASTRUCTURE,
+    'military': LandUseCategory.INSTITUTIONAL,
+    'religious': LandUseCategory.INSTITUTIONAL,
+    'cemetery': LandUseCategory.INSTITUTIONAL,
+    'commercial': LandUseCategory.COMMERCIAL,
+    'retail': LandUseCategory.COMMERCIAL,
+    'residential': LandUseCategory.RESIDENTIAL,
+    'industrial': LandUseCategory.INDUSTRIAL,
+    'allotments': LandUseCategory.AGRICULTURAL,
+    'farmland': LandUseCategory.AGRICULTURAL,
+    'farmyard': LandUseCategory.AGRICULTURAL,
+    'meadow': LandUseCategory.AGRICULTURAL,
+    'orchard': LandUseCategory.AGRICULTURAL,
+    'plant_nursery': LandUseCategory.AGRICULTURAL,
+    'vineyard': LandUseCategory.AGRICULTURAL,
+    'forest': LandUseCategory.NATURAL,
+}
+
+AMENITY_INSTITUTIONAL_TAGS = [
+    'university',
+    'school',
+    'college',
+    'hospital',
+    'clinic',
+    'community_centre',
+    'courthouse',
+    'fire_station',
+    'police_station',
+    'prison',
+    'townhall',
+    'monastery',
+    'place_of_worship',
+]
+
+AMENITY_INFRASTRUCTURE_TAGS = [
+    'bus_station',
+    'ferry_terminal',
+    'college',
+    'hospital',
+    'clinic',
+]
+
+
 GEOM_TYPE_LOOKUP = {
     "'LineString', 'MultiLineString'": [LandObjectCategory.ROADS],
     "'Polygon', 'MultiPolygon'": [LandObjectCategory.BUILDINGS, LandObjectCategory.PARKING_LOTS],
@@ -64,46 +113,22 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
     natural = tags.get('natural')
     leisure = tags.get('leisure')
     amenity = tags.get('amenity')
+    man_made = tags.get('man_made')
 
-    match landuse:
-        case 'garages' | 'railway' | 'harbour' | 'port' | 'lock' | 'marina':
-            return LandUseCategory.INFRASTRUCTURE
-        case 'military' | 'religious' | 'cemetery':
-            return LandUseCategory.INSTITUTIONAL
-        case 'commercial' | 'retail':
-            return LandUseCategory.COMMERCIAL
-        case 'residential':
-            return LandUseCategory.RESIDENTIAL
-        case 'industrial':
-            return LandUseCategory.INDUSTRIAL
-        case 'allotments' | 'farmland' | 'farmyard' | 'meadow' | 'orchard' | 'orchard' | 'plant_nursery' | 'vineyard':
-            return LandUseCategory.AGRICULTURAL
-        case 'beach' | 'forest':
-            return LandUseCategory.NATURAL
-    if leisure == 'nature_reserve':
+    if landuse_category := LANDUSE_VALUE_MAP.get(landuse):
+        return landuse_category
+    elif leisure == 'nature_reserve':
         return LandUseCategory.NATURAL
-    if amenity in [
-        'university',
-        'school',
-        'college',
-        'hospital',
-        'clinic',
-        'community_centre',
-        'courthouse',
-        'fire_station',
-        'police_station',
-        'prison',
-        'townhall',
-        'monastery',
-        'place_of_worship',
-    ]:
+    elif amenity in AMENITY_INSTITUTIONAL_TAGS:
         return LandUseCategory.INSTITUTIONAL
-    if amenity in ['bus_station', 'ferry_terminal', 'college', 'hospital', 'clinic']:
+    elif amenity in AMENITY_INFRASTRUCTURE_TAGS:
         return LandUseCategory.INFRASTRUCTURE
-    if natural is not None:
+    elif natural is not None:
         return LandUseCategory.NATURAL
-
-    return LandUseCategory.OTHER
+    elif man_made is not None:
+        return LandUseCategory.OTHER
+    else:
+        return LandUseCategory.OTHER
 
 
 def get_osm_data_from_parquet(
@@ -178,10 +203,7 @@ def get_osm_data_from_ohsomepy(
     selected_fields: Tuple[str, str],
     client: OhsomeClient,
 ) -> GeoDataFrame:
-    if geom_type == "'LineString', 'MultiLineString'":
-        row_filter = 'geometry:line'
-    elif geom_type == "'Polygon', 'MultiPolygon'":
-        row_filter = 'geometry:polygon'
+    row_filter = build_ohsome_filter(geom_type)
 
     check_path_count(aoi_geom=aoi_geom, client=client, count_limit=100000, row_filter=row_filter)
 
@@ -376,7 +398,7 @@ def request_osm_features(
 def check_path_count(
     aoi_geom: shapely.Polygon | shapely.MultiPolygon, client: OhsomeClient, count_limit: int, row_filter: str
 ) -> None:
-    if row_filter == 'geometry:polygon':
+    if row_filter.startswith('geometry:polygon'):
         return None
     ohsome_responses = client.elements.count.post(bpolys=aoi_geom, filter=row_filter).data
     path_lines_count = sum([response['value'] for response in ohsome_responses['result']])
@@ -514,3 +536,31 @@ def clip_to_aoi(
         polygon_gdf = polygon_gdf.clip(aoi_geom)
 
     return polygon_gdf
+
+
+def build_ohsome_filter(
+    geom_type: str,
+) -> str:
+    if geom_type == "'LineString', 'MultiLineString'":
+        return 'geometry:line and (highway=*)'
+
+    elif geom_type == "'Polygon', 'MultiPolygon'":
+        row_filter = []
+
+        row_filter.append('(building=*)')
+        row_filter.append('(amenity=parking and parking=surface)')
+
+        landuse_values = ','.join(LANDUSE_VALUE_MAP.keys())
+        row_filter.append(f'(landuse in ({landuse_values}))')
+
+        row_filter.append('(natural=*)')
+        row_filter.append('(leisure=nature_reserve)')
+        row_filter.append('(man_made=*)')
+
+        all_amenity_values = AMENITY_INSTITUTIONAL_TAGS + AMENITY_INFRASTRUCTURE_TAGS
+        amenity_values = ','.join(all_amenity_values)
+        row_filter.append(f'(amenity in ({amenity_values}))')
+
+        return 'geometry:polygon and (' + ' or '.join(row_filter) + ')'
+
+    raise ValueError('Unknown geometry-type!')
