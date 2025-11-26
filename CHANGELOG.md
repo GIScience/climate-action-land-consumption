@@ -7,6 +7,10 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.4...main)
 
+### Added
+
+- added ohsome filter function for leaner ohsome py requests
+
 ## [1.0.4](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.4) - 2025-10-24
 
 ### Added

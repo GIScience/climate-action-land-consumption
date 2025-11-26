@@ -6,6 +6,7 @@ from climatoology.utility.exception import ClimatoologyUserError
 from ohsome import OhsomeClient
 from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
+from ohsome_filter_to_sql.main import ohsome_filter_to_sql
 
 from land_consumption.utils import (
     LandObjectCategory,
@@ -20,6 +21,7 @@ from land_consumption.utils import (
     get_number_of_lanes,
     get_road_type,
     get_width_value,
+    build_ohsome_filter,
 )
 
 
@@ -181,6 +183,12 @@ def test_clip_to_aoi():
     polygon_gdf = clip_to_aoi(polygon_gdf=polygon_gdf, aoi_geom=aoi_geom, geom_type=geom_type)
 
     assert all(polygon_gdf.is_valid)
+
+
+def test_build_ohsome_filter():
+    for geometry_type in ["'LineString', 'MultiLineString'", "'Polygon', 'MultiPolygon'"]:
+        ohsome_filter = build_ohsome_filter(geometry_type)
+        ohsome_filter_to_sql(ohsome_filter)
 
 
 # @pytest.mark.vcr
