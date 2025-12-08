@@ -1,7 +1,6 @@
 import pandas as pd
 
-from land_consumption.operator_worker import LandConsumption
-
+from land_consumption.components.land_consumption import get_basic_table, get_detailed_table, create_treemap
 from approvaltests import verify
 
 
@@ -17,7 +16,7 @@ def test_get_basic_table():
         }
     )
 
-    received = LandConsumption.get_basic_table(data)
+    received = get_basic_table(data)
 
     verify(received.to_json(indent=2))
 
@@ -40,7 +39,7 @@ def test_get_detailed_table():
         }
     )
 
-    received = LandConsumption.get_detailed_table(data)
+    received = get_detailed_table(data)
 
     verify(received.to_csv())
 
@@ -57,7 +56,7 @@ def test_get_basic_table_non_100():
         }
     )
 
-    received = LandConsumption.get_basic_table(data)
+    received = get_basic_table(data)
 
     verify(received.to_csv())
 
@@ -74,7 +73,7 @@ def test_get_detailed_table_non_100():
         }
     )
 
-    received = LandConsumption.get_detailed_table(data)
+    received = get_detailed_table(data)
 
     verify(received.to_csv())
 
@@ -91,7 +90,7 @@ def test_table_sorted():
         }
     )
 
-    received = LandConsumption.get_detailed_table(data)
+    received = get_detailed_table(data)
 
     verify(received.to_csv())
 
@@ -108,7 +107,7 @@ def test_get_treemap():
         }
     )
 
-    fig = LandConsumption.create_treemap(data)
+    fig = create_treemap(data)
 
     assert fig.data[0].type == 'treemap'
     assert [

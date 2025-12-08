@@ -5,8 +5,8 @@ from climatoology.app.plugin import start_plugin
 from ohsome import OhsomeClient
 from pyiceberg.catalog.rest import RestCatalog
 
-from land_consumption.operator_worker import LandConsumption
-from land_consumption.settings import Backend, Settings
+from land_consumption.core.operator_worker import LandConsumption
+from land_consumption.core.settings import Backend, Settings
 
 log = logging.getLogger(__name__)
 
