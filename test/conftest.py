@@ -13,9 +13,9 @@ from requests_mock import Mocker
 import responses
 from shapely.geometry.polygon import Polygon
 
-from land_consumption.input import ComputeInput
-from land_consumption.operator_worker import LandConsumption
-from land_consumption.utils import LandObjectCategory
+from land_consumption.core.input import ComputeInput
+from land_consumption.core.operator_worker import LandConsumption
+from land_consumption.components.landuse_category_mappings import LandObjectCategory
 
 
 @pytest.fixture
@@ -90,7 +90,7 @@ def mock_get_osm_from_parquet():
     osm_from_parquet_gdf = gpd.read_file('resources/test/osm_from_parquet_response.geojson')
     osm_from_parquet_gdf['tags'] = osm_from_parquet_gdf['tags'].apply(lambda x: ast.literal_eval(x))
 
-    with patch('land_consumption.utils.get_osm_data_from_parquet') as mock_gdf:
+    with patch('land_consumption.components.osm_requests.get_osm_data_from_parquet') as mock_gdf:
         mock_gdf.return_value = osm_from_parquet_gdf
         yield mock_gdf
 

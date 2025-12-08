@@ -5,7 +5,7 @@ from semver import Version
 from pathlib import Path
 import logging
 
-from land_consumption.input import ComputeInput
+from land_consumption.core.input import ComputeInput
 
 log = logging.getLogger(__name__)
 

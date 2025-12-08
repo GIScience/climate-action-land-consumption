@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 from climatoology.base.artifact import ArtifactModality
 
-from land_consumption.artifact import build_table_artifact, build_treemap_artifact
+from land_consumption.components.artifact import build_table_artifact, build_treemap_artifact
 import plotly.express as px
 
 
