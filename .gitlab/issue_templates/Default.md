@@ -23,8 +23,8 @@
 ## Environment
 
 - Plugin version: (e.g. 0.1.0 or current-latest)
-- Climatoology version: (e.g. 5.0.0)
+- Climatoology version: (e.g. 7.0.0)
 
 If applicable (i.e. if you ran into the problem locally)
-- Python version: (e.g. 3.11.5)
+- Python version: (e.g. 3.13.5)
 - OS: (e.g. Ubuntu 22.04)

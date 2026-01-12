@@ -11,6 +11,9 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 - added ohsome filter function for leaner ohsome py requests
 
+### Changed
+- updated climatoology to v7.0.0
+
 ## [1.0.4](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.4) - 2025-10-24
 
 ### Added

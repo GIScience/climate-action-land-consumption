@@ -1,15 +1,14 @@
 import pandas as pd
 from plotly.graph_objs import Figure
-
-from climatoology.base.artifact import (
+from climatoology.base.artifact import Artifact, ArtifactMetadata
+from climatoology.base.artifact_creators import (
     create_table_artifact,
     create_plotly_chart_artifact,
-    _Artifact,
 )
 from climatoology.base.computation import ComputationResources
 
 
-def build_table_artifact(data: pd.DataFrame, resources: ComputationResources, title: str) -> _Artifact:
+def build_table_artifact(data: pd.DataFrame, resources: ComputationResources, title: str) -> Artifact:
     data = data.round(2)
     filename = f'table_landconsumption_{title}'
     if title == 'basic':
@@ -28,31 +27,35 @@ def build_table_artifact(data: pd.DataFrame, resources: ComputationResources, ti
     else:
         caption = 'The proportion of land consumed by different land use objects and classes.'
 
+    table_artifact_metadata = ArtifactMetadata(
+        name=f'{title.title()} Report',
+        summary=caption,
+        description=description,
+        filename=filename,
+    )
     return create_table_artifact(
         data=data,
-        title=f'{title.title()} Report',
-        caption=caption,
-        description=description,
+        metadata=table_artifact_metadata,
         resources=resources,
-        filename=filename,
     )
 
 
 def build_treemap_artifact(
     figure: Figure,
     resources: ComputationResources,
-) -> _Artifact:
-    return create_plotly_chart_artifact(
-        figure=figure,
-        title='Land Consumption Treemap',
-        caption=(
-            'Click on the boxes to explore the Land Consumption treemap. To return to the top level, '
-            'click “Land Use Overview.”'
-        ),
+) -> Artifact:
+    plotly_chart_artifact_metadata = ArtifactMetadata(
+        name='Land Consumption Treemap',
+        summary='Click on the boxes to explore the Land Consumption treemap. To return to the top level, '
+        'click “Land Use Overview.”',
         description=(
             'The Land Consumption Treemap hierarchically visualizes the proportion of land consumed in a '
             'given area by land use object (e.g. buildings) and by land use class (e.g. residential).'
         ),
-        resources=resources,
         filename='land_consumption_treemap',
+    )
+    return create_plotly_chart_artifact(
+        figure=figure,
+        metadata=plotly_chart_artifact_metadata,
+        resources=resources,
     )
