@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import pandas as pd
 from climatoology.base.artifact import ArtifactModality
 
@@ -16,12 +14,12 @@ def test_build_table_artifact(compute_resources):
             '% of Settled Land Area': [20, 80, 100],
         }
     )
-    expected_file_path = Path(compute_resources.computation_dir / 'table_landconsumption_basic.csv')
+    expected_filename = 'table_landconsumption_basic.csv'
     computed_output = build_table_artifact(data=input, resources=compute_resources, title='basic')
 
     assert computed_output.modality == ArtifactModality.TABLE
     assert computed_output.name == 'Basic Report'
-    assert computed_output.file_path == expected_file_path
+    assert computed_output.filename == expected_filename
 
 
 def test_build_treemap_artifact(compute_resources):
@@ -41,10 +39,10 @@ def test_build_treemap_artifact(compute_resources):
         values='Total Land Area [ha]',
         custom_data=['Land Use Object', 'Land Use Class'],
     )
-    expected_file_path = Path(compute_resources.computation_dir / 'land_consumption_treemap.json')
+    expected_filename = 'land_consumption_treemap.json'
 
     computed_output = build_treemap_artifact(figure=input_treemap, resources=compute_resources)
 
     assert computed_output.modality == ArtifactModality.CHART_PLOTLY
     assert computed_output.name == 'Land Consumption Treemap'
-    assert computed_output.file_path == expected_file_path
+    assert computed_output.filename == expected_filename

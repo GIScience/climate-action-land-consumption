@@ -1,25 +1,27 @@
-[tool.poetry]
+[project]
 name = "land-consumption"
 version = "1.0.4"
 description = "This is the land consumption indicator."
-authors = ["Charles Hatfield <charles.hatfield@heigit.org>"]
+authors = [{ name = "Charles Hatfield", email = "charles.hatfield@heigit.org" },]
 readme = "README.md"
+requires-python = ">=3.13.5,<3.14"
 
-[tool.poetry.dependencies]
-python = "~3.11.5"
-climatoology = { git = "ssh://git@gitlab.heigit.org:2022/climate-action/climatoology.git", tag = "6.4.3" }
-pydantic = "^2.5.3"
-pydantic-settings = "^2.1.0"
-shapely = "^2.0.2"
-pyiceberg = "^0.10.0"
-pyarrow = "^21.0.0"
-approvaltests = "^15.1.0"
-duckdb = "^1.4.1"
-memray = "^1.18.0"
-ohsome = "^0.4.0"
-ohsome-filter-to-sql = "^0.1.0"
+dependencies = [
+    "climatoology @ git+ssh://git@gitlab.heigit.org:2022/climate-action/climatoology.git@7.0.0",
+    "pydantic (>=2.5.3,<3.0.0)",   # see https://gitlab.heigit.org/climate-action/climatoology/-/issues/105
+    "pydantic-settings (>=2.1.0,<3.0.0)",
+    "shapely (>=2.0.2,<3.0.0)",
+    "pyiceberg (>=0.10.0,<1.0.0)",
+    "pyarrow (>=22.0.0,<23.0.0)",
+    "approvaltests (>=15.1.0,<16.0.0)",
+    "duckdb (>=1.4.1,<2.0.0)",
+    "memray (>=1.18.0,<2.0.0)",
+    "ohsome (>=0.4.0,<1.0.0)",
+    "ohsome-filter-to-sql (>=0.1.0,<1.0.0)",
+]
 
-
+[project.urls]
+repository = "https://gitlab.heigit.org/climate-action/plugins/land-consumption"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.0.0"

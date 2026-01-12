@@ -1,10 +1,10 @@
 import pytest
-from climatoology.base.baseoperator import _Artifact
-from climatoology.base.info import _Info
+from climatoology.base.baseoperator import Artifact
+from climatoology.base.plugin_info import PluginInfo
 
 
 def test_plugin_info_request(default_operator):
-    assert isinstance(default_operator.info(), _Info)
+    assert isinstance(default_operator.info(), PluginInfo)
 
 
 @pytest.mark.vcr
@@ -25,4 +25,4 @@ def test_plugin_compute_request(
 
     assert len(computed_artifacts) == 3
     for artifact in computed_artifacts:
-        assert isinstance(artifact, _Artifact)
+        assert isinstance(artifact, Artifact)

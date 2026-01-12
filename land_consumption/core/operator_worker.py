@@ -3,8 +3,8 @@ from typing import List
 
 import shapely
 from _duckdb import DuckDBPyConnection
-from climatoology.base.baseoperator import AoiProperties, BaseOperator, ComputationResources, _Artifact
-from climatoology.base.info import _Info
+from climatoology.base.baseoperator import AoiProperties, BaseOperator, ComputationResources, Artifact
+from climatoology.base.plugin_info import PluginInfo
 from ohsome import OhsomeClient
 from pyiceberg.catalog.rest import RestCatalog
 
@@ -24,7 +24,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
 
         log.debug('Initialised Land consumption Operator')
 
-    def info(self) -> _Info:
+    def info(self) -> PluginInfo:
         return get_info()
 
     def compute(  # dead: disable
@@ -33,7 +33,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
         aoi: shapely.MultiPolygon,
         aoi_properties: AoiProperties,
         params: ComputeInput,
-    ) -> List[_Artifact]:
+    ) -> List[Artifact]:
         log.info(
             f'Handling compute request: {params.model_dump()} in region {aoi_properties.model_dump()} in context: {resources}'
         )

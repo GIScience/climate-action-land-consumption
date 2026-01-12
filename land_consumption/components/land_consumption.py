@@ -1,6 +1,6 @@
 import shapely
 from _duckdb import DuckDBPyConnection
-from climatoology.base.artifact import _Artifact
+from climatoology.base.artifact import Artifact
 from climatoology.base.computation import ComputationResources
 from ohsome import OhsomeClient
 from pyiceberg.catalog.rest import RestCatalog
@@ -21,7 +21,7 @@ def get_land_consumption_artifacts(
     aoi: shapely.MultiPolygon,
     data_connection: RestCatalog | tuple[RestCatalog, DuckDBPyConnection] | OhsomeClient,
     resources: ComputationResources,
-) -> list[_Artifact]:
+) -> list[Artifact]:
     categories_gdf = get_categories_gdf(aoi, data_connection=data_connection)
 
     land_consumption_df = calculate_land_consumption(categories_gdf)

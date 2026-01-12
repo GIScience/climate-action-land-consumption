@@ -4,7 +4,7 @@ import geopandas as gpd
 import logging
 import shapely
 from _duckdb import DuckDBPyConnection
-from climatoology.utility.exception import ClimatoologyUserError
+from climatoology.base.exception import ClimatoologyUserError
 from geopandas import GeoDataFrame
 from ohsome import OhsomeClient
 from pyiceberg.catalog.rest import RestCatalog

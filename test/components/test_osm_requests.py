@@ -1,5 +1,5 @@
 import pytest
-from climatoology.utility.exception import ClimatoologyUserError
+from climatoology.base.exception import ClimatoologyUserError
 from ohsome import OhsomeClient
 from ohsome_filter_to_sql.main import ohsome_filter_to_sql
 
