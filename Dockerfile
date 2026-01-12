@@ -4,7 +4,7 @@ SHELL ["/bin/bash", "-c"]
 ENV PACKAGE_NAME='land_consumption'
 
 
-RUN pip install --no-cache-dir poetry==2.1.1
+RUN pip install --no-cache-dir poetry==2.1.2
 
 COPY pyproject.toml poetry.lock ./
 
