@@ -10,6 +10,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 ### Added
 
 - added ohsome filter function for leaner ohsome py requests
+- Added note about OSM data quality to methodology and artifact summaries ([#64](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/64))
 
 ### Changed
 - updated climatoology to v7.0.0
