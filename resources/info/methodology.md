@@ -40,3 +40,6 @@ The basic and detailed tables as well as the treemap include the following three
 ### Data
 The Land Consumption plugin is based on [OSM](https://www.openstreetmap.org/about) data.
 OSM is a free and open geo-database with rich cartographic information about the built and natural environment.
+OSM is created and maintained by volunteers.
+If the data for your area of interest seem inaccurate and/or incomplete, you can help improve them by mapping your area in OSM.
+To get started, check out the [OSM wiki](https://wiki.openstreetmap.org/wiki/Beginners%27_guide).

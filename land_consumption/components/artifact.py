@@ -23,9 +23,9 @@ def build_table_artifact(data: pd.DataFrame, resources: ComputationResources, ti
             'commercial areas in Heidelberg.'
         )
     if title == 'basic':
-        caption = 'The proportion of land consumed by different land use objects.'
+        caption = 'The proportion of land consumed by different land use objects. Results depend on OSM data quality. If you can, contribute to OSM.'
     else:
-        caption = 'The proportion of land consumed by different land use objects and classes.'
+        caption = 'The proportion of land consumed by different land use objects and classes. Results depend on OSM data quality. If you can, contribute to OSM.'
 
     table_artifact_metadata = ArtifactMetadata(
         name=f'{title.title()} Report',
@@ -47,7 +47,7 @@ def build_treemap_artifact(
     plotly_chart_artifact_metadata = ArtifactMetadata(
         name='Land Consumption Treemap',
         summary='Click on the boxes to explore the Land Consumption treemap. To return to the top level, '
-        'click “Land Use Overview.”',
+        'click “Land Use Overview.” Results depend on OSM data quality. If you can, contribute to OSM.',
         description=(
             'The Land Consumption Treemap hierarchically visualizes the proportion of land consumed in a '
             'given area by land use object (e.g. buildings) and by land use class (e.g. residential).'
