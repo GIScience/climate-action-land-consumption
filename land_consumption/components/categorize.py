@@ -14,6 +14,7 @@ from land_consumption.components.landuse_category_mappings import (
     AMENITY_INSTITUTIONAL_TAGS,
     AMENITY_INFRASTRUCTURE_TAGS,
     GEOM_TYPE_LOOKUP,
+    NATURAL_EXCLUDE_VALUES,
 )
 from land_consumption.components.osm_requests import (
     get_osm_data_from_parquet,
@@ -138,15 +139,17 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
         return LandUseCategory.INSTITUTIONAL
     elif amenity in AMENITY_INFRASTRUCTURE_TAGS:
         return LandUseCategory.INFRASTRUCTURE
-    elif natural is not None:
+    elif natural is not None and natural not in NATURAL_EXCLUDE_VALUES:
         return LandUseCategory.NATURAL
-    elif man_made is not None:
-        return LandUseCategory.OTHER
+    elif natural in NATURAL_EXCLUDE_VALUES:
+        return LandUseCategory.UNKNOWN
+    elif all(tag is None for tag in (landuse, natural, leisure, amenity, man_made)):
+        return LandUseCategory.UNKNOWN
     else:
         return LandUseCategory.OTHER
 
 
-def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
+def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: gpd.GeoDataFrame) -> pd.DataFrame:
     category_priority = list(LandObjectCategory)
     landuse_priority = list(LandUseCategory)
 
@@ -201,8 +204,20 @@ def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: g
 
     landobjects_with_landuse.loc[
         (landobjects_with_landuse['category'] == LandObjectCategory.BUILT_UP)
-        & (landobjects_with_landuse['landuse_category'] == LandObjectCategory.OTHER),
+        & (landobjects_with_landuse['landuse_category'] == LandUseCategory.OTHER),
         'category',
     ] = LandObjectCategory.OTHER
 
-    return landobjects_with_landuse
+    landobjects_with_landuse.loc[
+        landobjects_with_landuse['landuse_category'] == LandUseCategory.UNKNOWN,
+        'category',
+    ] = LandObjectCategory.UNKNOWN
+
+    unknown = landobjects_with_landuse[landobjects_with_landuse['category'] == LandObjectCategory.UNKNOWN]
+    known = landobjects_with_landuse[landobjects_with_landuse['category'] != LandObjectCategory.UNKNOWN]
+
+    unknown_dissolved = unknown.dissolve()
+
+    landobjects_unknown_dissolved = pd.concat([known, unknown_dissolved], ignore_index=True)
+
+    return landobjects_unknown_dissolved

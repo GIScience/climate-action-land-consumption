@@ -7,6 +7,7 @@ class LandObjectCategory(Enum):
     ROADS = 'Roads'
     BUILT_UP = 'Built up land'
     OTHER = 'Other'
+    UNKNOWN = 'Unknown'
 
 
 class LandUseCategory(Enum):
@@ -18,6 +19,7 @@ class LandUseCategory(Enum):
     AGRICULTURAL = 'Agricultural'
     NATURAL = 'Natural'
     OTHER = 'Other land uses'
+    UNKNOWN = 'Unknown land uses'
 
 
 LANDUSE_VALUE_MAP = {
@@ -61,9 +63,14 @@ AMENITY_INSTITUTIONAL_TAGS = [
 AMENITY_INFRASTRUCTURE_TAGS = [
     'bus_station',
     'ferry_terminal',
-    'college',
-    'hospital',
-    'clinic',
+]
+NATURAL_EXCLUDE_VALUES = [
+    'valley',
+    'hill',
+    'ridge',
+    'cape',
+    'peninsula',
+    'cliff',
 ]
 GEOM_TYPE_LOOKUP = {
     "'LineString', 'MultiLineString'": [LandObjectCategory.ROADS],

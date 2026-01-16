@@ -14,6 +14,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ### Changed
 - updated climatoology to v7.0.0
+- Added unknown land use category, made sure large areas mapped as natural (e.g. natural=peninsula) do not fall into the "natural land" category ([#75](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/75))
 
 ## [1.0.4](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.4) - 2025-10-24
 

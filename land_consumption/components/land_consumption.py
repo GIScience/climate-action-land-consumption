@@ -97,7 +97,7 @@ def get_detailed_table(land_consumption_df: pd.DataFrame) -> pd.DataFrame:
 
     subtotal_land_consumed = (
         land_consumption_df[
-            ~land_consumption_df['Land Use Object'].isin(['Agricultural land', 'Natural land', 'Other'])
+            ~land_consumption_df['Land Use Object'].isin(['Agricultural land', 'Natural land', 'Other', 'Unknown'])
         ]
         .groupby('Land Use Object', as_index=False)
         .sum(numeric_only=True)
@@ -126,9 +126,9 @@ def create_treemap(landconsumer_consumption_table: pd.DataFrame) -> Figure:
     landconsumer_consumption_table['label'] = landconsumer_consumption_table.apply(
         lambda row: (
             f'{row["Land Use Class"]}<br><br>'
-            f'% of Consumed Land Area: {row["% of Consumed Land Area"]}%<br>'
-            f'% of Settled Land Area: {row["% of Settled Land Area"]}%<br>'
-            f'% of Total Land Area: {row["% of Total Land Area"]}%<br>'
+            f'% of Consumed Land Area: {row["% of Consumed Land Area"]}<br>'
+            f'% of Settled Land Area: {row["% of Settled Land Area"]}<br>'
+            f'% of Total Land Area: {row["% of Total Land Area"]}<br>'
             f'Total Land Area [ha]: {row["Total Land Area [ha]"]} ha'
         ),
         axis=1,
@@ -148,6 +148,8 @@ def create_treemap(landconsumer_consumption_table: pd.DataFrame) -> Figure:
             'Parking lots': '#662506',
             'Built up land': '#fec44f',
             'Natural land': '#c7e9c0',
+            'Other': '#882255',
+            'Unknown': '#bdbdbd',
         },
     )
 

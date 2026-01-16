@@ -1,8 +1,8 @@
 import pytest
 from ohsome import OhsomeClient
 
-from land_consumption.components.categorize import get_land_object_filter, get_categories_gdf
-from land_consumption.components.landuse_category_mappings import LandObjectCategory
+from land_consumption.components.categorize import get_land_object_filter, get_categories_gdf, get_land_use_filter
+from land_consumption.components.landuse_category_mappings import LandObjectCategory, LandUseCategory
 
 
 def test_get_filter_functions():
@@ -34,3 +34,14 @@ def test_get_categories_gdf_with_features(default_aoi):
     assert not categories_gdf.empty
     assert 'category' in categories_gdf.columns
     assert categories_gdf.union_all().area == pytest.approx(default_aoi.area)
+
+
+def test_get_landuse_filter():
+    assert get_land_use_filter({'landuse': 'retail'}) == LandUseCategory.COMMERCIAL
+    assert get_land_use_filter({'leisure': 'nature_reserve'}) == LandUseCategory.NATURAL
+    assert get_land_use_filter({'amenity': 'university'}) == LandUseCategory.INSTITUTIONAL
+    assert get_land_use_filter({'amenity': 'bus_station'}) == LandUseCategory.INFRASTRUCTURE
+    assert get_land_use_filter({'natural': 'forest'}) == LandUseCategory.NATURAL
+    assert get_land_use_filter({'natural': 'peninsula'}) == LandUseCategory.UNKNOWN
+    assert get_land_use_filter({}) == LandUseCategory.UNKNOWN
+    assert get_land_use_filter({'amenity': 'supermarket'}) == LandUseCategory.OTHER

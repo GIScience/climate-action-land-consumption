@@ -4,6 +4,7 @@
     "Agricultural land":null,
     "Natural land":null,
     "Other":null,
+    "Unknown":null,
     "Total":100.0
   },
   "% of Settled Land Area":{
@@ -11,20 +12,23 @@
     "Agricultural land":10.0,
     "Natural land":null,
     "Other":60.0,
+    "Unknown":null,
     "Total":100.0
   },
   "Total Land Area [ha]":{
     "Buildings":20.0,
     "Agricultural land":10.0,
     "Natural land":10.0,
-    "Other":60.0,
+    "Other":10.0,
+    "Unknown":50.0,
     "Total":100.0
   },
   "% of Total Land Area":{
     "Buildings":20.0,
     "Agricultural land":10.0,
     "Natural land":10.0,
-    "Other":60.0,
+    "Other":10.0,
+    "Unknown":50.0,
     "Total":100.0
   }
 }

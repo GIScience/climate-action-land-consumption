@@ -75,6 +75,8 @@ def is_land_consumed(feature: pd.Series) -> bool:
         feature['landuse_category'] in [LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL]
     ):
         return False
+    elif feature['category'] == LandObjectCategory.UNKNOWN:
+        return False
 
     return True
 
@@ -85,4 +87,7 @@ def is_land_settled(feature: pd.Series) -> bool:
         feature['landuse_category'] == LandUseCategory.NATURAL
     ):
         return False
+    elif feature['category'] == LandObjectCategory.UNKNOWN:
+        return False
+
     return True
