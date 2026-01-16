@@ -18,6 +18,7 @@ def sort_land_consumption_table(
         'Agricultural land',
         'Natural land',
         'Other',
+        'Unknown',
         'Total',
     ]
 

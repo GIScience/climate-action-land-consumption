@@ -4,5 +4,6 @@ Buildings,Commercial,50.0,10.0,10.0,10.0
 ,Subtotal,100.0,20.0,20.0,20.0
 Agricultural land,,,10.0,10.0,10.0
 Natural land,,,,10.0,10.0
-Other,Other,,60.0,60.0,60.0
+Other,Other,,60.0,10.0,10.0
+Unknown,Unknown land use,,,50.0,50.0
 Total,,100.0,100.0,100.0,100.0
