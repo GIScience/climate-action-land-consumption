@@ -1,18 +1,18 @@
 [project]
 name = "land-consumption"
-version = "1.0.4"
+version = "1.0.5"
 description = "This is the land consumption indicator."
 authors = [{ name = "Charles Hatfield", email = "charles.hatfield@heigit.org" },]
 readme = "README.md"
 requires-python = ">=3.13.5,<3.14"
 
 dependencies = [
-    "climatoology @ git+https://gitlab.heigit.org/climate-action/climatoology.git@7.0.2",
+    "climatoology @ git+https://gitlab.heigit.org/climate-action/climatoology.git@7.0.3",
     "pydantic (>=2.5.3,<3.0.0)",   # see https://gitlab.heigit.org/climate-action/climatoology/-/issues/105
     "pydantic-settings (>=2.1.0,<3.0.0)",
     "shapely (>=2.0.2,<3.0.0)",
     "pyiceberg (>=0.10.0,<1.0.0)",
-    "pyarrow (>=22.0.0,<23.0.0)",
+    "pyarrow (>=23.0.0,<23.1.0)",
     "approvaltests (>=15.1.0,<16.0.0)",
     "duckdb (>=1.4.1,<2.0.0)",
     "memray (>=1.18.0,<2.0.0)",
