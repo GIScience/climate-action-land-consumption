@@ -24,7 +24,7 @@ dependencies = [
 repository = "https://gitlab.heigit.org/climate-action/plugins/land-consumption"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^8.0.0"
+pytest = "^9.0.0"
 pytest-cov = "^7.0.0"
 requests-mock = "^1.12.1"
 responses = "^0.25.0"
