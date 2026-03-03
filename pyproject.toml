@@ -27,7 +27,7 @@ repository = "https://gitlab.heigit.org/climate-action/plugins/land-consumption"
 pytest = "^9.0.0"
 pytest-cov = "^7.0.0"
 requests-mock = "^1.12.1"
-responses = "^0.25.0"
+responses = "^0.26.0"
 pytest-recording = "^0.13.4" # TODO: remove if not used after fixing the geoparqued size issue
 
 [tool.poetry.group.dev.dependencies]
