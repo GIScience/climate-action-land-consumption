@@ -28,7 +28,7 @@ pytest-cov = "^7.0.0"
 requests-mock = "^1.12.1"
 responses = "^0.26.0"
 pytest-recording = "^0.13.4" # TODO: remove if not used after fixing the geoparqued size issue
-approvaltests = "17.2.0"
+approvaltests = "^17.2.1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.0"
