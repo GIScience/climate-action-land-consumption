@@ -71,6 +71,7 @@ NATURAL_EXCLUDE_VALUES = [
     'cape',
     'peninsula',
     'cliff',
+    'mountain_range',
 ]
 GEOM_TYPE_LOOKUP = {
     "'LineString', 'MultiLineString'": [LandObjectCategory.ROADS],
