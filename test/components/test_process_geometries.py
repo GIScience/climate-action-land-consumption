@@ -48,6 +48,7 @@ def test_generate_buffer():
 
 
 def test_generate_buffer_from_gdf(roads_df):
+    # This test is really slow - is it doing a live API call or can it be improved, e.g. with a smaller input dataframe
     roads_df['tags'] = roads_df['tags'].apply(lambda x: dict(ast.literal_eval(x)))
 
     roads_with_width = assign_road_width(roads_df)

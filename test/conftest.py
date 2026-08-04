@@ -1,6 +1,4 @@
-import ast
 import uuid
-from unittest.mock import patch, MagicMock
 
 import geopandas as gpd
 import pytest
@@ -8,8 +6,6 @@ import shapely
 from climatoology.base.baseoperator import AoiProperties
 from climatoology.base.computation import ComputationScope
 from ohsome import OhsomeClient
-from pyiceberg.catalog.rest import RestCatalog
-from requests_mock import Mocker
 import responses
 from shapely.geometry.polygon import Polygon
 
@@ -59,42 +55,7 @@ def responses_mock():
 
 @pytest.fixture
 def default_operator():
-    return LandConsumption(data_connection=OhsomeClient(user_agent='Land-Consumption Test'))
-
-
-@pytest.fixture
-def default_ohsome_catalog() -> RestCatalog:
-    test_uri = 'https://test-uri'
-    with Mocker() as m:
-        m.get(
-            f'{test_uri}/v1/config',
-            json={'defaults': {}, 'overrides': {}},
-            status_code=200,
-        )
-        catalog = RestCatalog(
-            name='default',
-            **{
-                'uri': test_uri,
-                's3.endpoint': '/',
-                'py-io-impl': 'pyiceberg.io.pyarrow.PyArrowFileIO',
-                's3.access-key-id': 'test-key-id',
-                's3.secret-access-key': 'test-access-key',
-                's3.region': 'eu-west-1',
-            },
-        )
-        yield catalog
-
-
-@pytest.fixture
-def mock_get_osm_from_parquet():
-    osm_from_parquet_gdf = gpd.read_file('resources/test/osm_from_parquet_response.geojson')
-    osm_from_parquet_gdf['tags'] = osm_from_parquet_gdf['tags'].apply(
-        lambda x: ast.literal_eval(x) if isinstance(x, str) else x
-    )
-
-    with patch('land_consumption.components.osm_requests.get_osm_data_from_parquet') as mock_gdf:
-        mock_gdf.return_value = osm_from_parquet_gdf
-        yield mock_gdf
+    return LandConsumption(ohsome_client=OhsomeClient(user_agent='Land-Consumption Test'))
 
 
 @pytest.fixture(scope='module')
@@ -117,18 +78,6 @@ def multi_polygon():
 @pytest.fixture(scope='module')
 def roads_df():
     return gpd.read_file('resources/test/roads_response.geojson')
-
-
-@pytest.fixture(scope='module')
-def mock_iceberg_scan(roads_df):
-    df = roads_df.copy()
-    mock_scan_result = MagicMock()
-
-    # Convert tags to dict and geometry to WKT to match the expected output
-    df['tags'] = df['tags'].apply(lambda x: dict(ast.literal_eval(x)))
-    mock_scan_result.return_value = df
-
-    return mock_scan_result
 
 
 @pytest.fixture

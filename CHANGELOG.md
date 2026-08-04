@@ -7,6 +7,12 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.5...main)
 
+### Removed
+
+- the 'other' options for querying OSM data: `get_osm_data_from_parquet`, `get_osm_data_from_parquet_duckdb` and all
+  related settings, tests, etc. leaving only the ohsome connection option.
+  Addresses ([#87](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/87))
+
 ## [1.0.5](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.5) - 2026-02-23
 
 ### Added

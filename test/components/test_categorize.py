@@ -1,7 +1,7 @@
 import pytest
 from ohsome import OhsomeClient
 
-from land_consumption.components.categorize import get_land_object_filter, get_categories_gdf, get_land_use_filter
+from land_consumption.components.categorize import get_categories_gdf, get_land_object_filter, get_land_use_filter
 from land_consumption.components.landuse_category_mappings import LandObjectCategory, LandUseCategory
 
 
@@ -21,7 +21,7 @@ def test_get_filter_functions():
 
 @pytest.mark.vcr
 def test_get_categories_gdf_no_features(default_aoi):
-    categories_gdf = get_categories_gdf(default_aoi, data_connection=OhsomeClient(user_agent='Land-Consumption Test'))
+    categories_gdf = get_categories_gdf(default_aoi, ohsome_client=OhsomeClient(user_agent='Land-Consumption Test'))
 
     assert not categories_gdf.empty
     assert 'category' in categories_gdf.columns
@@ -29,7 +29,7 @@ def test_get_categories_gdf_no_features(default_aoi):
 
 @pytest.mark.vcr
 def test_get_categories_gdf_with_features(default_aoi):
-    categories_gdf = get_categories_gdf(default_aoi, data_connection=OhsomeClient(user_agent='Land-Consumption Test'))
+    categories_gdf = get_categories_gdf(default_aoi, ohsome_client=OhsomeClient(user_agent='Land-Consumption Test'))
 
     assert not categories_gdf.empty
     assert 'category' in categories_gdf.columns

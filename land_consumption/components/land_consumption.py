@@ -1,12 +1,11 @@
+import logging
+
+import pandas as pd
+import plotly.express as px
 import shapely
-from _duckdb import DuckDBPyConnection
 from climatoology.base.artifact import Artifact
 from climatoology.base.computation import ComputationResources
 from ohsome import OhsomeClient
-from pyiceberg.catalog.rest import RestCatalog
-import pandas as pd
-import logging
-import plotly.express as px
 from plotly.graph_objs import Figure
 
 from land_consumption.components.artifact import build_table_artifact, build_treemap_artifact
@@ -19,10 +18,10 @@ log = logging.getLogger(__name__)
 
 def get_land_consumption_artifacts(
     aoi: shapely.MultiPolygon,
-    data_connection: RestCatalog | tuple[RestCatalog, DuckDBPyConnection] | OhsomeClient,
+    ohsome_client: OhsomeClient,
     resources: ComputationResources,
 ) -> list[Artifact]:
-    categories_gdf = get_categories_gdf(aoi, data_connection=data_connection)
+    categories_gdf = get_categories_gdf(aoi, ohsome_client=ohsome_client)
 
     land_consumption_df = calculate_land_consumption(categories_gdf)
 

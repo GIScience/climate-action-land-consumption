@@ -3,79 +3,48 @@ import logging
 import geopandas as gpd
 import pandas as pd
 import shapely
-from _duckdb import DuckDBPyConnection
 from ohsome import OhsomeClient
-from pyiceberg.catalog.rest import RestCatalog
 
 from land_consumption.components.landuse_category_mappings import (
+    AMENITY_INFRASTRUCTURE_TAGS,
+    AMENITY_INSTITUTIONAL_TAGS,
+    GEOM_TYPE_LOOKUP,
+    LANDUSE_VALUE_MAP,
+    NATURAL_EXCLUDE_VALUES,
     LandObjectCategory,
     LandUseCategory,
-    LANDUSE_VALUE_MAP,
-    AMENITY_INSTITUTIONAL_TAGS,
-    AMENITY_INFRASTRUCTURE_TAGS,
-    GEOM_TYPE_LOOKUP,
-    NATURAL_EXCLUDE_VALUES,
 )
 from land_consumption.components.osm_requests import (
-    get_osm_data_from_parquet,
-    get_osm_data_from_parquet_duckdb,
-    get_osm_data_from_ohsomepy,
+    get_osm_data,
 )
-from land_consumption.components.utils import clip_to_aoi, clip_geometries
 from land_consumption.components.process_geometries import PROCESSING_REGISTRY
+from land_consumption.components.utils import clip_geometries, clip_to_aoi
 
 log = logging.getLogger(__name__)
 
 
 def get_categories_gdf(
     aoi_geom: shapely.Polygon | shapely.MultiPolygon,
-    data_connection: RestCatalog | tuple[RestCatalog, DuckDBPyConnection] | OhsomeClient,
+    ohsome_client: OhsomeClient,
 ) -> gpd.GeoDataFrame:
-    features = request_osm_features(aoi_geom, data_connection)
+    features = request_osm_features(aoi_geom, ohsome_client)
     return clean_overlapping_features(features['land_objects'], features['land_use'])
 
 
 def request_osm_features(
     aoi_geom: shapely.Polygon | shapely.MultiPolygon,
-    data_connection: RestCatalog | tuple[RestCatalog, DuckDBPyConnection] | OhsomeClient,
+    ohsome_client: OhsomeClient,
 ) -> dict[str, gpd.GeoDataFrame]:
-    xmin, ymin, xmax, ymax = aoi_geom.bounds
     categories_gdf = gpd.GeoDataFrame()
 
     landuse_polygons = []
     for geom_type, categories in GEOM_TYPE_LOOKUP.items():
-        status = 'latest'
-
-        row_filter = (
-            f"status = '{status}' "
-            f'and geometry_type IN ({geom_type}) '
-            f'and (xmax >= {xmin} and xmin <= {xmax}) '
-            f'and (ymax >= {ymin} and ymin <= {ymax}) '
-        )
+        log.info('Getting osm data from ohsome-py')
 
         selected_fields = ('tags', 'geometry')
-
-        if isinstance(data_connection, RestCatalog):
-            log.info('Getting osm data from parquet')
-            polygon_gdf = get_osm_data_from_parquet(
-                row_filter=row_filter, selected_fields=selected_fields, catalog=data_connection
-            )
-        elif isinstance(data_connection, tuple):
-            log.info('Getting osm data from parquet with DuckDB')
-            polygon_gdf = get_osm_data_from_parquet_duckdb(
-                aoi_geom=aoi_geom,
-                row_filter=row_filter,
-                selected_fields=selected_fields,
-                catalog=data_connection[0],
-                con=data_connection[1],
-            )
-        elif isinstance(data_connection, OhsomeClient):
-            log.info('Getting osm data from ohsome-py')
-            polygon_gdf = get_osm_data_from_ohsomepy(
-                aoi_geom=aoi_geom, geom_type=geom_type, selected_fields=selected_fields, client=data_connection
-            )
-        else:
-            raise NotImplementedError(f'Data connection type not implemented: {data_connection}')
+        polygon_gdf = get_osm_data(
+            aoi_geom=aoi_geom, geom_type=geom_type, selected_fields=selected_fields, client=ohsome_client
+        )
 
         polygon_gdf = clip_to_aoi(polygon_gdf=polygon_gdf, aoi_geom=aoi_geom, geom_type=geom_type)
 

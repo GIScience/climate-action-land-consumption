@@ -14,7 +14,6 @@ def test_plugin_compute_request(
     compute_resources,
     default_aoi,
     default_aoi_properties,
-    mock_get_osm_from_parquet,
 ):
     computed_artifacts = default_operator.compute(
         resources=compute_resources,

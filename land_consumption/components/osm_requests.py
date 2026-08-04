@@ -1,90 +1,21 @@
+import logging
 from typing import Tuple
 
-import geopandas as gpd
-import logging
 import shapely
-from _duckdb import DuckDBPyConnection
 from climatoology.base.exception import ClimatoologyUserError
 from geopandas import GeoDataFrame
 from ohsome import OhsomeClient
-from pyiceberg.catalog.rest import RestCatalog
 
 from land_consumption.components.landuse_category_mappings import (
-    LANDUSE_VALUE_MAP,
-    AMENITY_INSTITUTIONAL_TAGS,
     AMENITY_INFRASTRUCTURE_TAGS,
+    AMENITY_INSTITUTIONAL_TAGS,
+    LANDUSE_VALUE_MAP,
 )
 
 log = logging.getLogger(__name__)
 
 
-def get_osm_data_from_parquet(
-    row_filter: str,
-    selected_fields: Tuple[str, str],
-    catalog: RestCatalog,
-) -> GeoDataFrame:
-    namespace = 'geo_sort'
-    tablename = 'contributions'
-
-    icebergtable = catalog.load_table((namespace, tablename))
-    table = icebergtable.scan(
-        row_filter=row_filter,
-        selected_fields=selected_fields,
-    )
-    df = table.to_pandas()
-    log.debug(f'Retrieved {df.shape[0]} rows from iceberg')
-
-    df['tags'] = df['tags'].apply(lambda x: dict(x))
-    return gpd.GeoDataFrame(df, geometry=gpd.GeoSeries.from_wkt(df['geometry']))
-
-
-def get_osm_data_from_parquet_duckdb(
-    aoi_geom: shapely.MultiPolygon | shapely.Polygon,
-    row_filter: str,
-    selected_fields: Tuple[str, str],
-    catalog: RestCatalog,
-    con: DuckDBPyConnection,
-) -> GeoDataFrame:
-    namespace = 'geo_sort'
-    tablename = 'contributions'
-    icebergtable = catalog.load_table((namespace, tablename))
-    scan = icebergtable.scan(row_filter=row_filter, selected_fields=selected_fields)
-    files = [task.file.file_path for task in scan.plan_files()]
-    log.debug('Parquet files that will be accessed:', files)
-
-    # Get file sizes
-    # settings = Settings()
-    # client = Minio(
-    #     endpoint=settings.ohsome_minio_endpoint,
-    #     access_key=settings.ohsome_minio_access_key_id,
-    #     secret_key=settings.ohsome_minio_access_key,
-    #     region=settings.ohsome_minio_region,
-    # )
-    # sizes = [
-    #     client.stat_object(
-    #         bucket_name='heigit-ohsome-planet', object_name=file.replace('s3a://heigit-ohsome-planet/', '')
-    #     ).size
-    #     for file in files
-    # ]
-    # byte_to_gb_factor=0.00000000093132
-    # print('Total size of files on the server:', sum(sizes) * byte_to_gb_factor, 'GB')
-
-    sql = f"""
-        SELECT
-            osm_id,
-            {','.join(selected_fields)}
-        FROM read_parquet({files}) a
-        WHERE 1=1
-            and ST_Intersects(ST_GeomFromText(a.geometry), ST_GeomFromText('{aoi_geom.wkt}'))
-    """
-    df = con.sql(sql).df()
-
-    gdf = gpd.GeoDataFrame(df, geometry=gpd.GeoSeries.from_wkt(df['geometry']))
-    gdf['tags'] = gdf['tags'].apply(lambda x: dict(x))
-    return gdf
-
-
-def get_osm_data_from_ohsomepy(
+def get_osm_data(
     aoi_geom: shapely.MultiPolygon | shapely.Polygon,
     geom_type: str,
     selected_fields: Tuple[str, str],
