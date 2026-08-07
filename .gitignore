@@ -4,6 +4,7 @@
 .vscode/
 __pycache__/
 .pytest_cache/
+ohsome_log/
 
 .python-version
 .coverage

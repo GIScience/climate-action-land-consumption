@@ -1,11 +1,8 @@
 import pandas as pd
-from plotly.graph_objs import Figure
 from climatoology.base.artifact import Artifact, ArtifactMetadata
-from climatoology.base.artifact_creators import (
-    create_table_artifact,
-    create_plotly_chart_artifact,
-)
+from climatoology.base.artifact_creators import create_plotly_chart_artifact, create_table_artifact
 from climatoology.base.computation import ComputationResources
+from plotly.graph_objs import Figure
 
 
 def build_table_artifact(data: pd.DataFrame, resources: ComputationResources, title: str) -> Artifact:

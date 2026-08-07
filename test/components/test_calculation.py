@@ -1,10 +1,10 @@
+import geopandas as gpd
 import pytest
+from approvaltests import verify
 from shapely import Polygon
 
 from land_consumption.components.calculation import aggregate_by_categories, calculate_area
-import geopandas as gpd
 from land_consumption.components.landuse_category_mappings import LandObjectCategory, LandUseCategory
-from approvaltests import verify
 
 
 def test_aggregate_by_categories():
@@ -32,14 +32,14 @@ def test_aggregate_by_categories():
 
 
 def test_calculate_area(multi_polygon):
-    input = gpd.GeoDataFrame(
+    input_df = gpd.GeoDataFrame(
         geometry=[multi_polygon],
         crs=4326,
     )
 
     expected_output = pytest.approx(93176.13531065645)
 
-    calculated_area = calculate_area(input)
+    calculated_area = calculate_area(input_df)
 
     assert calculated_area['area'].sum() == expected_output
 

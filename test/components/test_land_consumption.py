@@ -1,7 +1,7 @@
 import pandas as pd
-
-from land_consumption.components.land_consumption import get_basic_table, get_detailed_table, create_treemap
 from approvaltests import verify
+
+from land_consumption.components.land_consumption import create_treemap, get_basic_table, get_detailed_table
 
 
 def test_get_basic_table():

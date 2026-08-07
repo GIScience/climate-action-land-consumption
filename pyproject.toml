@@ -21,8 +21,6 @@ repository = "https://gitlab.heigit.org/climate-action/plugins/land-consumption"
 [tool.poetry.group.test.dependencies]
 pytest = "^9.0.0"
 pytest-cov = "^7.0.0"
-requests-mock = "^1.12.1"
-responses = "^0.26.0"
 pytest-recording = "^0.13.4"
 approvaltests = "^18.0.0"
 
@@ -31,6 +29,7 @@ pre-commit = "^4.0.0"
 
 [tool.ruff]
 line-length = 120
+
 [tool.ruff.format]
 quote-style = "single"
 

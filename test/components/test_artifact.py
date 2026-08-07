@@ -1,12 +1,12 @@
 import pandas as pd
+import plotly.express as px
 from climatoology.base.artifact import ArtifactModality
 
 from land_consumption.components.artifact import build_table_artifact, build_treemap_artifact
-import plotly.express as px
 
 
 def test_build_table_artifact(compute_resources):
-    input = pd.DataFrame(
+    input_df = pd.DataFrame(
         {
             'Land Use Object': ['Buildings', 'Other', 'Total'],
             'Total Land Area [ha]': [20, 80, 100],
@@ -15,7 +15,7 @@ def test_build_table_artifact(compute_resources):
         }
     )
     expected_filename = 'table_landconsumption_basic.csv'
-    computed_output = build_table_artifact(data=input, resources=compute_resources, title='basic')
+    computed_output = build_table_artifact(data=input_df, resources=compute_resources, title='basic')
 
     assert computed_output.modality == ArtifactModality.TABLE
     assert computed_output.name == 'Basic Report'

@@ -1,8 +1,8 @@
-from _datetime import timedelta
-from climatoology.base.plugin_info import Concern, PluginInfo, PluginAuthor, generate_plugin_info
-
-from pathlib import Path
 import logging
+from _datetime import timedelta
+from pathlib import Path
+
+from climatoology.base.plugin_info import Concern, PluginAuthor, PluginInfo, generate_plugin_info
 from pydantic import HttpUrl
 
 from land_consumption.core.input import ComputeInput

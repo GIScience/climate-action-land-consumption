@@ -4,11 +4,11 @@ import geopandas as gpd
 from shapely import LineString
 
 from land_consumption.components.process_geometries import (
-    get_width_value,
-    get_road_type,
-    get_number_of_lanes,
     assign_road_width,
     generate_buffer,
+    get_number_of_lanes,
+    get_road_type,
+    get_width_value,
 )
 
 
@@ -47,11 +47,11 @@ def test_generate_buffer():
     assert buffered.geometry.iloc[0].area > 0
 
 
-def test_generate_buffer_from_gdf(roads_df):
-    # This test is really slow - is it doing a live API call or can it be improved, e.g. with a smaller input dataframe
+def test_generate_buffer_from_gdf():
+    roads_df = gpd.read_file('test/resources/roads_response.geojson')
     roads_df['tags'] = roads_df['tags'].apply(lambda x: dict(ast.literal_eval(x)))
-
     roads_with_width = assign_road_width(roads_df)
+    # This test should be refactored to replace the above 3 lines with a well constructed test df
 
     buffered_roads = generate_buffer(roads_with_width)
 
@@ -59,4 +59,5 @@ def test_generate_buffer_from_gdf(roads_df):
 
     assert buffered_roads['geometry'].geom_type.eq('MultiPolygon').all()
 
-    assert ~buffered_roads['geometry'].is_empty.all() & buffered_roads['geometry'].notna().all()
+    assert not buffered_roads['geometry'].is_empty.any()
+    assert buffered_roads['geometry'].notna().all()

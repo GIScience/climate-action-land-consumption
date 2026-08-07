@@ -1,6 +1,8 @@
+import logging
+
 import pandas as pd
 from geopandas import GeoDataFrame
-import logging
+
 from land_consumption.components.landuse_category_mappings import LandObjectCategory, LandUseCategory
 
 log = logging.getLogger(__name__)

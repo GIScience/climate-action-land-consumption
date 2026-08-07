@@ -6,12 +6,11 @@ import shapely
 from climatoology.base.baseoperator import AoiProperties
 from climatoology.base.computation import ComputationScope
 from ohsome import OhsomeClient
-import responses
 from shapely.geometry.polygon import Polygon
 
+from land_consumption.components.landuse_category_mappings import LandObjectCategory
 from land_consumption.core.input import ComputeInput
 from land_consumption.core.operator_worker import LandConsumption
-from land_consumption.components.landuse_category_mappings import LandObjectCategory
 
 
 @pytest.fixture
@@ -47,12 +46,6 @@ def compute_resources():
         yield resources
 
 
-@pytest.fixture()
-def responses_mock():
-    with responses.RequestsMock() as rsps:
-        yield rsps
-
-
 @pytest.fixture
 def default_operator():
     return LandConsumption(ohsome_client=OhsomeClient(user_agent='Land-Consumption Test'))
@@ -75,11 +68,6 @@ def multi_polygon():
     )
 
 
-@pytest.fixture(scope='module')
-def roads_df():
-    return gpd.read_file('resources/test/roads_response.geojson')
-
-
 @pytest.fixture
 def categories_gdf():
     """Fixture to create a sample GeoDataFrame for testing."""
@@ -98,3 +86,11 @@ def categories_gdf():
     }
     gdf = gpd.GeoDataFrame(data, crs='EPSG:4326')
     return gdf
+
+
+@pytest.fixture(scope='module')
+def vcr_config():
+    return {
+        'filter_headers': ['authorization'],
+        'cassette_library_dir': 'test/resources/vcr_cassettes',
+    }

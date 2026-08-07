@@ -1,8 +1,8 @@
 import geopandas as gpd
 from shapely.geometry.polygon import Polygon
 
-from land_consumption.components.utils import clip_to_aoi, clip_geometries
 from land_consumption.components.landuse_category_mappings import LandObjectCategory
+from land_consumption.components.utils import clip_geometries, clip_to_aoi
 
 
 def test_clip_geometries_no_interior_intersection(categories_gdf):
@@ -32,7 +32,7 @@ def test_clip_to_aoi():
             (16.369602655, 48.21069154),
         ]
     )
-    polygon_gdf = gpd.read_file('resources/test/test_clip_to_aoi_data.gpkg')
+    polygon_gdf = gpd.read_file('test/resources/test_clip_to_aoi_data.gpkg')
     geom_type = "'Polygon', 'MultiPolygon'"
 
     polygon_gdf = clip_to_aoi(polygon_gdf=polygon_gdf, aoi_geom=aoi_geom, geom_type=geom_type)
