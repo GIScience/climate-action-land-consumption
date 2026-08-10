@@ -4,7 +4,7 @@ from typing import List
 import shapely
 from climatoology.base.baseoperator import AoiProperties, Artifact, BaseOperator, ComputationResources
 from climatoology.base.plugin_info import PluginInfo
-from ohsome import OhsomeClient
+from ohsome_py2.client import OhsomeClient
 
 from land_consumption.components.land_consumption import get_land_consumption_artifacts
 from land_consumption.core.info import get_info

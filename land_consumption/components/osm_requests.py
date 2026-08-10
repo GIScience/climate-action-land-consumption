@@ -4,7 +4,7 @@ from typing import Tuple
 import shapely
 from climatoology.base.exception import ClimatoologyUserError
 from geopandas import GeoDataFrame
-from ohsome import OhsomeClient
+from ohsome_py2.client import OhsomeClient
 
 from land_consumption.components.landuse_category_mappings import (
     AMENITY_INFRASTRUCTURE_TAGS,
@@ -25,14 +25,9 @@ def get_osm_data(
 
     check_path_count(aoi_geom=aoi_geom, client=client, count_limit=100000, row_filter=row_filter)
 
-    ohsome_response = client.elements.geometry.post(
-        properties='tags',
-        bpolys=aoi_geom,
-        filter=row_filter,
-        clipGeometry=True,
-    )
-    gdf = ohsome_response.as_dataframe()
-    gdf = gdf.reset_index(drop=True).rename(columns={'@other_tags': 'tags'})
+    gdf = client.features_extraction(aoi=aoi_geom, osm_filter=row_filter, tags='as_dict_column', clip=True)
+
+    gdf = gdf.rename(columns={'osm_tags': 'tags'}).rename_geometry('geometry')
     return gdf[list(selected_fields)]
 
 
@@ -69,8 +64,7 @@ def check_path_count(
 ) -> None:
     if row_filter.startswith('geometry:polygon'):
         return None
-    ohsome_responses = client.elements.count.post(bpolys=aoi_geom, filter=row_filter).data
-    path_lines_count = sum([response['value'] for response in ohsome_responses['result']])
+    path_lines_count = client.features_stats(aoi=aoi_geom, osm_filter=row_filter, measure='count')
     log.info(f'There are {path_lines_count} paths selected.')
     if path_lines_count > count_limit:
         raise ClimatoologyUserError(

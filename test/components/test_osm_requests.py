@@ -1,19 +1,18 @@
 import pytest
 from climatoology.base.exception import ClimatoologyUserError
-from ohsome import OhsomeClient
 from ohsome_filter_to_sql.main import ohsome_filter_to_sql
 
 from land_consumption.components.osm_requests import build_ohsome_filter, check_path_count
 
 
 @pytest.mark.vcr
-def test_check_path_count(default_aoi):
+def test_check_path_count(default_aoi, default_ohsome_client_v1):
     with pytest.raises(ClimatoologyUserError):
-        check_path_count(default_aoi, OhsomeClient(), 10, row_filter='geometry:line')
+        check_path_count(default_aoi, default_ohsome_client_v1, 10, row_filter='geometry:line')
 
 
-def test_check_path_count_polygon(default_aoi):
-    check_path_count(default_aoi, OhsomeClient(), 1, row_filter='geometry:polygon')
+def test_check_path_count_polygon(default_aoi, default_ohsome_client_v1):
+    check_path_count(default_aoi, default_ohsome_client_v1, 1, row_filter='geometry:polygon')
 
 
 def test_build_ohsome_filter():

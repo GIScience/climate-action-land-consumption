@@ -5,7 +5,7 @@ import pytest
 import shapely
 from climatoology.base.baseoperator import AoiProperties
 from climatoology.base.computation import ComputationScope
-from ohsome import OhsomeClient
+from ohsome_py2.client import OhsomeClient
 from shapely.geometry.polygon import Polygon
 
 from land_consumption.components.landuse_category_mappings import LandObjectCategory
@@ -47,8 +47,13 @@ def compute_resources():
 
 
 @pytest.fixture
-def default_operator():
-    return LandConsumption(ohsome_client=OhsomeClient(user_agent='Land-Consumption Test'))
+def default_operator(default_ohsome_client_v1):
+    return LandConsumption(ohsome_client=default_ohsome_client_v1)
+
+
+@pytest.fixture
+def default_ohsome_client_v1():
+    return OhsomeClient(user_agent='Land-Consumption Test', v2=False)
 
 
 @pytest.fixture(scope='module')

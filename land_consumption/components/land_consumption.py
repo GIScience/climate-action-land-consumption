@@ -5,7 +5,7 @@ import plotly.express as px
 import shapely
 from climatoology.base.artifact import Artifact
 from climatoology.base.computation import ComputationResources
-from ohsome import OhsomeClient
+from ohsome_py2.client import OhsomeClient
 from plotly.graph_objs import Figure
 
 from land_consumption.components.artifact import build_table_artifact, build_treemap_artifact

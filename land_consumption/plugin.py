@@ -1,7 +1,7 @@
 import logging.config
 
 from climatoology.app.plugin import start_plugin
-from ohsome import OhsomeClient
+from ohsome_py2.client import OhsomeClient
 
 from land_consumption.core.operator_worker import LandConsumption
 
@@ -15,7 +15,7 @@ def init_plugin() -> int:
 
     :return:
     """
-    ohsome_client = OhsomeClient(user_agent='Land-Consumption Plugin')
+    ohsome_client = OhsomeClient(user_agent='Land-Consumption Plugin', v2=False)
     operator = LandConsumption(ohsome_client=ohsome_client)
 
     log.info(f'Starting plugin: {operator.info().name}')

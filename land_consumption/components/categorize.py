@@ -3,7 +3,7 @@ import logging
 import geopandas as gpd
 import pandas as pd
 import shapely
-from ohsome import OhsomeClient
+from ohsome_py2.client import OhsomeClient
 
 from land_consumption.components.landuse_category_mappings import (
     AMENITY_INFRASTRUCTURE_TAGS,

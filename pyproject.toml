@@ -11,8 +11,7 @@ dependencies = [
     "pydantic (>=2.5.3,<3.0.0)",   # see https://gitlab.heigit.org/climate-action/climatoology/-/issues/105
     "pydantic-settings (>=2.1.0,<3.0.0)",
     "shapely (>=2.0.2,<3.0.0)",
-    "ohsome (>=0.4.0,<1.0.0)",
-    "ohsome-filter-to-sql (>=0.1.0,<1.0.0)",
+    "ohsome-py2 @ git+https://gitlab.heigit.org/climate-action/utilities/ohsome-py2.git@0.2.1",
 ]
 
 [project.urls]
@@ -23,6 +22,7 @@ pytest = "^9.0.0"
 pytest-cov = "^7.0.0"
 pytest-recording = "^0.13.4"
 approvaltests = "^19.0.0"
+ohsome-filter-to-sql = "^0.13.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.0"
