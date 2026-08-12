@@ -1,0 +1,1781 @@
+interactions:
+- request:
+    body: bpolys=%7B%22type%22%3A+%22FeatureCollection%22%2C+%22features%22%3A+%5B%7B%22id%22%3A+%220%22%2C+%22type%22%3A+%22Feature%22%2C+%22properties%22%3A+%7B%7D%2C+%22geometry%22%3A+%7B%22type%22%3A+%22MultiPolygon%22%2C+%22coordinates%22%3A+%5B%5B%5B%5B8.66%2C+49.425%5D%2C+%5B8.66%2C+49.43%5D%2C+%5B8.67%2C+49.43%5D%2C+%5B8.67%2C+49.425%5D%2C+%5B8.66%2C+49.425%5D%5D%5D%5D%7D%7D%5D%7D&filter=geometry%3Aline+and+%28highway%3D%2A%29
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '428'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      user-agent:
+      - ohsome-py/0.3.0
+    method: POST
+    uri: https://api.ohsome.org/v1/elements/count
+  response:
+    body:
+      string: "{\n  \"attribution\" : {\n    \"url\" : \"https://ohsome.org/copyrights\",\n
+        \   \"text\" : \"\xA9 OpenStreetMap contributors\"\n  },\n  \"apiVersion\"
+        : \"1.10.4\",\n  \"result\" : [ {\n    \"timestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \   \"value\" : 49.0\n  } ]\n}"
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '3600'
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Connection:
+      - Keep-Alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 12 Aug 2026 09:58:25 GMT
+      Keep-Alive:
+      - timeout=5, max=100
+      Server:
+      - Apache/2.4.58 (Ubuntu)
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubdomains;
+      Transfer-Encoding:
+      - chunked
+      vary:
+      - accept-encoding
+    status:
+      code: 200
+      message: ''
+- request:
+    body: bpolys=%7B%22type%22%3A+%22FeatureCollection%22%2C+%22features%22%3A+%5B%7B%22id%22%3A+%220%22%2C+%22type%22%3A+%22Feature%22%2C+%22properties%22%3A+%7B%7D%2C+%22geometry%22%3A+%7B%22type%22%3A+%22MultiPolygon%22%2C+%22coordinates%22%3A+%5B%5B%5B%5B8.66%2C+49.425%5D%2C+%5B8.66%2C+49.43%5D%2C+%5B8.67%2C+49.43%5D%2C+%5B8.67%2C+49.425%5D%2C+%5B8.66%2C+49.425%5D%5D%5D%5D%7D%7D%5D%7D&filter=geometry%3Aline+and+%28highway%3D%2A%29&properties=tags&clipGeometry=True
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '462'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      user-agent:
+      - ohsome-py/0.3.0
+    method: POST
+    uri: https://api.ohsome.org/v1/elements/geometry
+  response:
+    body:
+      string: "{\n  \"attribution\" : {\n    \"url\" : \"https://ohsome.org/copyrights\",\n
+        \   \"text\" : \"\xA9 OpenStreetMap contributors\"\n  },\n  \"apiVersion\"
+        : \"1.10.4\",\n  \"type\" : \"FeatureCollection\",\n  \"features\" : [{\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n
+        \     \"coordinates\" : [\n        [\n          8.6680954,\n          49.425\n
+        \       ],\n        [\n          8.6677089,\n          49.4255241\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/24805636\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"track\",\n      \"smoothness\" : \"good\",\n      \"surface\" : \"asphalt\",\n
+        \     \"tracktype\" : \"grade1\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6621647,\n          49.4268613\n        ],\n        [\n
+        \         8.6621414,\n          49.426905\n        ],\n        [\n          8.6600211,\n
+        \         49.4299001\n        ],\n        [\n          8.66,\n          49.4299315\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25018743\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"track\",\n      \"surface\" : \"gravel\",\n      \"tracktype\" : \"grade3\"\n
+        \   }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.66,\n
+        \         49.429896\n        ],\n        [\n          8.6600211,\n          49.4299001\n
+        \       ],\n        [\n          8.6605541,\n          49.43\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25019321\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"track\",\n      \"motor_vehicle\" : \"destination\",\n      \"name\" :
+        \"Mittelfeldweg\",\n      \"smoothness\" : \"good\",\n      \"surface\" :
+        \"asphalt\",\n      \"tracktype\" : \"grade1\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6600397,\n          49.4265898\n        ],\n        [\n
+        \         8.66011,\n          49.4265074\n        ],\n        [\n          8.6601595,\n
+        \         49.4264341\n        ],\n        [\n          8.6601862,\n          49.4263972\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/156202533\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"bicycle\"
+        : \"yes\",\n      \"foot\" : \"yes\",\n      \"highway\" : \"service\",\n
+        \     \"surface\" : \"asphalt\",\n      \"tracktype\" : \"grade1\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.66,\n
+        \         49.4266471\n        ],\n        [\n          8.6600397,\n          49.4265898\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/504249801\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"bicycle\"
+        : \"yes\",\n      \"foot\" : \"yes\",\n      \"highway\" : \"track\",\n      \"lit\"
+        : \"no\",\n      \"motor_vehicle\" : \"agricultural\",\n      \"smoothness\"
+        : \"good\",\n      \"surface\" : \"asphalt\",\n      \"tracktype\" : \"grade1\",\n
+        \     \"traffic_sign\" : \"DE:260;DE:1026-36\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6657937,\n          49.425\n        ],\n        [\n
+        \         8.665548,\n          49.4253959\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/24974993\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"highway\" : \"track\",\n      \"lit\" :
+        \"no\",\n      \"smoothness\" : \"good\",\n      \"surface\" : \"asphalt\",\n
+        \     \"tracktype\" : \"grade1\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.67,\n          49.4256767\n        ],\n        [\n
+        \         8.6699356,\n          49.425769\n        ],\n        [\n          8.667809,\n
+        \         49.4288079\n        ],\n        [\n          8.6674697,\n          49.4292674\n
+        \       ],\n        [\n          8.6673222,\n          49.4294824\n        ],\n
+        \       [\n          8.6669671,\n          49.43\n        ]\n      ]\n    },\n
+        \   \"properties\" : {\n      \"@osmId\" : \"way/25019320\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"highway\" : \"track\",\n      \"smoothness\"
+        : \"good\",\n      \"surface\" : \"asphalt\",\n      \"tracktype\" : \"grade1\"\n
+        \   }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6674697,\n
+        \         49.4292674\n        ],\n        [\n          8.6695428,\n          49.4296453\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25019323\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"access\"
+        : \"private\",\n      \"highway\" : \"track\",\n      \"tracktype\" : \"grade3\"\n
+        \   }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.667809,\n
+        \         49.4288079\n        ],\n        [\n          8.6657349,\n          49.4284016\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25019325\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"access\"
+        : \"private\",\n      \"highway\" : \"track\",\n      \"surface\" : \"compacted\",\n
+        \     \"tracktype\" : \"grade3\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.665988,\n          49.4280762\n        ],\n        [\n
+        \         8.6649177,\n          49.4278685\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/25019326\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"bicycle\" : \"permissive\",\n      \"foot\"
+        : \"permissive\",\n      \"highway\" : \"track\",\n      \"motor_vehicle\"
+        : \"private\",\n      \"surface\" : \"asphalt\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6602346,\n          49.4253389\n        ],\n        [\n
+        \         8.6603919,\n          49.4255098\n        ],\n        [\n          8.6605346,\n
+        \         49.4256576\n        ],\n        [\n          8.6605748,\n          49.4256897\n
+        \       ],\n        [\n          8.6606758,\n          49.4257135\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25769132\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"access\"
+        : \"no\",\n      \"highway\" : \"path\",\n      \"surface\" : \"grass\"\n
+        \   }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6610795,\n
+        \         49.425129\n        ],\n        [\n          8.6614254,\n          49.4252118\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25769134\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"track\",\n      \"surface\" : \"paving_stones\",\n      \"tracktype\"
+        : \"grade2\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"LineString\",\n      \"coordinates\" : [\n        [\n
+        \         8.6614915,\n          49.4271757\n        ],\n        [\n          8.6615705,\n
+        \         49.4271941\n        ]\n      ]\n    },\n    \"properties\" : {\n
+        \     \"@osmId\" : \"way/25851120\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"access\" : \"private\",\n      \"highway\" : \"footway\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6606021,\n
+        \         49.4270755\n        ],\n        [\n          8.6606416,\n          49.4269963\n
+        \       ],\n        [\n          8.6607232,\n          49.4268328\n        ],\n
+        \       [\n          8.6608752,\n          49.4265553\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/25851121\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"highway\" : \"footway\",\n      \"lit\"
+        : \"no\",\n      \"surface\" : \"sett\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6611021,\n          49.4266073\n        ],\n        [\n
+        \         8.6611765,\n          49.42647\n        ],\n        [\n          8.6609347,\n
+        \         49.4264146\n        ],\n        [\n          8.6608603,\n          49.4265519\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25954928\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"service\",\n      \"lit\" : \"yes\",\n      \"maxspeed\" : \"30\",\n      \"maxspeed:type\"
+        : \"DE:zone30\",\n      \"noname\" : \"yes\",\n      \"sidewalk\" : \"no\",\n
+        \     \"source:maxspeed\" : \"DE:zone30\",\n      \"surface\" : \"asphalt\"\n
+        \   }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6611765,\n
+        \         49.42647\n        ],\n        [\n          8.6613231,\n          49.4261364\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25954929\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"service\",\n      \"surface\" : \"asphalt\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6609347,\n          49.4264146\n        ],\n        [\n
+        \         8.6610955,\n          49.4260951\n        ],\n        [\n          8.6611136,\n
+        \         49.4260627\n        ],\n        [\n          8.6611319,\n          49.4260321\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25954930\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"service\",\n      \"surface\" : \"asphalt\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6613347,\n          49.4266617\n        ],\n        [\n
+        \         8.6615595,\n          49.4261877\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/25954931\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"highway\" : \"service\",\n      \"surface\"
+        : \"asphalt\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"LineString\",\n      \"coordinates\" : [\n        [\n
+        \         8.6615568,\n          49.4267132\n        ],\n        [\n          8.6618286,\n
+        \         49.4262387\n        ],\n        [\n          8.6618556,\n          49.4261849\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25954932\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"service\",\n      \"surface\" : \"asphalt\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6615595,\n          49.4261877\n        ],\n        [\n
+        \         8.6615885,\n          49.4261342\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/25954934\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"handrail\" : \"no\",\n      \"highway\"
+        : \"steps\",\n      \"incline\" : \"up\",\n      \"lit\" : \"yes\",\n      \"ramp\"
+        : \"no\",\n      \"step_count\" : \"2\",\n      \"surface\" : \"asphalt\",\n
+        \     \"tactile_paving\" : \"no\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6613231,\n          49.4261364\n        ],\n        [\n
+        \         8.661354,\n          49.4260818\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/25954935\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"handrail\" : \"no\",\n      \"highway\"
+        : \"steps\",\n      \"incline\" : \"up\",\n      \"lit\" : \"no\",\n      \"ramp\"
+        : \"no\",\n      \"step_count\" : \"2\",\n      \"surface\" : \"asphalt\",\n
+        \     \"tactile_paving\" : \"no\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6618873,\n          49.4261245\n        ],\n        [\n
+        \         8.6628522,\n          49.4263394\n        ],\n        [\n          8.6630317,\n
+        \         49.4263804\n        ]\n      ]\n    },\n    \"properties\" : {\n
+        \     \"@osmId\" : \"way/25955166\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"access\" : \"private\",\n      \"highway\" : \"footway\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6628626,\n
+        \         49.4267206\n        ],\n        [\n          8.6630317,\n          49.4263804\n
+        \       ],\n        [\n          8.6635335,\n          49.425465\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25955167\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"access\"
+        : \"private\",\n      \"highway\" : \"footway\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6628522,\n          49.4263394\n        ],\n        [\n
+        \         8.6628983,\n          49.4262366\n        ],\n        [\n          8.6629249,\n
+        \         49.4262349\n        ],\n        [\n          8.6633542,\n          49.4254256\n
+        \       ],\n        [\n          8.6634102,\n          49.4252848\n        ],\n
+        \       [\n          8.6624448,\n          49.4250631\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/25955168\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"access\" : \"private\",\n      \"highway\"
+        : \"footway\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"LineString\",\n      \"coordinates\" : [\n        [\n
+        \         8.6618873,\n          49.4261245\n        ],\n        [\n          8.6618207,\n
+        \         49.4261131\n        ],\n        [\n          8.6617569,\n          49.4261024\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/25955169\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"access\"
+        : \"private\",\n      \"highway\" : \"footway\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.661939,\n          49.4260187\n        ],\n        [\n
+        \         8.6628983,\n          49.4262366\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/25955170\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"access\" : \"private\",\n      \"highway\"
+        : \"footway\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"LineString\",\n      \"coordinates\" : [\n        [\n
+        \         8.6624448,\n          49.4250631\n        ],\n        [\n          8.6621516,\n
+        \         49.4256171\n        ],\n        [\n          8.6620288,\n          49.425849\n
+        \       ],\n        [\n          8.661939,\n          49.4260187\n        ],\n
+        \       [\n          8.6618873,\n          49.4261245\n        ],\n        [\n
+        \         8.6618556,\n          49.4261849\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/25955171\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"access\" : \"private\",\n      \"highway\"
+        : \"service\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"LineString\",\n      \"coordinates\" : [\n        [\n
+        \         8.6620288,\n          49.425849\n        ],\n        [\n          8.6618656,\n
+        \         49.4258052\n        ]\n      ]\n    },\n    \"properties\" : {\n
+        \     \"@osmId\" : \"way/25955172\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"highway\" : \"steps\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6621516,\n          49.4256171\n        ],\n        [\n
+        \         8.6619906,\n          49.4255769\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/25955173\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"highway\" : \"steps\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n
+        \     \"coordinates\" : [\n        [\n          8.6652791,\n          49.4257548\n
+        \       ],\n        [\n          8.6652003,\n          49.4257391\n        ],\n
+        \       [\n          8.6650364,\n          49.4257396\n        ],\n        [\n
+        \         8.6649305,\n          49.4257741\n        ],\n        [\n          8.6647192,\n
+        \         49.4257955\n        ]\n      ]\n    },\n    \"properties\" : {\n
+        \     \"@osmId\" : \"way/25955174\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"access\" : \"private\",\n      \"highway\" : \"service\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6633542,\n
+        \         49.4254256\n        ],\n        [\n          8.6635335,\n          49.425465\n
+        \       ],\n        [\n          8.6638226,\n          49.4255303\n        ],\n
+        \       [\n          8.6638856,\n          49.4255282\n        ],\n        [\n
+        \         8.663986,\n          49.4255056\n        ],\n        [\n          8.6640767,\n
+        \         49.4254968\n        ],\n        [\n          8.664177,\n          49.4255006\n
+        \       ],\n        [\n          8.6642854,\n          49.4255128\n        ],\n
+        \       [\n          8.6643346,\n          49.4255222\n        ],\n        [\n
+        \         8.6643727,\n          49.4255315\n        ],\n        [\n          8.6643952,\n
+        \         49.4255397\n        ],\n        [\n          8.6644125,\n          49.4255459\n
+        \       ],\n        [\n          8.6644729,\n          49.4255674\n        ],\n
+        \       [\n          8.6645376,\n          49.4256029\n        ],\n        [\n
+        \         8.6645688,\n          49.4256244\n        ],\n        [\n          8.6645993,\n
+        \         49.4256439\n        ],\n        [\n          8.6646469,\n          49.4256889\n
+        \       ],\n        [\n          8.6646959,\n          49.4257535\n        ],\n
+        \       [\n          8.6647192,\n          49.4257955\n        ],\n        [\n
+        \         8.6647385,\n          49.425852\n        ],\n        [\n          8.6647424,\n
+        \         49.4259161\n        ],\n        [\n          8.6647385,\n          49.42597\n
+        \       ],\n        [\n          8.664314,\n          49.4267783\n        ],\n
+        \       [\n          8.6642774,\n          49.4268197\n        ],\n        [\n
+        \         8.664231,\n          49.4268699\n        ],\n        [\n          8.6641867,\n
+        \         49.4269038\n        ],\n        [\n          8.6641268,\n          49.4269465\n
+        \       ],\n        [\n          8.6640612,\n          49.4269729\n        ],\n
+        \       [\n          8.6639995,\n          49.4269967\n        ],\n        [\n
+        \         8.6639204,\n          49.4270155\n        ],\n        [\n          8.6638162,\n
+        \         49.4270369\n        ],\n        [\n          8.6637177,\n          49.4270406\n
+        \       ],\n        [\n          8.6636,\n          49.4270331\n        ],\n
+        \       [\n          8.6635248,\n          49.4270218\n        ],\n        [\n
+        \         8.6634186,\n          49.4269904\n        ],\n        [\n          8.663326,\n
+        \         49.426954\n        ],\n        [\n          8.6632585,\n          49.4269164\n
+        \       ],\n        [\n          8.6631967,\n          49.4268649\n        ],\n
+        \       [\n          8.6631678,\n          49.4268235\n        ],\n        [\n
+        \         8.6631446,\n          49.4267921\n        ],\n        [\n          8.6628626,\n
+        \         49.4267206\n        ]\n      ]\n    },\n    \"properties\" : {\n
+        \     \"@osmId\" : \"way/25955249\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"access\" : \"private\",\n      \"highway\" : \"footway\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6611021,\n
+        \         49.4266073\n        ],\n        [\n          8.6613347,\n          49.4266617\n
+        \       ],\n        [\n          8.6615568,\n          49.4267132\n        ],\n
+        \       [\n          8.6617095,\n          49.4267505\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/28911815\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"cycleway:both\" : \"no\",\n      \"highway\"
+        : \"residential\",\n      \"lit\" : \"yes\",\n      \"maxspeed\" : \"30\",\n
+        \     \"maxspeed:type\" : \"DE:zone30\",\n      \"name\" : \"Tiergartenstra\xDFe\",\n
+        \     \"name:etymology:wikidata\" : \"Q220035\",\n      \"sidewalk\" : \"no\",\n
+        \     \"surface\" : \"asphalt\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6617095,\n          49.4267505\n        ],\n        [\n
+        \         8.6621647,\n          49.4268613\n        ],\n        [\n          8.6640439,\n
+        \         49.4273031\n        ],\n        [\n          8.6641691,\n          49.4273358\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/61961064\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"track\",\n      \"lit\" : \"yes\",\n      \"smoothness\" : \"good\",\n
+        \     \"surface\" : \"asphalt\",\n      \"tracktype\" : \"grade1\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6677089,\n
+        \         49.4255241\n        ],\n        [\n          8.665988,\n          49.4280762\n
+        \       ],\n        [\n          8.6657349,\n          49.4284016\n        ],\n
+        \       [\n          8.6646297,\n          49.43\n        ]\n      ]\n    },\n
+        \   \"properties\" : {\n      \"@osmId\" : \"way/80914162\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"highway\" : \"track\",\n      \"smoothness\"
+        : \"good\",\n      \"surface\" : \"asphalt\",\n      \"tracktype\" : \"grade1\"\n
+        \   }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.660781,\n
+        \         49.4270306\n        ],\n        [\n          8.6606416,\n          49.4269963\n
+        \       ],\n        [\n          8.6605146,\n          49.4269652\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/166184168\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"footway\",\n      \"lit\" : \"no\",\n      \"surface\" : \"sett\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.67,\n
+        \         49.4289959\n        ],\n        [\n          8.6695428,\n          49.4296453\n
+        \       ],\n        [\n          8.6692977,\n          49.43\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/201735698\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"check_date:surface\"
+        : \"2023-05-01\",\n      \"highway\" : \"track\",\n      \"lit\" : \"no\",\n
+        \     \"smoothness\" : \"bad\",\n      \"surface\" : \"asphalt\",\n      \"tracktype\"
+        : \"grade1\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"LineString\",\n      \"coordinates\" : [\n        [\n
+        \         8.6699356,\n          49.425769\n        ],\n        [\n          8.6690022,\n
+        \         49.4256161\n        ],\n        [\n          8.6677089,\n          49.4255241\n
+        \       ],\n        [\n          8.665548,\n          49.4253959\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/201735699\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"track\",\n      \"lit\" : \"yes\",\n      \"name\" : \"Angelweg\",\n      \"old_name\"
+        : \"Wieblinger Weg\",\n      \"smoothness\" : \"good\",\n      \"source\"
+        : \"http://www.heiligenberg-bei-heidelberg.de/Topographie/Gemarkung.jpg\",\n
+        \     \"surface\" : \"asphalt\",\n      \"tracktype\" : \"grade1\",\n      \"width\"
+        : \"3\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n
+        \     \"type\" : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6608603,\n
+        \         49.4265519\n        ],\n        [\n          8.6608752,\n          49.4265553\n
+        \       ],\n        [\n          8.6611021,\n          49.4266073\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/226673578\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"cycleway:both\"
+        : \"no\",\n      \"highway\" : \"residential\",\n      \"lcn\" : \"yes\",\n
+        \     \"lit\" : \"no\",\n      \"maxspeed\" : \"30\",\n      \"maxspeed:type\"
+        : \"DE:zone30\",\n      \"name\" : \"Tiergartenstra\xDFe\",\n      \"name:etymology:wikidata\"
+        : \"Q220035\",\n      \"sidewalk\" : \"no\",\n      \"source:maxspeed\" :
+        \"DE:zone30\",\n      \"surface\" : \"asphalt\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6606384,\n          49.426501\n        ],\n        [\n
+        \         8.6607626,\n          49.4265295\n        ],\n        [\n          8.6608603,\n
+        \         49.4265519\n        ]\n      ]\n    },\n    \"properties\" : {\n
+        \     \"@osmId\" : \"way/226673579\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"cycleway:both\" : \"no\",\n      \"highway\" : \"residential\",\n
+        \     \"lcn\" : \"yes\",\n      \"lit\" : \"yes\",\n      \"maxspeed\" : \"30\",\n
+        \     \"maxspeed:type\" : \"DE:zone30\",\n      \"name\" : \"Tiergartenstra\xDFe\",\n
+        \     \"name:etymology:wikidata\" : \"Q220035\",\n      \"sidewalk\" : \"right\",\n
+        \     \"surface\" : \"asphalt\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.67,\n          49.4257801\n        ],\n        [\n
+        \         8.6699356,\n          49.425769\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/426961403\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"highway\" : \"track\",\n      \"lit\" :
+        \"yes\",\n      \"name\" : \"Angelweg\",\n      \"old_name\" : \"Wieblinger
+        Weg\",\n      \"smoothness\" : \"good\",\n      \"source\" : \"http://www.heiligenberg-bei-heidelberg.de/Topographie/Gemarkung.jpg\",\n
+        \     \"surface\" : \"asphalt\",\n      \"tracktype\" : \"grade1\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6601862,\n
+        \         49.4263972\n        ],\n        [\n          8.6602094,\n          49.426365\n
+        \       ],\n        [\n          8.6606758,\n          49.4257135\n        ],\n
+        \       [\n          8.6610795,\n          49.425129\n        ],\n        [\n
+        \         8.6611685,\n          49.425\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/710706040\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"access\" : \"permit\",\n      \"bicycle\"
+        : \"yes\",\n      \"foot\" : \"yes\",\n      \"highway\" : \"track\",\n      \"horse\"
+        : \"yes\",\n      \"lit\" : \"no\",\n      \"motor_vehicle\" : \"permit\",\n
+        \     \"oneway\" : \"no\",\n      \"smoothness\" : \"good\",\n      \"surface\"
+        : \"asphalt\",\n      \"tracktype\" : \"grade1\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6673222,\n          49.4294824\n        ],\n        [\n
+        \         8.6676857,\n          49.4295526\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/794803961\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"highway\" : \"track\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n
+        \     \"coordinates\" : [\n        [\n          8.6601862,\n          49.4263972\n
+        \       ],\n        [\n          8.6606384,\n          49.426501\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/999665847\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"cycleway:both\"
+        : \"no\",\n      \"highway\" : \"residential\",\n      \"lcn\" : \"yes\",\n
+        \     \"lit\" : \"yes\",\n      \"maxspeed\" : \"30\",\n      \"maxspeed:type\"
+        : \"DE:zone30\",\n      \"name\" : \"Tiergartenstra\xDFe\",\n      \"name:etymology:wikidata\"
+        : \"Q220035\",\n      \"sidewalk\" : \"right\",\n      \"surface\" : \"asphalt\"\n
+        \   }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.66,\n
+        \         49.4263561\n        ],\n        [\n          8.6600759,\n          49.4263728\n
+        \       ],\n        [\n          8.6601862,\n          49.4263972\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/1248084725\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"cycleway:both\"
+        : \"no\",\n      \"highway\" : \"residential\",\n      \"lcn\" : \"yes\",\n
+        \     \"lit\" : \"yes\",\n      \"maxspeed\" : \"30\",\n      \"maxspeed:type\"
+        : \"DE:zone30\",\n      \"name\" : \"Tiergartenstra\xDFe\",\n      \"name:etymology:wikidata\"
+        : \"Q220035\",\n      \"sidewalk\" : \"right\",\n      \"source:maxspeed\"
+        : \"DE:zone30\",\n      \"surface\" : \"asphalt\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6605272,\n          49.4265875\n        ],\n        [\n
+        \         8.66011,\n          49.4265074\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/1324478996\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"highway\" : \"service\",\n      \"service\"
+        : \"parking_aisle\",\n      \"surface\" : \"compacted\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.665548,\n          49.4253959\n        ],\n        [\n
+        \         8.6652791,\n          49.4257548\n        ],\n        [\n          8.6641691,\n
+        \         49.4273358\n        ]\n      ]\n    },\n    \"properties\" : {\n
+        \     \"@osmId\" : \"way/1337965589\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"highway\" : \"track\",\n      \"lit\" : \"yes\",\n      \"smoothness\"
+        : \"good\",\n      \"surface\" : \"asphalt\",\n      \"tracktype\" : \"grade1\"\n
+        \   }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6641691,\n
+        \         49.4273358\n        ],\n        [\n          8.6639248,\n          49.4276758\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/1337965590\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"track\",\n      \"lit\" : \"no\",\n      \"smoothness\" : \"good\",\n
+        \     \"surface\" : \"asphalt\",\n      \"tracktype\" : \"grade1\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"LineString\",\n      \"coordinates\" : [\n        [\n          8.6649177,\n
+        \         49.4278685\n        ],\n        [\n          8.6639248,\n          49.4276758\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/1377438308\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"highway\"
+        : \"track\",\n      \"motor_vehicle\" : \"private\",\n      \"surface\" :
+        \"grass\",\n      \"tracktype\" : \"grade3\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"LineString\",\n      \"coordinates\"
+        : [\n        [\n          8.6639248,\n          49.4276758\n        ],\n        [\n
+        \         8.662301,\n          49.43\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/1377758193\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"highway\" : \"track\",\n      \"lit\"
+        : \"no\",\n      \"smoothness\" : \"good\",\n      \"surface\" : \"asphalt\",\n
+        \     \"tracktype\" : \"grade1\"\n    }\n  }]\n}\n"
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '3600'
+      Connection:
+      - Keep-Alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/geo+json;charset=utf-8
+      Content-disposition:
+      - attachment;filename=ohsome.geojson
+      Date:
+      - Wed, 12 Aug 2026 09:58:25 GMT
+      Keep-Alive:
+      - timeout=5, max=100
+      Server:
+      - Apache/2.4.58 (Ubuntu)
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubdomains;
+      Transfer-Encoding:
+      - chunked
+      vary:
+      - accept-encoding
+    status:
+      code: 200
+      message: ''
+- request:
+    body: bpolys=%7B%22type%22%3A+%22FeatureCollection%22%2C+%22features%22%3A+%5B%7B%22id%22%3A+%220%22%2C+%22type%22%3A+%22Feature%22%2C+%22properties%22%3A+%7B%7D%2C+%22geometry%22%3A+%7B%22type%22%3A+%22MultiPolygon%22%2C+%22coordinates%22%3A+%5B%5B%5B%5B8.66%2C+49.425%5D%2C+%5B8.66%2C+49.43%5D%2C+%5B8.67%2C+49.43%5D%2C+%5B8.67%2C+49.425%5D%2C+%5B8.66%2C+49.425%5D%5D%5D%5D%7D%7D%5D%7D&filter=geometry%3Apolygon+and+%28%28building%3D%2A%29+or+%28amenity%3Dparking+and+parking%3Dsurface%29+or+%28landuse+in+%28garages%2Crailway%2Charbour%2Cport%2Clock%2Cmarina%2Cmilitary%2Creligious%2Ccemetery%2Ccommercial%2Cretail%2Cresidential%2Cindustrial%2Callotments%2Cfarmland%2Cfarmyard%2Cmeadow%2Corchard%2Cplant_nursery%2Cvineyard%2Cforest%29%29+or+%28natural%3D%2A%29+or+%28leisure%3Dnature_reserve%29+or+%28man_made%3D%2A%29+or+%28amenity+in+%28university%2Cschool%2Ccollege%2Chospital%2Cclinic%2Ccommunity_centre%2Ccourthouse%2Cfire_station%2Cpolice_station%2Cprison%2Ctownhall%2Cmonastery%2Cplace_of_worship%2Cbus_station%2Cferry_terminal%29%29%29&properties=tags&clipGeometry=True
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1074'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      user-agent:
+      - ohsome-py/0.3.0
+    method: POST
+    uri: https://api.ohsome.org/v1/elements/geometry
+  response:
+    body:
+      string: "{\n  \"attribution\" : {\n    \"url\" : \"https://ohsome.org/copyrights\",\n
+        \   \"text\" : \"\xA9 OpenStreetMap contributors\"\n  },\n  \"apiVersion\"
+        : \"1.10.4\",\n  \"type\" : \"FeatureCollection\",\n  \"features\" : [{\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6608722,\n
+        \           49.4263742\n          ],\n          [\n            8.6612117,\n
+        \           49.426452\n          ],\n          [\n            8.6611941,\n
+        \           49.4264938\n          ],\n          [\n            8.6614347,\n
+        \           49.4265461\n          ],\n          [\n            8.6614007,\n
+        \           49.4266136\n          ],\n          [\n            8.6617249,\n
+        \           49.4266776\n          ],\n          [\n            8.6619688,\n
+        \           49.4262177\n          ],\n          [\n            8.6610619,\n
+        \           49.426018\n          ],\n          [\n            8.6608722,\n
+        \           49.4263742\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/7980417\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"access\" : \"yes\",\n      \"amenity\" : \"parking\",\n      \"fee\"
+        : \"no\",\n      \"parking\" : \"surface\",\n      \"wheelchair\" : \"limited\"\n
+        \   }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"Polygon\",\n      \"coordinates\" : [\n        [\n          [\n            8.6614863,\n
+        \           49.4252647\n          ],\n          [\n            8.661272,\n
+        \           49.4256558\n          ],\n          [\n            8.6612479,\n
+        \           49.4256503\n          ],\n          [\n            8.6612046,\n
+        \           49.4257292\n          ],\n          [\n            8.6616171,\n
+        \           49.4258248\n          ],\n          [\n            8.6616535,\n
+        \           49.4258654\n          ],\n          [\n            8.6615661,\n
+        \           49.425918\n          ],\n          [\n            8.661777,\n
+        \           49.4259668\n          ],\n          [\n            8.6618656,\n
+        \           49.4258052\n          ],\n          [\n            8.6619906,\n
+        \           49.4255769\n          ],\n          [\n            8.6620867,\n
+        \           49.4254015\n          ],\n          [\n            8.6620179,\n
+        \           49.4253855\n          ],\n          [\n            8.662089,\n
+        \           49.4252558\n          ],\n          [\n            8.6618712,\n
+        \           49.4252053\n          ],\n          [\n            8.661799,\n
+        \           49.4253371\n          ],\n          [\n            8.6614863,\n
+        \           49.4252647\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/25782860\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"access\" : \"private\",\n      \"addr:city\"
+        : \"Heidelberg\",\n      \"addr:housenumber\" : \"126\",\n      \"addr:postcode\"
+        : \"69120\",\n      \"addr:street\" : \"Tiergartenstra\xDFe\",\n      \"building\"
+        : \"sports_centre\",\n      \"name\" : \"Sporthalle Sportzentrum Nord I\",\n
+        \     \"operator\" : \"TSV Handschuhsheim 1886 e.V.\",\n      \"operator:email\"
+        : \"tsv1886@t-online.de\",\n      \"operator:phone\" : \"+496221410886\",\n
+        \     \"operator:type\" : \"association\",\n      \"operator:website\" : \"https://tsvhandschuhsheim.de/\",\n
+        \     \"private\" : \"members\",\n      \"sport\" : \"multi\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6626341,\n
+        \           49.425\n          ],\n          [\n            8.6653043,\n            49.4256056\n
+        \         ],\n          [\n            8.6657442,\n            49.425\n          ],\n
+        \         [\n            8.6626341,\n            49.425\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/26946230\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"amenity\"
+        : \"university\",\n      \"name\" : \"Uni Heidelberg Campus Im Neuenheimer
+        Feld\",\n      \"operator\" : \"Universit\xE4t Heidelberg\",\n      \"wikidata\"
+        : \"Q7006333\",\n      \"wikipedia\" : \"en:New Campus (Heidelberg University)\"\n
+        \   }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"Polygon\",\n      \"coordinates\" : [\n        [\n          [\n            8.6697107,\n
+        \           49.4256049\n          ],\n          [\n            8.6698985,\n
+        \           49.425659\n          ],\n          [\n            8.67,\n            49.425528\n
+        \         ],\n          [\n            8.67,\n            49.4254228\n          ],\n
+        \         [\n            8.6699307,\n            49.4254043\n          ],\n
+        \         [\n            8.6698797,\n            49.4254584\n          ],\n
+        \         [\n            8.6698127,\n            49.4254392\n          ],\n
+        \         [\n            8.6697107,\n            49.4256049\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/182587842\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"addr:city\"
+        : \"Heidelberg\",\n      \"addr:country\" : \"DE\",\n      \"addr:housenumber\"
+        : \"69\",\n      \"addr:postcode\" : \"69121\",\n      \"addr:street\" : \"Angelweg\",\n
+        \     \"building\" : \"house\",\n      \"building:levels\" : \"1\",\n      \"roof:levels\"
+        : \"2\",\n      \"roof:shape\" : \"gabled\"\n    }\n  }, {\n    \"type\" :
+        \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n      \"coordinates\"
+        : [\n        [\n          [\n            8.6684132,\n            49.4282983\n
+        \         ],\n          [\n            8.668384,\n            49.4282935\n
+        \         ],\n          [\n            8.6684317,\n            49.4281704\n
+        \         ],\n          [\n            8.6686118,\n            49.4281999\n
+        \         ],\n          [\n            8.6685638,\n            49.4283235\n
+        \         ],\n          [\n            8.6685479,\n            49.4283209\n
+        \         ],\n          [\n            8.6684132,\n            49.4282983\n
+        \         ]\n        ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\"
+        : \"way/182587862\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"addr:city\" : \"Heidelberg\",\n      \"addr:country\" : \"DE\",\n
+        \     \"addr:housenumber\" : \"18\",\n      \"addr:place\" : \"Gewann Steinklinge\",\n
+        \     \"addr:postcode\" : \"69121\",\n      \"building\" : \"yes\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"Polygon\",\n      \"coordinates\" : [\n        [\n          [\n            8.6696464,\n
+        \           49.428841\n          ],\n          [\n            8.6699736,\n
+        \           49.4289004\n          ],\n          [\n            8.67,\n            49.4288514\n
+        \         ],\n          [\n            8.67,\n            49.4287963\n          ],\n
+        \         [\n            8.6696893,\n            49.4287433\n          ],\n
+        \         [\n            8.6696705,\n            49.42878\n          ],\n
+        \         [\n            8.6696973,\n            49.4287887\n          ],\n
+        \         [\n            8.6696464,\n            49.428841\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/182587874\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"building\"
+        : \"yes\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" :
+        {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n          [\n
+        \           8.6646372,\n            49.4267504\n          ],\n          [\n
+        \           8.6641468,\n            49.4274663\n          ],\n          [\n
+        \           8.6660995,\n            49.4278327\n          ],\n          [\n
+        \           8.6665772,\n            49.4271241\n          ],\n          [\n
+        \           8.6646372,\n            49.4267504\n          ]\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/265947109\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6627413,\n
+        \           49.4294481\n          ],\n          [\n            8.663943,\n
+        \           49.4277385\n          ],\n          [\n            8.6659063,\n
+        \           49.4281083\n          ],\n          [\n            8.6647315,\n
+        \           49.4297865\n          ],\n          [\n            8.6627413,\n
+        \           49.4294481\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265947111\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6642699,\n
+        \           49.4277193\n          ],\n          [\n            8.6643556,\n
+        \           49.4275355\n          ],\n          [\n            8.6650279,\n
+        \           49.4276682\n          ],\n          [\n            8.6649422,\n
+        \           49.4278519\n          ],\n          [\n            8.6642699,\n
+        \           49.4277193\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265947114\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.665931,\n
+        \           49.425\n          ],\n          [\n            8.6678429,\n            49.4253379\n
+        \         ],\n          [\n            8.6679267,\n            49.4252123\n
+        \         ],\n          [\n            8.6680199,\n            49.4250728\n
+        \         ],\n          [\n            8.6676506,\n            49.425\n          ],\n
+        \         [\n            8.665931,\n            49.425\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265947119\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"allotments\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.663604,\n            49.425\n          ],\n          [\n
+        \           8.6634763,\n            49.4251949\n          ],\n          [\n
+        \           8.6652733,\n            49.4256066\n          ],\n          [\n
+        \           8.6657112,\n            49.425\n          ],\n          [\n            8.663604,\n
+        \           49.425\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265947120\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"name\" : \"Versuchsfeld des botanischen
+        Gartens\",\n      \"natural\" : \"wood\",\n      \"source\" : \"Karte der
+        Stadt Heidelberg\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6676506,\n            49.425\n          ],\n          [\n
+        \           8.6680199,\n            49.4250728\n          ],\n          [\n
+        \           8.6680696,\n            49.425\n          ],\n          [\n            8.6676506,\n
+        \           49.425\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265947133\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.665862,\n
+        \           49.425\n          ],\n          [\n            8.6656274,\n            49.4253798\n
+        \         ],\n          [\n            8.667741,\n            49.425495\n
+        \         ],\n          [\n            8.6678429,\n            49.4253379\n
+        \         ],\n          [\n            8.665931,\n            49.425\n          ],\n
+        \         [\n            8.665862,\n            49.425\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265947141\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"farmland\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6654411,\n            49.4257\n          ],\n          [\n
+        \           8.6662632,\n            49.4258645\n          ],\n          [\n
+        \           8.666329,\n            49.4257254\n          ],\n          [\n
+        \           8.6655068,\n            49.4255609\n          ],\n          [\n
+        \           8.6654411,\n            49.4257\n          ]\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/265947142\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"Polygon\",\n      \"coordinates\" : [\n        [\n          [\n            8.6664301,\n
+        \           49.4257192\n          ],\n          [\n            8.666378,\n
+        \           49.4258191\n          ],\n          [\n            8.6666223,\n
+        \           49.425873\n          ],\n          [\n            8.666595,\n
+        \           49.4259253\n          ],\n          [\n            8.6669001,\n
+        \           49.4259925\n          ],\n          [\n            8.6669794,\n
+        \           49.4258403\n          ],\n          [\n            8.6664301,\n
+        \           49.4257192\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265947143\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6624754,\n
+        \           49.4298851\n          ],\n          [\n            8.6630148,\n
+        \           49.4299992\n          ],\n          [\n            8.6630512,\n
+        \           49.4299264\n          ],\n          [\n            8.6625118,\n
+        \           49.4298123\n          ],\n          [\n            8.6624754,\n
+        \           49.4298851\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265947144\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6637252,\n
+        \           49.43\n          ],\n          [\n            8.6637396,\n            49.4299694\n
+        \         ],\n          [\n            8.663146,\n            49.4298516\n
+        \         ],\n          [\n            8.6630763,\n            49.43\n          ],\n
+        \         [\n            8.6637252,\n            49.43\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265947146\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"building\"
+        : \"greenhouse\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6638432,\n            49.43\n          ],\n          [\n
+        \           8.6637808,\n            49.4299874\n          ],\n          [\n
+        \           8.6637748,\n            49.43\n          ],\n          [\n            8.6638432,\n
+        \           49.43\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265947147\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6603509,\n
+        \           49.43\n          ],\n          [\n            8.6600406,\n            49.4299382\n
+        \         ],\n          [\n            8.6600027,\n            49.43\n          ],\n
+        \         [\n            8.6603509,\n            49.43\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265947172\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"allotments\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.66,\n            49.4298592\n          ],\n          [\n
+        \           8.6600216,\n            49.4298633\n          ],\n          [\n
+        \           8.6601449,\n            49.4296783\n          ],\n          [\n
+        \           8.66,\n            49.4296492\n          ],\n          [\n            8.66,\n
+        \           49.4298592\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265949308\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"crop\" : \"walnuts\",\n      \"landuse\"
+        : \"orchard\",\n      \"trees\" : \"walnut_trees\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n      \"coordinates\"
+        : [\n        [\n          [\n            8.66,\n            49.4296492\n          ],\n
+        \         [\n            8.6601449,\n            49.4296783\n          ],\n
+        \         [\n            8.66044,\n            49.4292597\n          ],\n
+        \         [\n            8.66,\n            49.4291715\n          ],\n          [\n
+        \           8.66,\n            49.4296492\n          ]\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/265949309\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"meadow\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.66,\n            49.4291715\n
+        \         ],\n          [\n            8.66044,\n            49.4292597\n
+        \         ],\n          [\n            8.6605366,\n            49.4290992\n
+        \         ],\n          [\n            8.66,\n            49.4289926\n          ],\n
+        \         [\n            8.66,\n            49.4291715\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265949310\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"allotments\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.66,\n            49.4289926\n          ],\n          [\n
+        \           8.6605366,\n            49.4290992\n          ],\n          [\n
+        \           8.6607779,\n            49.4287573\n          ],\n          [\n
+        \           8.66,\n            49.4285954\n          ],\n          [\n            8.66,\n
+        \           49.4289926\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265949311\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"meadow\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.66,\n            49.4285954\n
+        \         ],\n          [\n            8.6607779,\n            49.4287573\n
+        \         ],\n          [\n            8.6608638,\n            49.4286282\n
+        \         ],\n          [\n            8.66,\n            49.4284594\n          ],\n
+        \         [\n            8.66,\n            49.4285954\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265949312\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"allotments\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.66,\n            49.4284594\n          ],\n          [\n
+        \           8.6608638,\n            49.4286282\n          ],\n          [\n
+        \           8.6610623,\n            49.4283421\n          ],\n          [\n
+        \           8.66,\n            49.4281185\n          ],\n          [\n            8.66,\n
+        \           49.4284594\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265949313\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.66,\n            49.4281185\n
+        \         ],\n          [\n            8.6610623,\n            49.4283421\n
+        \         ],\n          [\n            8.6611481,\n            49.428213\n
+        \         ],\n          [\n            8.66,\n            49.4279719\n          ],\n
+        \         [\n            8.66,\n            49.4281185\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265949314\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"allotments\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.66,\n            49.4279719\n          ],\n          [\n
+        \           8.6611481,\n            49.428213\n          ],\n          [\n
+        \           8.6612876,\n            49.4280036\n          ],\n          [\n
+        \           8.66,\n            49.4277411\n          ],\n          [\n            8.66,\n
+        \           49.4279719\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265949315\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.66,\n            49.4277411\n
+        \         ],\n          [\n            8.6612876,\n            49.4280036\n
+        \         ],\n          [\n            8.6614217,\n            49.4278222\n
+        \         ],\n          [\n            8.66,\n            49.4275103\n          ],\n
+        \         [\n            8.66,\n            49.4277411\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265949316\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"allotments\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.66,\n            49.4275103\n          ],\n          [\n
+        \           8.6614217,\n            49.4278222\n          ],\n          [\n
+        \           8.6617126,\n            49.4274432\n          ],\n          [\n
+        \           8.66,\n            49.427049\n          ],\n          [\n            8.66,\n
+        \           49.4275103\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265949317\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6608774,\n
+        \           49.4287511\n          ],\n          [\n            8.6614192,\n
+        \           49.4279992\n          ],\n          [\n            8.6633636,\n
+        \           49.4283944\n          ],\n          [\n            8.6628488,\n
+        \           49.4291645\n          ],\n          [\n            8.6608774,\n
+        \           49.4287511\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265949322\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6622141,\n
+        \           49.43\n          ],\n          [\n            8.6624463,\n            49.4296016\n
+        \         ],\n          [\n            8.6605634,\n            49.4292352\n
+        \         ],\n          [\n            8.6600699,\n            49.4298877\n
+        \         ],\n          [\n            8.660663,\n            49.43\n          ],\n
+        \         [\n            8.6622141,\n            49.43\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265949323\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"allotments\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6691577,\n            49.4270575\n          ],\n
+        \         [\n            8.67,\n            49.4272277\n          ],\n          [\n
+        \           8.67,\n            49.4270926\n          ],\n          [\n            8.6692165,\n
+        \           49.4269343\n          ],\n          [\n            8.6691577,\n
+        \           49.4270575\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957597\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6661529,\n
+        \           49.428062\n          ],\n          [\n            8.6679672,\n
+        \           49.4284328\n          ],\n          [\n            8.6680305,\n
+        \           49.4283446\n          ],\n          [\n            8.6661808,\n
+        \           49.4279828\n          ],\n          [\n            8.6661529,\n
+        \           49.428062\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957600\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6677278,\n
+        \           49.429642\n          ],\n          [\n            8.6691633,\n
+        \           49.4299191\n          ],\n          [\n            8.6692052,\n
+        \           49.4298272\n          ],\n          [\n            8.6677698,\n
+        \           49.42955\n          ],\n          [\n            8.6677278,\n
+        \           49.429642\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957602\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6690175,\n
+        \           49.4272874\n          ],\n          [\n            8.67,\n            49.4274836\n
+        \         ],\n          [\n            8.67,\n            49.4274038\n          ],\n
+        \         [\n            8.6690551,\n            49.4272281\n          ],\n
+        \         [\n            8.6690175,\n            49.4272874\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265957604\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"building\"
+        : \"greenhouse\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6647959,\n            49.4299881\n          ],\n
+        \         [\n            8.6648525,\n            49.43\n          ],\n          [\n
+        \           8.6658803,\n            49.43\n          ],\n          [\n            8.6648931,\n
+        \           49.4297925\n          ],\n          [\n            8.6647959,\n
+        \           49.4299881\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957610\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6688578,\n
+        \           49.4284212\n          ],\n          [\n            8.67,\n            49.428644\n
+        \         ],\n          [\n            8.67,\n            49.428531\n          ],\n
+        \         [\n            8.6689057,\n            49.4283174\n          ],\n
+        \         [\n            8.6688578,\n            49.4284212\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265957614\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"building\"
+        : \"greenhouse\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6672151,\n            49.4265547\n          ],\n
+        \         [\n            8.6690615,\n            49.4269046\n          ],\n
+        \         [\n            8.6690991,\n            49.4268174\n          ],\n
+        \         [\n            8.6672484,\n            49.426458\n          ],\n
+        \         [\n            8.6672151,\n            49.4265547\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265957615\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"building\"
+        : \"greenhouse\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.67,\n            49.4281869\n          ],\n          [\n
+        \           8.6690934,\n            49.428007\n          ],\n          [\n
+        \           8.6690351,\n            49.428131\n          ],\n          [\n
+        \           8.67,\n            49.4283225\n          ],\n          [\n            8.67,\n
+        \           49.4281869\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957625\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6665392,\n
+        \           49.4274758\n          ],\n          [\n            8.66795,\n
+        \           49.4277479\n          ],\n          [\n            8.6679822,\n
+        \           49.4276817\n          ],\n          [\n            8.6665714,\n
+        \           49.4274095\n          ],\n          [\n            8.6665392,\n
+        \           49.4274758\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957653\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6679232,\n
+        \           49.4288575\n          ],\n          [\n            8.6697632,\n
+        \           49.4292203\n          ],\n          [\n            8.6698072,\n
+        \           49.4291411\n          ],\n          [\n            8.6679511,\n
+        \           49.4287783\n          ],\n          [\n            8.6679232,\n
+        \           49.4288575\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957654\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6677471,\n
+        \           49.429527\n          ],\n          [\n            8.668225,\n
+        \           49.4296057\n          ],\n          [\n            8.6682686,\n
+        \           49.4294937\n          ],\n          [\n            8.6677908,\n
+        \           49.429415\n          ],\n          [\n            8.6677471,\n
+        \           49.429527\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957656\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.666212,\n
+        \           49.4279503\n          ],\n          [\n            8.6680638,\n
+        \           49.4283177\n          ],\n          [\n            8.6680895,\n
+        \           49.4282399\n          ],\n          [\n            8.6662495,\n
+        \           49.427877\n          ],\n          [\n            8.666212,\n
+        \           49.4279503\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957667\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6689505,\n
+        \           49.4282636\n          ],\n          [\n            8.67,\n            49.4284711\n
+        \         ],\n          [\n            8.67,\n            49.4283602\n          ],\n
+        \         [\n            8.668998,\n            49.4281621\n          ],\n
+        \         [\n            8.6689505,\n            49.4282636\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265957671\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"building\"
+        : \"greenhouse\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6690283,\n            49.4271757\n          ],\n
+        \         [\n            8.67,\n            49.4273659\n          ],\n          [\n
+        \           8.67,\n            49.4272714\n          ],\n          [\n            8.6690926,\n
+        \           49.427099\n          ],\n          [\n            8.6690283,\n
+        \           49.4271757\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957672\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6678213,\n
+        \           49.4289621\n          ],\n          [\n            8.6696881,\n
+        \           49.4293285\n          ],\n          [\n            8.6697364,\n
+        \           49.4292552\n          ],\n          [\n            8.6678867,\n
+        \           49.4288829\n          ],\n          [\n            8.6678213,\n
+        \           49.4289621\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957678\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6682712,\n
+        \           49.4296078\n          ],\n          [\n            8.6683467,\n
+        \           49.4294641\n          ],\n          [\n            8.6687423,\n
+        \           49.4295519\n          ],\n          [\n            8.6686669,\n
+        \           49.4296957\n          ],\n          [\n            8.6682712,\n
+        \           49.4296078\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957679\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.667714,\n
+        \           49.4290807\n          ],\n          [\n            8.6696355,\n
+        \           49.4294551\n          ],\n          [\n            8.6696784,\n
+        \           49.4293714\n          ],\n          [\n            8.6677848,\n
+        \           49.429005\n          ],\n          [\n            8.667714,\n
+        \           49.4290807\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957681\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.668125,\n
+        \           49.4287519\n          ],\n          [\n            8.6691634,\n
+        \           49.4289701\n          ],\n          [\n            8.6692369,\n
+        \           49.4288224\n          ],\n          [\n            8.6681985,\n
+        \           49.4286041\n          ],\n          [\n            8.668125,\n
+        \           49.4287519\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957685\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6682051,\n
+        \           49.4285406\n          ],\n          [\n            8.6687419,\n
+        \           49.4286414\n          ],\n          [\n            8.6687978,\n
+        \           49.4285153\n          ],\n          [\n            8.668261,\n
+        \           49.4284146\n          ],\n          [\n            8.6682051,\n
+        \           49.4285406\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957688\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6663182,\n
+        \           49.4278352\n          ],\n          [\n            8.6677504,\n
+        \           49.4281068\n          ],\n          [\n            8.667893,\n
+        \           49.4277886\n          ],\n          [\n            8.6664608,\n
+        \           49.427517\n          ],\n          [\n            8.6663182,\n
+        \           49.4278352\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957694\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6660149,\n
+        \           49.4282462\n          ],\n          [\n            8.6678768,\n
+        \           49.428608\n          ],\n          [\n            8.6679403,\n
+        \           49.4284696\n          ],\n          [\n            8.6660785,\n
+        \           49.4281078\n          ],\n          [\n            8.6660149,\n
+        \           49.4282462\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957697\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6676003,\n
+        \           49.4270369\n          ],\n          [\n            8.6683727,\n
+        \           49.4271813\n          ],\n          [\n            8.6684339,\n
+        \           49.427043\n          ],\n          [\n            8.6676614,\n
+        \           49.4268986\n          ],\n          [\n            8.6676003,\n
+        \           49.4270369\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957699\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6665956,\n
+        \           49.4273748\n          ],\n          [\n            8.6684681,\n
+        \           49.4277381\n          ],\n          [\n            8.6685227,\n
+        \           49.4276191\n          ],\n          [\n            8.6666501,\n
+        \           49.4272558\n          ],\n          [\n            8.6665956,\n
+        \           49.4273748\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957700\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6658924,\n
+        \           49.428398\n          ],\n          [\n            8.6667473,\n
+        \           49.4285701\n          ],\n          [\n            8.6667898,\n
+        \           49.4284809\n          ],\n          [\n            8.6659348,\n
+        \           49.4283088\n          ],\n          [\n            8.6658924,\n
+        \           49.428398\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957704\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6673975,\n
+        \           49.426443\n          ],\n          [\n            8.6691034,\n
+        \           49.426764\n          ],\n          [\n            8.6691366,\n
+        \           49.4266953\n          ],\n          [\n            8.66742,\n
+        \           49.4263673\n          ],\n          [\n            8.6673975,\n
+        \           49.426443\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957714\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6666977,\n
+        \           49.4272375\n          ],\n          [\n            8.668562,\n
+        \           49.4275703\n          ],\n          [\n            8.6686433,\n
+        \           49.4273776\n          ],\n          [\n            8.666779,\n
+        \           49.4270448\n          ],\n          [\n            8.6666977,\n
+        \           49.4272375\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957721\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6674053,\n
+        \           49.4262592\n          ],\n          [\n            8.6692234,\n
+        \           49.4266389\n          ],\n          [\n            8.6692911,\n
+        \           49.4265018\n          ],\n          [\n            8.667473,\n
+        \           49.4261221\n          ],\n          [\n            8.6674053,\n
+        \           49.4262592\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/265957723\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6688888,\n
+        \           49.427413\n          ],\n          [\n            8.67,\n            49.4276261\n
+        \         ],\n          [\n            8.67,\n            49.4275238\n          ],\n
+        \         [\n            8.6689478,\n            49.4273223\n          ],\n
+        \         [\n            8.6688888,\n            49.427413\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265957725\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"building\"
+        : \"greenhouse\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6657463,\n            49.4286636\n          ],\n
+        \         [\n            8.6664136,\n            49.428795\n          ],\n
+        \         [\n            8.6664613,\n            49.4286927\n          ],\n
+        \         [\n            8.6657939,\n            49.4285613\n          ],\n
+        \         [\n            8.6657463,\n            49.4286636\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265957727\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"building\"
+        : \"greenhouse\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6664617,\n            49.4287777\n          ],\n
+        \         [\n            8.6671573,\n            49.4289124\n          ],\n
+        \         [\n            8.6672481,\n            49.4287141\n          ],\n
+        \         [\n            8.6665525,\n            49.4285794\n          ],\n
+        \         [\n            8.6664617,\n            49.4287777\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/265957735\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"building\"
+        : \"greenhouse\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6669466,\n            49.4269175\n          ],\n
+        \         [\n            8.667532,\n            49.42704\n          ],\n          [\n
+        \           8.6675878,\n            49.4269271\n          ],\n          [\n
+        \           8.6670023,\n            49.4268047\n          ],\n          [\n
+        \           8.6669466,\n            49.4269175\n          ]\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/265957744\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"building\" : \"greenhouse\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"Polygon\",\n      \"coordinates\" : [\n        [\n          [\n            8.67,\n
+        \           49.4258118\n          ],\n          [\n            8.6699437,\n
+        \           49.4258017\n          ],\n          [\n            8.6691873,\n
+        \           49.4268973\n          ],\n          [\n            8.6683956,\n
+        \           49.4280465\n          ],\n          [\n            8.668951,\n
+        \           49.4281615\n          ],\n          [\n            8.6688191,\n
+        \           49.428473\n          ],\n          [\n            8.67,\n            49.428695\n
+        \         ],\n          [\n            8.67,\n            49.4258118\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/283940819\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"farmland\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.67,\n            49.4291051\n          ],\n          [\n
+        \           8.6693739,\n            49.43\n          ],\n          [\n            8.67,\n
+        \           49.43\n          ],\n          [\n            8.67,\n            49.4291051\n
+        \         ]\n        ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\"
+        : \"way/283940851\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"landuse\" : \"farmland\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"Polygon\",\n      \"coordinates\"
+        : [\n        [\n          [\n            8.66,\n            49.4265672\n          ],\n
+        \         [\n            8.6601046,\n            49.4264133\n          ],\n
+        \         [\n            8.66,\n            49.4263905\n          ],\n          [\n
+        \           8.66,\n            49.4265672\n          ]\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/293334615\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6675281,\n
+        \           49.4260662\n          ],\n          [\n            8.66781,\n
+        \           49.4261241\n          ],\n          [\n            8.6678605,\n
+        \           49.42602\n          ],\n          [\n            8.6675786,\n
+        \           49.4259621\n          ],\n          [\n            8.6675281,\n
+        \           49.4260662\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/302334891\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"farm_auxiliary\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"Polygon\",\n      \"coordinates\" : [\n        [\n          [\n            8.67,\n
+        \           49.4253655\n          ],\n          [\n            8.6686732,\n
+        \           49.4250823\n          ],\n          [\n            8.6684848,\n
+        \           49.4253558\n          ],\n          [\n            8.6699555,\n
+        \           49.425676\n          ],\n          [\n            8.67,\n            49.4256085\n
+        \         ],\n          [\n            8.67,\n            49.4253655\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/338310837\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"farmyard\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6681859,\n            49.425\n          ],\n          [\n
+        \           8.6680189,\n            49.4252544\n          ],\n          [\n
+        \           8.6684848,\n            49.4253558\n          ],\n          [\n
+        \           8.6686732,\n            49.4250823\n          ],\n          [\n
+        \           8.6682878,\n            49.425\n          ],\n          [\n            8.6681859,\n
+        \           49.425\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/338310852\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6682878,\n
+        \           49.425\n          ],\n          [\n            8.6686732,\n            49.4250823\n
+        \         ],\n          [\n            8.67,\n            49.4253655\n          ],\n
+        \         [\n            8.67,\n            49.425\n          ],\n          [\n
+        \           8.6682878,\n            49.425\n          ]\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/338310854\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6678261,\n
+        \           49.425507\n          ],\n          [\n            8.6680189,\n
+        \           49.4252544\n          ],\n          [\n            8.6684848,\n
+        \           49.4253558\n          ],\n          [\n            8.6699555,\n
+        \           49.425676\n          ],\n          [\n            8.669918,\n
+        \           49.425737\n          ],\n          [\n            8.669026,\n
+        \           49.4255959\n          ],\n          [\n            8.6678261,\n
+        \           49.425507\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/338310855\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"meadow\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6604819,\n
+        \           49.4271384\n          ],\n          [\n            8.6606397,\n
+        \           49.4271737\n          ],\n          [\n            8.660674,\n
+        \           49.4271087\n          ],\n          [\n            8.6605163,\n
+        \           49.4270734\n          ],\n          [\n            8.6604819,\n
+        \           49.4271384\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/342066497\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"yes\",\n      \"source:geometry\"
+        : \"Bing 2012\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6622129,\n            49.4251521\n          ],\n
+        \         [\n            8.6622916,\n            49.425\n          ],\n          [\n
+        \           8.6616176,\n            49.425\n          ],\n          [\n            8.6616074,\n
+        \           49.4250197\n          ],\n          [\n            8.6622129,\n
+        \           49.4251521\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/342068004\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"yes\",\n      \"source:geometry\"
+        : \"Bing 2012\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6674755,\n            49.4288434\n          ],\n
+        \         [\n            8.6675111,\n            49.4287643\n          ],\n
+        \         [\n            8.6676793,\n            49.4287963\n          ],\n
+        \         [\n            8.6676437,\n            49.4288754\n          ],\n
+        \         [\n            8.6674755,\n            49.4288434\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/360143308\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"addr:city\"
+        : \"Heidelberg\",\n      \"addr:country\" : \"DE\",\n      \"addr:housenumber\"
+        : \"14\",\n      \"addr:place\" : \"Gewann Schl\xE4uchen\",\n      \"addr:postcode\"
+        : \"69121\",\n      \"building\" : \"yes\"\n    }\n  }, {\n    \"type\" :
+        \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n      \"coordinates\"
+        : [\n        [\n          [\n            8.6674896,\n            49.4294429\n
+        \         ],\n          [\n            8.6675283,\n            49.4293515\n
+        \         ],\n          [\n            8.6677064,\n            49.4293833\n
+        \         ],\n          [\n            8.6676677,\n            49.4294748\n
+        \         ],\n          [\n            8.6674896,\n            49.4294429\n
+        \         ]\n        ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\"
+        : \"way/360143310\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"addr:city\" : \"Heidelberg\",\n      \"addr:country\" : \"DE\",\n
+        \     \"addr:housenumber\" : \"30\",\n      \"addr:place\" : \"Gewann Steinklinge\",\n
+        \     \"addr:postcode\" : \"69121\",\n      \"building\" : \"yes\"\n    }\n
+        \ }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"Polygon\",\n      \"coordinates\" : [\n        [\n          [\n            8.6654616,\n
+        \           49.4279423\n          ],\n          [\n            8.6654841,\n
+        \           49.4278943\n          ],\n          [\n            8.6657808,\n
+        \           49.4279529\n          ],\n          [\n            8.6657583,\n
+        \           49.4280009\n          ],\n          [\n            8.6654616,\n
+        \           49.4279423\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/374263713\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"yes\",\n      \"source:geometry\"
+        : \"Bing 2012\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6657583,\n            49.4280009\n          ],\n
+        \         [\n            8.6659312,\n            49.4280351\n          ],\n
+        \         [\n            8.6659714,\n            49.4279491\n          ],\n
+        \         [\n            8.6657985,\n            49.427915\n          ],\n
+        \         [\n            8.6657808,\n            49.4279529\n          ],\n
+        \         [\n            8.6657583,\n            49.4280009\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/374263719\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"building\"
+        : \"yes\",\n      \"name\" : \"Marktgarten im Saubad, Solidarische Landwirtschaft\",\n
+        \     \"organic\" : \"only\",\n      \"shop\" : \"greengrocer\",\n      \"source:geometry\"
+        : \"Bing 2012\",\n      \"website\" : \"https://marktgarten-heidelberg.de/\"\n
+        \   }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\"
+        : \"Polygon\",\n      \"coordinates\" : [\n        [\n          [\n            8.6676314,\n
+        \           49.4257735\n          ],\n          [\n            8.6696284,\n
+        \           49.4261593\n          ],\n          [\n            8.6697588,\n
+        \           49.4259651\n          ],\n          [\n            8.6677619,\n
+        \           49.4255793\n          ],\n          [\n            8.6676314,\n
+        \           49.4257735\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385116051\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6677619,\n
+        \           49.4255793\n          ],\n          [\n            8.6677797,\n
+        \           49.4255561\n          ],\n          [\n            8.6690016,\n
+        \           49.4256333\n          ],\n          [\n            8.6698775,\n
+        \           49.425785\n          ],\n          [\n            8.6697588,\n
+        \           49.4259651\n          ],\n          [\n            8.6677619,\n
+        \           49.4255793\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385116052\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"allotments\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6676314,\n
+        \           49.4257735\n          ],\n          [\n            8.6676077,\n
+        \           49.4258172\n          ],\n          [\n            8.6696007,\n
+        \           49.4261979\n          ],\n          [\n            8.6696284,\n
+        \           49.4261593\n          ],\n          [\n            8.6676314,\n
+        \           49.4257735\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385116053\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6676077,\n
+        \           49.4258172\n          ],\n          [\n            8.6675444,\n
+        \           49.4259304\n          ],\n          [\n            8.6679498,\n
+        \           49.4260165\n          ],\n          [\n            8.66793,\n
+        \           49.4260513\n          ],\n          [\n            8.6695077,\n
+        \           49.4263432\n          ],\n          [\n            8.6696007,\n
+        \           49.4261979\n          ],\n          [\n            8.6676077,\n
+        \           49.4258172\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385116055\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.66793,\n
+        \           49.4260513\n          ],\n          [\n            8.6678588,\n
+        \           49.4261876\n          ],\n          [\n            8.6694049,\n
+        \           49.4264782\n          ],\n          [\n            8.6695077,\n
+        \           49.4263432\n          ],\n          [\n            8.66793,\n
+        \           49.4260513\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385116056\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6690925,\n
+        \           49.4269167\n          ],\n          [\n            8.6670928,\n
+        \           49.4265399\n          ],\n          [\n            8.6669284,\n
+        \           49.4267827\n          ],\n          [\n            8.6676089,\n
+        \           49.4269225\n          ],\n          [\n            8.6676365,\n
+        \           49.4268733\n          ],\n          [\n            8.6689656,\n
+        \           49.4271066\n          ],\n          [\n            8.6690925,\n
+        \           49.4269167\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385116058\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6655115,\n
+        \           49.4287745\n          ],\n          [\n            8.6675203,\n
+        \           49.4291615\n          ],\n          [\n            8.6676034,\n
+        \           49.4290509\n          ],\n          [\n            8.6655807,\n
+        \           49.4286665\n          ],\n          [\n            8.6655115,\n
+        \           49.4287745\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385116059\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6655115,\n
+        \           49.4287745\n          ],\n          [\n            8.6654334,\n
+        \           49.4288902\n          ],\n          [\n            8.6674451,\n
+        \           49.4292805\n          ],\n          [\n            8.6675203,\n
+        \           49.4291615\n          ],\n          [\n            8.6655115,\n
+        \           49.4287745\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385116061\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"allotments\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6654334,\n
+        \           49.4288902\n          ],\n          [\n            8.6648261,\n
+        \           49.4297731\n          ],\n          [\n            8.665992,\n
+        \           49.43\n          ],\n          [\n            8.6669387,\n            49.43\n
+        \         ],\n          [\n            8.6674451,\n            49.4292805\n
+        \         ],\n          [\n            8.6654334,\n            49.4288902\n
+        \         ]\n        ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\"
+        : \"way/385116062\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"landuse\" : \"farmland\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"Polygon\",\n      \"coordinates\"
+        : [\n        [\n          [\n            8.6692704,\n            49.43\n          ],\n
+        \         [\n            8.6692938,\n            49.4299671\n          ],\n
+        \         [\n            8.6677714,\n            49.4296726\n          ],\n
+        \         [\n            8.6677259,\n            49.4297871\n          ],\n
+        \         [\n            8.6672019,\n            49.4297022\n          ],\n
+        \         [\n            8.6670014,\n            49.43\n          ],\n          [\n
+        \           8.6692704,\n            49.43\n          ]\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/385117114\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6675169,\n
+        \           49.4292642\n          ],\n          [\n            8.6676335,\n
+        \           49.4290919\n          ],\n          [\n            8.6696463,\n
+        \           49.4294751\n          ],\n          [\n            8.6694822,\n
+        \           49.429704\n          ],\n          [\n            8.6690254,\n
+        \           49.4296217\n          ],\n          [\n            8.669067,\n
+        \           49.4295446\n          ],\n          [\n            8.6683465,\n
+        \           49.4294143\n          ],\n          [\n            8.6675169,\n
+        \           49.4292642\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385117115\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6614192,\n
+        \           49.4279992\n          ],\n          [\n            8.6619154,\n
+        \           49.4272961\n          ],\n          [\n            8.6638948,\n
+        \           49.4276555\n          ],\n          [\n            8.6633636,\n
+        \           49.4283944\n          ],\n          [\n            8.6614192,\n
+        \           49.4279992\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385119759\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"allotments\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6619154,\n
+        \           49.4272961\n          ],\n          [\n            8.6620656,\n
+        \           49.4270816\n          ],\n          [\n            8.6640263,\n
+        \           49.4274601\n          ],\n          [\n            8.6638948,\n
+        \           49.4276555\n          ],\n          [\n            8.6619154,\n
+        \           49.4272961\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385119760\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6608774,\n
+        \           49.4287511\n          ],\n          [\n            8.6628488,\n
+        \           49.4291645\n          ],\n          [\n            8.6626396,\n
+        \           49.4294768\n          ],\n          [\n            8.6606306,\n
+        \           49.429093\n          ],\n          [\n            8.6608774,\n
+        \           49.4287511\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/385119762\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"allotments\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6626554,\n
+        \           49.43\n          ],\n          [\n            8.6623827,\n            49.4299504\n
+        \         ],\n          [\n            8.662351,\n            49.43\n          ],\n
+        \         [\n            8.6626554,\n            49.43\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/392101757\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"farmland\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6625436,\n            49.4297325\n          ],\n
+        \         [\n            8.6640143,\n            49.43\n          ],\n          [\n
+        \           8.6641804,\n            49.43\n          ],\n          [\n            8.6642066,\n
+        \           49.4299614\n          ],\n          [\n            8.6626121,\n
+        \           49.4296262\n          ],\n          [\n            8.6625436,\n
+        \           49.4297325\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/392101758\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6685479,\n
+        \           49.4283209\n          ],\n          [\n            8.6685248,\n
+        \           49.4283805\n          ],\n          [\n            8.6683899,\n
+        \           49.4283584\n          ],\n          [\n            8.6684132,\n
+        \           49.4282983\n          ],\n          [\n            8.6685479,\n
+        \           49.4283209\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/501703128\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"building\" : \"yes\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n      \"coordinates\"
+        : [\n        [\n          [\n            8.6689981,\n            49.4272608\n
+        \         ],\n          [\n            8.6690115,\n            49.4272354\n
+        \         ],\n          [\n            8.6690421,\n            49.4272423\n
+        \         ],\n          [\n            8.6690286,\n            49.4272677\n
+        \         ],\n          [\n            8.6689981,\n            49.4272608\n
+        \         ]\n        ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\"
+        : \"way/501703129\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"building\" : \"yes\",\n      \"name\" : \"Steinklinge\",\n      \"power\"
+        : \"substation\",\n      \"source:geometry\" : \"Bing 2012\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6635181,\n
+        \           49.4254406\n          ],\n          [\n            8.6636129,\n
+        \           49.425269\n          ],\n          [\n            8.663918,\n
+        \           49.4253408\n          ],\n          [\n            8.6638213,\n
+        \           49.425509\n          ],\n          [\n            8.6635181,\n
+        \           49.4254406\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/618861670\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"natural\" : \"sand\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n      \"coordinates\"
+        : [\n        [\n          [\n            8.6635476,\n            49.4255757\n
+        \         ],\n          [\n            8.6636445,\n            49.4256004\n
+        \         ],\n          [\n            8.663683,\n            49.4255365\n
+        \         ],\n          [\n            8.6635861,\n            49.4255118\n
+        \         ],\n          [\n            8.6635476,\n            49.4255757\n
+        \         ]\n        ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\"
+        : \"way/618861673\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"natural\" : \"sand\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"Polygon\",\n      \"coordinates\"
+        : [\n        [\n          [\n            8.6629932,\n            49.426615\n
+        \         ],\n          [\n            8.6630737,\n            49.4266339\n
+        \         ],\n          [\n            8.6631116,\n            49.4265655\n
+        \         ],\n          [\n            8.6630312,\n            49.4265466\n
+        \         ],\n          [\n            8.6629932,\n            49.426615\n
+        \         ]\n        ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\"
+        : \"way/618861680\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"natural\" : \"sand\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"Polygon\",\n      \"coordinates\"
+        : [\n        [\n          [\n            8.6640143,\n            49.43\n          ],\n
+        \         [\n            8.6625436,\n            49.4297325\n          ],\n
+        \         [\n            8.6623827,\n            49.4299504\n          ],\n
+        \         [\n            8.6626554,\n            49.43\n          ],\n          [\n
+        \           8.6640143,\n            49.43\n          ]\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/707209667\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6642066,\n
+        \           49.4299614\n          ],\n          [\n            8.6641804,\n
+        \           49.43\n          ],\n          [\n            8.6643848,\n            49.43\n
+        \         ],\n          [\n            8.6642066,\n            49.4299614\n
+        \         ]\n        ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\"
+        : \"way/707209668\",\n      \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n
+        \     \"landuse\" : \"farmyard\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n
+        \   \"geometry\" : {\n      \"type\" : \"Polygon\",\n      \"coordinates\"
+        : [\n        [\n          [\n            8.6627413,\n            49.4294481\n
+        \         ],\n          [\n            8.6626121,\n            49.4296262\n
+        \         ],\n          [\n            8.6642066,\n            49.4299614\n
+        \         ],\n          [\n            8.6643848,\n            49.43\n          ],\n
+        \         [\n            8.6645561,\n            49.43\n          ],\n          [\n
+        \           8.6647315,\n            49.4297865\n          ],\n          [\n
+        \           8.6627413,\n            49.4294481\n          ]\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/707209669\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"allotments\"\n    }\n  },
+        {\n    \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6605634,\n
+        \           49.4292352\n          ],\n          [\n            8.6606306,\n
+        \           49.429093\n          ],\n          [\n            8.6626396,\n
+        \           49.4294768\n          ],\n          [\n            8.6624463,\n
+        \           49.4296016\n          ],\n          [\n            8.6605634,\n
+        \           49.4292352\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209670\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6649875,\n
+        \           49.4278552\n          ],\n          [\n            8.6639777,\n
+        \           49.4276555\n          ],\n          [\n            8.6641468,\n
+        \           49.4274663\n          ],\n          [\n            8.6650978,\n
+        \           49.4276447\n          ],\n          [\n            8.6649875,\n
+        \           49.4278552\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209671\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6649875,\n
+        \           49.4278552\n          ],\n          [\n            8.6650978,\n
+        \           49.4276447\n          ],\n          [\n            8.6660995,\n
+        \           49.4278327\n          ],\n          [\n            8.6659639,\n
+        \           49.4280558\n          ],\n          [\n            8.6649875,\n
+        \           49.4278552\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209672\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmyard\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.668752,\n
+        \           49.4273746\n          ],\n          [\n            8.6689656,\n
+        \           49.4271066\n          ],\n          [\n            8.6676365,\n
+        \           49.4268733\n          ],\n          [\n            8.6676089,\n
+        \           49.4269225\n          ],\n          [\n            8.6675513,\n
+        \           49.4270596\n          ],\n          [\n            8.667545,\n
+        \           49.4270745\n          ],\n          [\n            8.6683604,\n
+        \           49.4272403\n          ],\n          [\n            8.6683425,\n
+        \           49.427301\n          ],\n          [\n            8.668752,\n
+        \           49.4273746\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209673\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6667725,\n
+        \           49.4270187\n          ],\n          [\n            8.6669284,\n
+        \           49.4267827\n          ],\n          [\n            8.6676089,\n
+        \           49.4269225\n          ],\n          [\n            8.6675513,\n
+        \           49.4270596\n          ],\n          [\n            8.667545,\n
+        \           49.4270745\n          ],\n          [\n            8.6683604,\n
+        \           49.4272403\n          ],\n          [\n            8.6683425,\n
+        \           49.427301\n          ],\n          [\n            8.6667725,\n
+        \           49.4270187\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209674\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6674498,\n
+        \           49.4260915\n          ],\n          [\n            8.6670928,\n
+        \           49.4265399\n          ],\n          [\n            8.6690925,\n
+        \           49.4269167\n          ],\n          [\n            8.6694049,\n
+        \           49.4264782\n          ],\n          [\n            8.6678588,\n
+        \           49.4261876\n          ],\n          [\n            8.6674498,\n
+        \           49.4260915\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209675\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6674498,\n
+        \           49.4260915\n          ],\n          [\n            8.6678588,\n
+        \           49.4261876\n          ],\n          [\n            8.66793,\n
+        \           49.4260513\n          ],\n          [\n            8.6679498,\n
+        \           49.4260165\n          ],\n          [\n            8.6675444,\n
+        \           49.4259304\n          ],\n          [\n            8.6674498,\n
+        \           49.4260915\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209676\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmyard\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6651793,\n
+        \           49.4259441\n          ],\n          [\n            8.6646372,\n
+        \           49.4267504\n          ],\n          [\n            8.6665772,\n
+        \           49.4271241\n          ],\n          [\n            8.667136,\n
+        \           49.4263418\n          ],\n          [\n            8.6667229,\n
+        \           49.4262598\n          ],\n          [\n            8.6651793,\n
+        \           49.4259441\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209677\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6670931,\n
+        \           49.4255332\n          ],\n          [\n            8.6655065,\n
+        \           49.4254695\n          ],\n          [\n            8.6651793,\n
+        \           49.4259441\n          ],\n          [\n            8.6667229,\n
+        \           49.4262598\n          ],\n          [\n            8.6670314,\n
+        \           49.4258298\n          ],\n          [\n            8.6670931,\n
+        \           49.4255332\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209678\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6676604,\n
+        \           49.4255777\n          ],\n          [\n            8.667136,\n
+        \           49.4263418\n          ],\n          [\n            8.6667229,\n
+        \           49.4262598\n          ],\n          [\n            8.6670314,\n
+        \           49.4258298\n          ],\n          [\n            8.6670931,\n
+        \           49.4255332\n          ],\n          [\n            8.6676604,\n
+        \           49.4255777\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209679\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmyard\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.666448,\n
+        \           49.4274863\n          ],\n          [\n            8.6667725,\n
+        \           49.4270187\n          ],\n          [\n            8.6683425,\n
+        \           49.427301\n          ],\n          [\n            8.668752,\n
+        \           49.4273746\n          ],\n          [\n            8.6684945,\n
+        \           49.4277689\n          ],\n          [\n            8.6680211,\n
+        \           49.4276686\n          ],\n          [\n            8.6679667,\n
+        \           49.427775\n          ],\n          [\n            8.666448,\n
+        \           49.4274863\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209680\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6677797,\n
+        \           49.4281405\n          ],\n          [\n            8.6681525,\n
+        \           49.4282547\n          ],\n          [\n            8.6678776,\n
+        \           49.4286612\n          ],\n          [\n            8.6659035,\n
+        \           49.4282626\n          ],\n          [\n            8.666212,\n
+        \           49.4278421\n          ],\n          [\n            8.6677797,\n
+        \           49.4281405\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209681\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6677797,\n
+        \           49.4281405\n          ],\n          [\n            8.666212,\n
+        \           49.4278421\n          ],\n          [\n            8.666448,\n
+        \           49.4274863\n          ],\n          [\n            8.6679667,\n
+        \           49.427775\n          ],\n          [\n            8.6677797,\n
+        \           49.4281405\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209682\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6677797,\n
+        \           49.4281405\n          ],\n          [\n            8.6679667,\n
+        \           49.427775\n          ],\n          [\n            8.6680211,\n
+        \           49.4276686\n          ],\n          [\n            8.6684945,\n
+        \           49.4277689\n          ],\n          [\n            8.6681525,\n
+        \           49.4282547\n          ],\n          [\n            8.6677797,\n
+        \           49.4281405\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209683\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmyard\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6683956,\n
+        \           49.4280465\n          ],\n          [\n            8.6680734,\n
+        \           49.4285469\n          ],\n          [\n            8.6699899,\n
+        \           49.4289399\n          ],\n          [\n            8.67,\n            49.4289262\n
+        \         ],\n          [\n            8.67,\n            49.428695\n          ],\n
+        \         [\n            8.6688191,\n            49.428473\n          ],\n
+        \         [\n            8.668951,\n            49.4281615\n          ],\n
+        \         [\n            8.6683956,\n            49.4280465\n          ]\n
+        \       ]\n      ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/707209684\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"farmyard\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.665992,\n            49.43\n          ],\n          [\n
+        \           8.6648261,\n            49.4297731\n          ],\n          [\n
+        \           8.6646593,\n            49.43\n          ],\n          [\n            8.665992,\n
+        \           49.43\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209688\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6677714,\n
+        \           49.4296726\n          ],\n          [\n            8.667659,\n
+        \           49.4296555\n          ],\n          [\n            8.6677274,\n
+        \           49.4295308\n          ],\n          [\n            8.6682411,\n
+        \           49.4296154\n          ],\n          [\n            8.6683465,\n
+        \           49.4294143\n          ],\n          [\n            8.669067,\n
+        \           49.4295446\n          ],\n          [\n            8.6690254,\n
+        \           49.4296217\n          ],\n          [\n            8.6694822,\n
+        \           49.429704\n          ],\n          [\n            8.6692938,\n
+        \           49.4299671\n          ],\n          [\n            8.6677714,\n
+        \           49.4296726\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209690\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6672019,\n
+        \           49.4297022\n          ],\n          [\n            8.6675169,\n
+        \           49.4292642\n          ],\n          [\n            8.6683465,\n
+        \           49.4294143\n          ],\n          [\n            8.6682411,\n
+        \           49.4296154\n          ],\n          [\n            8.6677274,\n
+        \           49.4295308\n          ],\n          [\n            8.667659,\n
+        \           49.4296555\n          ],\n          [\n            8.6677714,\n
+        \           49.4296726\n          ],\n          [\n            8.6677259,\n
+        \           49.4297871\n          ],\n          [\n            8.6672019,\n
+        \           49.4297022\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209691\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmyard\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6676335,\n
+        \           49.4290919\n          ],\n          [\n            8.6679205,\n
+        \           49.4287284\n          ],\n          [\n            8.6698624,\n
+        \           49.4291244\n          ],\n          [\n            8.6696463,\n
+        \           49.4294751\n          ],\n          [\n            8.6676335,\n
+        \           49.4290919\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/707209692\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmland\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6679205,\n
+        \           49.4287284\n          ],\n          [\n            8.6680734,\n
+        \           49.4285469\n          ],\n          [\n            8.6699899,\n
+        \           49.4289399\n          ],\n          [\n            8.6698624,\n
+        \           49.4291244\n          ],\n          [\n            8.6679205,\n
+        \           49.4287284\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/708781928\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmyard\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6676034,\n
+        \           49.4290509\n          ],\n          [\n            8.6678776,\n
+        \           49.4286612\n          ],\n          [\n            8.6659035,\n
+        \           49.4282626\n          ],\n          [\n            8.6655807,\n
+        \           49.4286665\n          ],\n          [\n            8.6676034,\n
+        \           49.4290509\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/708781929\",\n      \"@snapshotTimestamp\" :
+        \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"farmyard\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6601148,\n
+        \           49.426569\n          ],\n          [\n            8.6601743,\n
+        \           49.4264547\n          ],\n          [\n            8.6606248,\n
+        \           49.426553\n          ],\n          [\n            8.6605551,\n
+        \           49.4266665\n          ],\n          [\n            8.6601148,\n
+        \           49.426569\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"way/1324478995\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"amenity\" : \"parking\",\n      \"parking\"
+        : \"surface\",\n      \"surface\" : \"compacted\"\n    }\n  }, {\n    \"type\"
+        : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n      \"coordinates\"
+        : [\n        [\n          [\n            8.66,\n            49.4263043\n          ],\n
+        \         [\n            8.660185,\n            49.4263455\n          ],\n
+        \         [\n            8.6606337,\n            49.4257124\n          ],\n
+        \         [\n            8.66,\n            49.4256065\n          ],\n          [\n
+        \           8.66,\n            49.4263043\n          ]\n        ]\n      ]\n
+        \   },\n    \"properties\" : {\n      \"@osmId\" : \"way/1345103574\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"landuse\" : \"forest\"\n    }\n  }, {\n
+        \   \"type\" : \"Feature\",\n    \"geometry\" : {\n      \"type\" : \"Polygon\",\n
+        \     \"coordinates\" : [\n        [\n          [\n            8.6611977,\n
+        \           49.425\n          ],\n          [\n            8.6602471,\n            49.4263599\n
+        \         ],\n          [\n            8.6606738,\n            49.4264533\n
+        \         ],\n          [\n            8.661467,\n            49.425\n          ],\n
+        \         [\n            8.6611977,\n            49.425\n          ]\n        ]\n
+        \     ]\n    },\n    \"properties\" : {\n      \"@osmId\" : \"way/1345103577\",\n
+        \     \"@snapshotTimestamp\" : \"2026-07-27T09:00:00Z\",\n      \"landuse\"
+        : \"meadow\"\n    }\n  }, {\n    \"type\" : \"Feature\",\n    \"geometry\"
+        : {\n      \"type\" : \"Polygon\",\n      \"coordinates\" : [\n        [\n
+        \         [\n            8.6626341,\n            49.425\n          ],\n          [\n
+        \           8.6653043,\n            49.4256056\n          ],\n          [\n
+        \           8.6657442,\n            49.425\n          ],\n          [\n            8.6626341,\n
+        \           49.425\n          ]\n        ]\n      ]\n    },\n    \"properties\"
+        : {\n      \"@osmId\" : \"relation/17808273\",\n      \"@snapshotTimestamp\"
+        : \"2026-07-27T09:00:00Z\",\n      \"alt_name\" : \"Universitas Ruperto Carola
+        Heidelbergensis\",\n      \"amenity\" : \"university\",\n      \"education\"
+        : \"university\",\n      \"isced:2011:level\" : \"bachelor;doctorate;master\",\n
+        \     \"name\" : \"Universit\xE4t Heidelberg\",\n      \"name:de\" : \"Universit\xE4t
+        Heidelberg\",\n      \"name:en\" : \"Heidelberg University\",\n      \"name:tr\"
+        : \"Heidelberg \xDCniversitesi\",\n      \"name:zh\" : \"\u6D77\u5FB7\u5821\u5927\u5B66\",\n
+        \     \"official_name\" : \"Ruprecht-Karls-Universit\xE4t Heidelberg\",\n
+        \     \"short_name\" : \"Uni Heidelberg\",\n      \"type\" : \"multipolygon\",\n
+        \     \"website\" : \"https://www.uni-heidelberg.de\",\n      \"wheelchair\"
+        : \"limited\",\n      \"wikidata\" : \"Q151510\",\n      \"wikipedia\" : \"de:Ruprecht-Karls-Universit\xE4t
+        Heidelberg\"\n    }\n  }]\n}\n"
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '3600'
+      Connection:
+      - Keep-Alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/geo+json;charset=utf-8
+      Content-disposition:
+      - attachment;filename=ohsome.geojson
+      Date:
+      - Wed, 12 Aug 2026 09:58:39 GMT
+      Keep-Alive:
+      - timeout=5, max=100
+      Server:
+      - Apache/2.4.58 (Ubuntu)
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubdomains;
+      Transfer-Encoding:
+      - chunked
+      vary:
+      - accept-encoding
+    status:
+      code: 200
+      message: ''
+version: 1

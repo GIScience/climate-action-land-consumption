@@ -13,6 +13,9 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
   related settings, tests, etc. leaving only the ohsome connection option.
   Addresses ([#87](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/87))
 
+### Changed
+- Make the switch from Ohsome API v1 to v2.0 configurable, with v1 as the default ([#87](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/64))
+
 ## [1.0.5](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.5) - 2026-02-23
 
 ### Added

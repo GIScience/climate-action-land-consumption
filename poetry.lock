@@ -1631,7 +1631,7 @@ pydantic = ">=2.12.5"
 
 [[package]]
 name = "ohsome-py2"
-version = "0.2.1"
+version = "0.2.2"
 description = "Basic Python wrappers for querying data from ohsome API v2"
 optional = false
 python-versions = ">=3.13"
@@ -1650,8 +1650,8 @@ shapely = ">=2.1.2"
 [package.source]
 type = "git"
 url = "https://gitlab.heigit.org/climate-action/utilities/ohsome-py2.git"
-reference = "0.2.1"
-resolved_reference = "65cf5ccace44c41b72472977ed9d171226414fd5"
+reference = "0.2.2"
+resolved_reference = "3b8f0c95e9b56c6df1bbf54b8924ef1d55f0452f"
 
 [[package]]
 name = "packaging"
@@ -2694,7 +2694,7 @@ version = "1.2.2"
 description = "Read key-value pairs from a .env file and set them as environment variables"
 optional = false
 python-versions = ">=3.10"
-groups = ["main"]
+groups = ["main", "test"]
 files = [
     {file = "python_dotenv-1.2.2-py3-none-any.whl", hash = "sha256:1d8214789a24de455a8b8bd8ae6fe3c6b69a5e3d64aa8a8e5d68e694bbcb285a"},
     {file = "python_dotenv-1.2.2.tar.gz", hash = "sha256:2c371a91fbd7ba082c2c1dc1f8bf89ca22564a087c2c287cd9b662adde799cf3"},
@@ -3699,4 +3699,4 @@ dev = ["pytest", "setuptools"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13.5,<3.14"
-content-hash = "b631b2dcc13e22d8b7988ec189dd2003ccc44e7adf8b047c08b4bb6e32cbe328"
+content-hash = "c85c7f8dd4ade540c0193615cb18e6b6376c994d5143b267f512854b4d34560a"

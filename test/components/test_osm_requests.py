@@ -6,13 +6,13 @@ from land_consumption.components.osm_requests import build_ohsome_filter, check_
 
 
 @pytest.mark.vcr
-def test_check_path_count(default_aoi, default_ohsome_client_v1):
+def test_check_path_count(default_aoi, parametrized_ohsome_client):
     with pytest.raises(ClimatoologyUserError):
-        check_path_count(default_aoi, default_ohsome_client_v1, 10, row_filter='geometry:line')
+        check_path_count(default_aoi, parametrized_ohsome_client, 10, row_filter='geometry:line')
 
 
-def test_check_path_count_polygon(default_aoi, default_ohsome_client_v1):
-    check_path_count(default_aoi, default_ohsome_client_v1, 1, row_filter='geometry:polygon')
+def test_check_path_count_polygon(default_aoi, parametrized_ohsome_client):
+    check_path_count(default_aoi, parametrized_ohsome_client, 1, row_filter='geometry:polygon')
 
 
 def test_build_ohsome_filter():
