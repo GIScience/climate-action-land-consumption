@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project mostly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.0.5...main)
+## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.1.0...main)
+
+## [1.1.0](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.1.0) - 2026-08-13
 
 ### Removed
 
@@ -13,8 +15,10 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
   related settings, tests, etc. leaving only the ohsome connection option.
   Addresses ([#87](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/87))
 
-### Changed
-- Make the switch from Ohsome API v1 to v2.0 configurable, with v1 as the default ([#87](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/64))
+### Added
+
+- Option to use the ohsome API v2, by setting the environment variables `FEATURE_FLAG_OHSOME2` and
+  `OHSOME_BASE_URL` ([#87](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/64))
 
 ## [1.0.5](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.5) - 2026-02-23
 

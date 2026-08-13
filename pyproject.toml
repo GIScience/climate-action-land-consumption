@@ -1,6 +1,6 @@
 [project]
 name = "land-consumption"
-version = "1.0.5"
+version = "1.1.0"
 description = "This is the land consumption indicator."
 authors = [{ name = "Charles Hatfield", email = "charles.hatfield@heigit.org" },]
 readme = "README.md"
