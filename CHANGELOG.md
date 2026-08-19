@@ -20,6 +20,10 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 - Option to use the ohsome API v2, by setting the environment variables `FEATURE_FLAG_OHSOME2` and
   `OHSOME_BASE_URL` ([#87](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/issues/64))
 
+### Changed
+
+- updated methodology and artifact text to include definitions for key terms
+
 ## [1.0.5](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.0.5) - 2026-02-23
 
 ### Added
