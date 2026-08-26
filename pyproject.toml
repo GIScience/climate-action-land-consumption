@@ -1,6 +1,6 @@
 [project]
 name = "land-consumption"
-version = "1.1.1"
+version = "1.1.2"
 description = "This is the land consumption indicator."
 authors = [{ name = "Charles Hatfield", email = "charles.hatfield@heigit.org" },]
 readme = "README.md"
@@ -11,7 +11,7 @@ dependencies = [
     "pydantic (>=2.5.3,<3.0.0)",   # see https://gitlab.heigit.org/climate-action/climatoology/-/issues/105
     "pydantic-settings (>=2.1.0,<3.0.0)",
     "shapely (>=2.0.2,<3.0.0)",
-    "ohsome-py2 @ git+https://gitlab.heigit.org/climate-action/utilities/ohsome-py2.git@0.3.0",
+    "ohsome-py2 @ git+https://gitlab.heigit.org/climate-action/utilities/ohsome-py2.git@0.3.2",
 ]
 
 [project.urls]
