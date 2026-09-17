@@ -4,7 +4,7 @@ from typing import Tuple
 import shapely
 from climatoology.base.exception import ClimatoologyUserError
 from geopandas import GeoDataFrame
-from ohsome_py2.client import OhsomeClient
+from ohsome_py2.client import OhsomeAPIError, OhsomeClient
 
 from land_consumption.components.landuse_category_mappings import (
     AMENITY_INFRASTRUCTURE_TAGS,
@@ -25,7 +25,16 @@ def get_osm_data(
 
     check_path_count(aoi_geom=aoi_geom, client=client, count_limit=100000, row_filter=row_filter)
 
-    gdf = client.features_extraction(aoi=aoi_geom, osm_filter=row_filter, tags='as_dict_column', clip=True)
+    try:
+        gdf = client.features_extraction(aoi=aoi_geom, osm_filter=row_filter, tags='as_dict_column', clip=True)
+    except OhsomeAPIError as e:
+        log.exception('Error collecting OSM data from ohsome API.')
+        raise ClimatoologyUserError('There was an error collecting OSM data. Please try again later.') from e
+    except Exception as e:
+        log.exception('Unexpected error when downloading OSM data.')
+        raise ClimatoologyUserError(
+            'Unexpected error when collecting OSM data. Please contact us to find out more.'
+        ) from e
 
     gdf = gdf.rename(columns={'osm_tags': 'tags'}).rename_geometry('geometry')
     return gdf[list(selected_fields)]

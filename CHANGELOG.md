@@ -7,6 +7,10 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.1.2...main)
 
+### Added
+
+- error handling to get_osm_data ([#79](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/79))
+
 ## [1.1.2](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.1.2) - 2026-08-26
 
 ### Changed
