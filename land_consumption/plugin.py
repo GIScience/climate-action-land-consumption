@@ -1,4 +1,5 @@
 import logging.config
+from typing import NoReturn
 
 from climatoology.app.plugin import start_plugin
 from ohsome_py2.client import OhsomeClient
@@ -9,7 +10,7 @@ from land_consumption.core.settings import Settings
 log = logging.getLogger(__name__)
 
 
-def init_plugin() -> int:
+def start() -> NoReturn:
     """Function to start the plugin within the architecture.
 
     Please adjust the class reference to the class you created above. Apart from that **DO NOT TOUCH**.
@@ -27,5 +28,4 @@ def init_plugin() -> int:
 
 
 if __name__ == '__main__':
-    exit_code = init_plugin()
-    log.info(f'Plugin exited with code {exit_code}')
+    start()

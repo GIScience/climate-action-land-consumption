@@ -7,6 +7,10 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ## [Unreleased](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/compare/1.1.2...main)
 
+### Changed
+
+- reduced size of docker image by using python-slim, multi-stage build, and including only the required files
+
 ### Added
 
 - error handling to get_osm_data ([#79](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/79))
