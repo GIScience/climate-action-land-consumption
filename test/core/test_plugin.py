@@ -1,5 +1,6 @@
 import pytest
 from climatoology.base.baseoperator import Artifact
+from climatoology.base.i18n import DEFAULT_LANGUAGE
 from climatoology.base.plugin_info import PluginInfo
 
 
@@ -20,6 +21,7 @@ def test_plugin_compute_request(
         aoi=default_aoi,
         aoi_properties=default_aoi_properties,
         params=expected_compute_input,
+        language=DEFAULT_LANGUAGE,
     )
 
     assert len(computed_artifacts) == 3

@@ -5,6 +5,7 @@ import shapely
 from climatoology.base.baseoperator import AoiProperties, Artifact, BaseOperator, ComputationResources
 from climatoology.base.plugin_info import PluginInfo
 from ohsome_py2.client import OhsomeClient
+from pydantic_extra_types.language_code import LanguageAlpha2
 
 from land_consumption.components.land_consumption import get_land_consumption_artifacts
 from land_consumption.core.info import get_info
@@ -29,6 +30,7 @@ class LandConsumption(BaseOperator[ComputeInput]):
         aoi: shapely.MultiPolygon,
         aoi_properties: AoiProperties,
         params: ComputeInput,
+        language: LanguageAlpha2,
     ) -> List[Artifact]:
         log.info(
             f'Handling compute request: {params.model_dump()} in region {aoi_properties.model_dump()} in context: {resources}'
