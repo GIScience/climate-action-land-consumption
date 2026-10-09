@@ -11,6 +11,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 - reduced size of docker image by using python-slim, multi-stage build, and including only the required files
 - updated climatoology to 7.4.1, renamed `MINIO` env vars in env.base_template to `S3`
+- update CI and dockerfile to simplify and correct poetry installing location
 
 ### Added
 
