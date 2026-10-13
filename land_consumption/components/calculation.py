@@ -84,7 +84,6 @@ def is_land_consumed(feature: pd.Series) -> bool:
 
 
 def is_land_settled(feature: pd.Series) -> bool:
-    # TODO the naming here makes this line needlessly confusing fix this in review
     if (feature['category'] == LandObjectCategory.BUILT_UP) and (
         feature['landuse_category'] == LandUseCategory.NATURAL
     ):
