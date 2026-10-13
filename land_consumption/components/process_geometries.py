@@ -75,7 +75,7 @@ def generate_buffer(highway_df: DataFrame) -> GeoDataFrame:
     all_buffered_highways = all_buffered_highways.dissolve('width', as_index=False)
 
     all_buffered_highways['geometry'] = all_buffered_highways.apply(
-        lambda row: row['geometry'].buffer(row['width'] / 2, resolution=2, cap_style='flat'),
+        lambda row: row['geometry'].buffer(row['width'] / 2, quad_segs=2, cap_style='flat'),
         axis=1,
     )
 
