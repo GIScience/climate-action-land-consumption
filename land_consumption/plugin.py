@@ -10,7 +10,7 @@ from land_consumption.core.settings import Settings
 log = logging.getLogger(__name__)
 
 
-def start() -> NoReturn:
+def main() -> NoReturn:
     """Function to start the plugin within the architecture.
 
     Please adjust the class reference to the class you created above. Apart from that **DO NOT TOUCH**.
@@ -28,4 +28,4 @@ def start() -> NoReturn:
 
 
 if __name__ == '__main__':
-    start()
+    main()
