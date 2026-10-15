@@ -18,7 +18,7 @@ dependencies = [
 repository = "https://gitlab.heigit.org/climate-action/plugins/land-consumption"
 
 [project.scripts]
-plugin = "land_consumption.plugin:start"
+plugin = "land_consumption.plugin:main"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^9.0.0"
