@@ -17,6 +17,10 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 - error handling to get_osm_data ([#79](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/79))
 
+### Removed
+
+- Ohsome v1 support
+
 ## [1.1.2](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/releases/1.1.2) - 2026-08-26
 
 ### Changed

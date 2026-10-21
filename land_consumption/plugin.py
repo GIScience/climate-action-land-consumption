@@ -18,9 +18,7 @@ def main() -> NoReturn:
     :return:
     """
     settings = Settings()
-    ohsome_client = OhsomeClient(
-        user_agent='Land-Consumption Plugin', v2=settings.feature_flag_ohsome2, base_url=settings.ohsome_base_url
-    )
+    ohsome_client = OhsomeClient(user_agent='Land-Consumption Plugin', base_url=settings.ohsome_base_url)
     operator = LandConsumption(ohsome_client=ohsome_client)
 
     log.info(f'Starting plugin: {operator.info().name}')

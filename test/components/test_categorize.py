@@ -19,8 +19,8 @@ def test_get_filter_functions():
 
 
 @pytest.mark.vcr
-def test_get_categories_gdf_with_features(default_aoi, parametrized_ohsome_client):
-    categories_gdf = get_categories_gdf(default_aoi, ohsome_client=parametrized_ohsome_client)
+def test_get_categories_gdf_with_features(default_aoi, ohsome_client):
+    categories_gdf = get_categories_gdf(default_aoi, ohsome_client=ohsome_client)
 
     assert not categories_gdf.empty
     assert 'category' in categories_gdf.columns

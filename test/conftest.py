@@ -52,13 +52,13 @@ def compute_resources():
 
 
 @pytest.fixture
-def default_operator(parametrized_ohsome_client):
-    return LandConsumption(ohsome_client=parametrized_ohsome_client)
+def default_operator(ohsome_client):
+    return LandConsumption(ohsome_client=ohsome_client)
 
 
-@pytest.fixture(params=[True, False])
-def parametrized_ohsome_client(request):
-    return OhsomeClient(user_agent='Land-Consumption Test', v2=request.param)
+@pytest.fixture
+def ohsome_client(request):
+    return OhsomeClient(user_agent='Land-Consumption Test')
 
 
 @pytest.fixture(scope='module')
