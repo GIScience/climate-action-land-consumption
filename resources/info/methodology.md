@@ -43,12 +43,12 @@ The Land Consumption plugin currently considers the following land use objects w
 
 In addition to land use objects, the Land Consumption plugin also considers the following land use classes in its calculations:
 
-1. **Residential**: Includes land primarily used for housing and dwellings. OSM tag: `landuse=residential`
-2. **Commercial**: Includes land used for business, retail, and service-related functions. OSM tags: `landuse=commercial` or `landuse=retail`
-3. **Industrial**: Includes land designated for manufacturing, warehousing, or other industrial activities. OSM tag: `landuse=industrial`
-4. **Infrastructure**: Covers land used for public infrastructure such as transport. OSM tags: 'railway', 'harbour', 'port', 'lock', 'marina'.
-5. **Institutional**: Covers land used for public infrastructure and institutional functions such as universities, religious facilities. OSM tags:  'garages',  'military'.
-6. **Agricultural**: Represents land used for farming, horticulture, and related rural activities. OSM landuse values: `allotments`, `farmland`, `farmyard`, `meadow`, `orchard`, `plant_nursery`, `vineyard`
+1. **Residential**: Includes land primarily used for housing and dwellings. OSM tag: `landuse=residential`.
+2. **Commercial**: Includes land used for business, retail, and service-related functions. OSM tags: `landuse=commercial` or `landuse=retail`.
+3. **Industrial**: Includes land designated for manufacturing, warehousing, or other industrial activities. OSM tag: `landuse=industrial`.
+4. **Infrastructure**: Covers land used for public infrastructure such as transport. OSM tags: `railway`, `harbour`, `port`, `lock`, `marina`.
+5. **Institutional**: Covers land used for public infrastructure and institutional functions such as universities, religious facilities. OSM tags:  `garages`,  `military`.
+6. **Agricultural**: Represents land used for farming, horticulture, and related rural activities. OSM landuse values: `allotments`, `farmland`, `farmyard`, `meadow`, `orchard`, `plant_nursery`, `vineyard`.
 7. **Natural**: Represents undeveloped or natural areas. OSM tags: `natural=*`, `leisure=nature_reserve` or `landuse` with values including: `beach` or `forest`.
 8. **Other Land Uses**: A catch-all category for miscellaneous land use classes that do not fit into the categories above.
 9. **Unknown**: Includes all OSM tagged objects and land uses not included in the above categories.

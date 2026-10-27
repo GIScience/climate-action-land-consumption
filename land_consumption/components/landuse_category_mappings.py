@@ -44,6 +44,7 @@ LANDUSE_VALUE_MAP = {
     'plant_nursery': LandUseCategory.AGRICULTURAL,
     'vineyard': LandUseCategory.AGRICULTURAL,
     'forest': LandUseCategory.NATURAL,
+    'grass': LandUseCategory.OTHER,
 }
 AMENITY_INSTITUTIONAL_TAGS = [
     'university',

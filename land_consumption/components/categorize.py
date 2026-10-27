@@ -110,6 +110,8 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
         return LandUseCategory.INFRASTRUCTURE
     elif natural is not None and natural not in NATURAL_EXCLUDE_VALUES:
         return LandUseCategory.NATURAL
+    elif leisure is not None:
+        return LandUseCategory.OTHER
     elif natural in NATURAL_EXCLUDE_VALUES:
         return LandUseCategory.UNKNOWN
     elif all(tag is None for tag in (landuse, natural, leisure, amenity, man_made)):

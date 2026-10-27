@@ -9,13 +9,14 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 ### Changed
 
-- reduced size of docker image by using python-slim, multi-stage build, and including only the required files
-- updated climatoology to 7.4.3, renamed `MINIO` env vars in env.base_template to `S3`
-- update CI and dockerfile to simplify and correct poetry installing location
+- Reduced size of docker image by using python-slim, multi-stage build, and including only the required files
+- Updated climatoology to 7.4.3, renamed `MINIO` env vars in env.base_template to `S3`
+- Update CI and dockerfile to simplify and correct poetry installing location
 
 ### Added
 
-- error handling to get_osm_data ([#79](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/79))
+- Error handling to get_osm_data ([#79](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/79))
+- Add leisure tags and landuse=grass to the Other class ([#91](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/91))
 
 ### Removed
 
