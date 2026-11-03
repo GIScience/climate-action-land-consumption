@@ -34,5 +34,9 @@ def test_get_landuse_filter():
     assert get_land_use_filter({'amenity': 'bus_station'}) == LandUseCategory.INFRASTRUCTURE
     assert get_land_use_filter({'natural': 'forest'}) == LandUseCategory.NATURAL
     assert get_land_use_filter({'natural': 'peninsula'}) == LandUseCategory.UNKNOWN
+    assert get_land_use_filter({'natural': 'water'}) == LandUseCategory.OTHER
+    assert get_land_use_filter({'natural': 'bay'}) == LandUseCategory.WATER
+    assert get_land_use_filter({'natural': 'water', 'water': 'lake'}) == LandUseCategory.WATER
+    assert get_land_use_filter({'natural': 'water', 'water': 'harbour'}) == LandUseCategory.INFRASTRUCTURE
     assert get_land_use_filter({}) == LandUseCategory.UNKNOWN
     assert get_land_use_filter({'amenity': 'supermarket'}) == LandUseCategory.OTHER

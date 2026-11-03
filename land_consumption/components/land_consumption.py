@@ -95,9 +95,7 @@ def get_detailed_table(land_consumption_df: pd.DataFrame) -> pd.DataFrame:
     )
 
     subtotal_land_consumed = (
-        land_consumption_df[
-            ~land_consumption_df['Land Use Object'].isin(['Agricultural land', 'Natural land', 'Other', 'Unknown'])
-        ]
+        land_consumption_df[~land_consumption_df['Land Use Object'].isin(['Agricultural land', 'Other', 'Unknown'])]
         .groupby('Land Use Object', as_index=False)
         .sum(numeric_only=True)
     )

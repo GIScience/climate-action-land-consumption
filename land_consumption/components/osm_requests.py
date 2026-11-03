@@ -57,6 +57,7 @@ def build_ohsome_filter(
 
         row_filter.append('(natural=*)')
         row_filter.append('(leisure=*)')
+        row_filter.append('(water=*)')
         row_filter.append('(man_made=*)')
 
         all_amenity_values = AMENITY_INSTITUTIONAL_TAGS + AMENITY_INFRASTRUCTURE_TAGS

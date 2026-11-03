@@ -17,6 +17,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 - Error handling to get_osm_data ([#79](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/79))
 - Add leisure tags and landuse=grass to the Other class ([#91](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/91))
+- Add Water to the landuse classes and exclude water related tags from the Natural landuse ([#73](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/73))
 
 ### Removed
 

@@ -18,6 +18,7 @@ class LandUseCategory(Enum):
     INSTITUTIONAL = 'Institutional'
     AGRICULTURAL = 'Agricultural'
     NATURAL = 'Natural'
+    WATER = 'Water'
     OTHER = 'Other land uses'
     UNKNOWN = 'Unknown land uses'
 
@@ -45,6 +46,7 @@ LANDUSE_VALUE_MAP = {
     'vineyard': LandUseCategory.AGRICULTURAL,
     'forest': LandUseCategory.NATURAL,
     'grass': LandUseCategory.OTHER,
+    'basin': LandUseCategory.OTHER,
 }
 AMENITY_INSTITUTIONAL_TAGS = [
     'university',
@@ -65,6 +67,14 @@ AMENITY_INFRASTRUCTURE_TAGS = [
     'bus_station',
     'ferry_terminal',
 ]
+NATURAL_TAGS_WATER_RELATED = [
+    'bay',
+    'geyser',
+    'hot_spring',
+    'spring',
+    'strait',
+    'wetland',
+]
 NATURAL_EXCLUDE_VALUES = [
     'valley',
     'hill',
@@ -73,6 +83,20 @@ NATURAL_EXCLUDE_VALUES = [
     'peninsula',
     'cliff',
     'mountain_range',
+]
+WATER_VALUES = [
+    'cenote',
+    'lagoon',
+    'lake',
+    'oxbow',
+    'rapids',
+    'river',
+    'stream',
+    'stream_pool',
+]
+WATER_INFRASTRUCTURE_VALUES = [
+    'harbour',
+    'wastewater',
 ]
 GEOM_TYPE_LOOKUP = {
     "'LineString', 'MultiLineString'": [LandObjectCategory.ROADS],

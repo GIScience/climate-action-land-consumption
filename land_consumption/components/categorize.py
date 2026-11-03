@@ -11,6 +11,9 @@ from land_consumption.components.landuse_category_mappings import (
     GEOM_TYPE_LOOKUP,
     LANDUSE_VALUE_MAP,
     NATURAL_EXCLUDE_VALUES,
+    NATURAL_TAGS_WATER_RELATED,
+    WATER_INFRASTRUCTURE_VALUES,
+    WATER_VALUES,
     LandObjectCategory,
     LandUseCategory,
 )
@@ -98,6 +101,7 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
     natural = tags.get('natural')
     leisure = tags.get('leisure')
     amenity = tags.get('amenity')
+    water = tags.get('water')
     man_made = tags.get('man_made')
 
     if landuse_category := LANDUSE_VALUE_MAP.get(landuse):
@@ -108,13 +112,23 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
         return LandUseCategory.INSTITUTIONAL
     elif amenity in AMENITY_INFRASTRUCTURE_TAGS:
         return LandUseCategory.INFRASTRUCTURE
+    elif natural == 'water' and water is None:
+        return LandUseCategory.OTHER
+    elif water in WATER_VALUES:
+        return LandUseCategory.WATER
+    elif water in WATER_INFRASTRUCTURE_VALUES:
+        return LandUseCategory.INFRASTRUCTURE
+    elif natural in NATURAL_TAGS_WATER_RELATED:
+        return LandUseCategory.WATER
     elif natural is not None and natural not in NATURAL_EXCLUDE_VALUES:
         return LandUseCategory.NATURAL
+    elif water is not None:
+        return LandUseCategory.OTHER
     elif leisure is not None:
         return LandUseCategory.OTHER
     elif natural in NATURAL_EXCLUDE_VALUES:
         return LandUseCategory.UNKNOWN
-    elif all(tag is None for tag in (landuse, natural, leisure, amenity, man_made)):
+    elif all(tag is None for tag in (landuse, natural, leisure, amenity, water, man_made)):
         return LandUseCategory.UNKNOWN
     else:
         return LandUseCategory.OTHER

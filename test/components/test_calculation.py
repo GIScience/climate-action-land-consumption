@@ -3,7 +3,12 @@ import pytest
 from approvaltests import verify
 from shapely import Polygon
 
-from land_consumption.components.calculation import aggregate_by_categories, calculate_area
+from land_consumption.components.calculation import (
+    aggregate_by_categories,
+    calculate_area,
+    is_land_consumed,
+    is_land_settled,
+)
 from land_consumption.components.landuse_category_mappings import LandObjectCategory, LandUseCategory
 
 
@@ -58,3 +63,17 @@ def test_calculate_area_multiple_geometries():
     calculated_area = calculate_area(input_gdf)
 
     assert calculated_area['area'].sum() == expected_output
+
+
+def test_is_land_consumed(categorized_land):
+    expected_output = [True, True, False, False, False]
+
+    output = categorized_land.apply(is_land_consumed, axis=1).tolist()
+    assert output == expected_output
+
+
+def test_is_land_settled(categorized_land):
+    expected_output = [True, True, True, False, False]
+
+    output = categorized_land.apply(is_land_settled, axis=1).tolist()
+    assert output == expected_output

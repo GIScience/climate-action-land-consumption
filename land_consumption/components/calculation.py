@@ -29,17 +29,13 @@ def aggregate_by_categories(area_df: GeoDataFrame) -> pd.DataFrame:
     area_df['Land Use Class'] = area_df['landuse_category'].apply(lambda x: x.value)
 
     mask = (area_df['category'] == LandObjectCategory.BUILT_UP) & (
-        area_df['landuse_category'].isin([LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL])
+        area_df['landuse_category'].isin([LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL, LandUseCategory.WATER])
     )
 
     area_df.loc[mask, 'Land Use Object'] = area_df.loc[mask, 'Land Use Class'].map(
-        {
-            'Agricultural': 'Agricultural land',
-            'Natural': 'Natural land',
-        }
+        {'Agricultural': 'Agricultural land', 'Natural': 'Natural land', 'Water': 'Natural land'}
     )
-    area_df.loc[mask, 'Land Use Class'] = ''
-
+    area_df.loc[area_df['Land Use Object'] == 'Agricultural land', 'Land Use Class'] = ''
     area_df['% of Total Land Area'] = area_df['area'] / area_df['area'].sum() * 100
 
     return area_df[
@@ -74,7 +70,7 @@ def is_land_consumed(feature: pd.Series) -> bool:
     if feature['category'] == LandObjectCategory.OTHER:
         return False
     elif (feature['category'] == LandObjectCategory.BUILT_UP) and (
-        feature['landuse_category'] in [LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL]
+        feature['landuse_category'] in [LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL, LandUseCategory.WATER]
     ):
         return False
     elif feature['category'] == LandObjectCategory.UNKNOWN:
@@ -85,7 +81,7 @@ def is_land_consumed(feature: pd.Series) -> bool:
 
 def is_land_settled(feature: pd.Series) -> bool:
     if (feature['category'] == LandObjectCategory.BUILT_UP) and (
-        feature['landuse_category'] == LandUseCategory.NATURAL
+        feature['landuse_category'] in [LandUseCategory.NATURAL, LandUseCategory.WATER]
     ):
         return False
     elif feature['category'] == LandObjectCategory.UNKNOWN:

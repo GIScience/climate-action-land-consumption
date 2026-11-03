@@ -8,7 +8,7 @@
   "Land Use Class":{
     "0":"Commercial",
     "1":"",
-    "2":"",
+    "2":"Natural",
     "3":"Other land uses"
   },
   "% of Consumed Land Area":{

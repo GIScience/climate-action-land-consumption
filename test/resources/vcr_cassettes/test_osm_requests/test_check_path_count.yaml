@@ -21,18 +21,18 @@ interactions:
   response:
     body:
       string: "{\"apiVersion\":\"2.0.0\",\"attribution\":{\"url\":\"https://ohsome.org/copyrights\",\"text\":\"\xA9
-        OpenStreetMap contributors\"},\"result\":{\"timestamp\":[\"2026-10-23T07:53:38Z\"],\"value\":[54]}}"
+        OpenStreetMap contributors\"},\"result\":{\"timestamp\":[\"2026-10-27T16:27:20Z\"],\"value\":[54]}}"
     headers:
       content-length:
       - '176'
       content-type:
       - application/json
       date:
-      - Fri, 23 Oct 2026 11:34:12 GMT
+      - Tue, 27 Oct 2026 16:28:58 GMT
       server:
       - envoy
       x-envoy-upstream-service-time:
-      - '115'
+      - '155'
     status:
       code: 200
       message: OK

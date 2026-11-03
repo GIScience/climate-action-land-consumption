@@ -2,6 +2,7 @@ import uuid
 from pathlib import Path
 
 import geopandas as gpd
+import pandas as pd
 import pytest
 import shapely
 from climatoology.base.baseoperator import AoiProperties
@@ -10,7 +11,7 @@ from dotenv import load_dotenv
 from ohsome_py2.client import OhsomeClient
 from shapely.geometry.polygon import Polygon
 
-from land_consumption.components.landuse_category_mappings import LandObjectCategory
+from land_consumption.components.landuse_category_mappings import LandObjectCategory, LandUseCategory
 from land_consumption.core.input import ComputeInput
 from land_consumption.core.operator_worker import LandConsumption
 
@@ -96,6 +97,35 @@ def categories_gdf():
     }
     gdf = gpd.GeoDataFrame(data, crs='EPSG:4326')
     return gdf
+
+
+@pytest.fixture
+def categorized_land():
+    features = pd.DataFrame(
+        [
+            {
+                'category': LandObjectCategory.BUILDINGS,
+                'landuse_category': LandUseCategory.COMMERCIAL,
+            },
+            {
+                'category': LandObjectCategory.BUILDINGS,
+                'landuse_category': LandUseCategory.AGRICULTURAL,
+            },
+            {
+                'category': LandObjectCategory.BUILT_UP,
+                'landuse_category': LandUseCategory.AGRICULTURAL,
+            },
+            {
+                'category': LandObjectCategory.BUILT_UP,
+                'landuse_category': LandUseCategory.NATURAL,
+            },
+            {
+                'category': LandObjectCategory.BUILT_UP,
+                'landuse_category': LandUseCategory.WATER,
+            },
+        ]
+    )
+    return features
 
 
 @pytest.fixture(scope='module')
