@@ -23,7 +23,7 @@ plugin = "land_consumption.plugin:main"
 [tool.poetry.group.test.dependencies]
 pytest = "^9.0.0"
 pytest-cov = "^7.0.0"
-pytest-recording = "^0.13.4"
+pytest-recording = "^0.14.0"
 approvaltests = "^19.0.0"
 ohsome-filter-to-sql = "^0.16.0"
 python-dotenv = "^1.2.2"
