@@ -33,6 +33,7 @@ LANDUSE_VALUE_MAP = {
     'military': LandUseCategory.INSTITUTIONAL,
     'religious': LandUseCategory.INSTITUTIONAL,
     'cemetery': LandUseCategory.INSTITUTIONAL,
+    'education': LandUseCategory.INSTITUTIONAL,
     'commercial': LandUseCategory.COMMERCIAL,
     'retail': LandUseCategory.COMMERCIAL,
     'residential': LandUseCategory.RESIDENTIAL,
@@ -44,9 +45,15 @@ LANDUSE_VALUE_MAP = {
     'orchard': LandUseCategory.AGRICULTURAL,
     'plant_nursery': LandUseCategory.AGRICULTURAL,
     'vineyard': LandUseCategory.AGRICULTURAL,
+    'greenhouse_horticulture': LandUseCategory.AGRICULTURAL,
     'forest': LandUseCategory.NATURAL,
     'grass': LandUseCategory.OTHER,
     'basin': LandUseCategory.OTHER,
+    'construction': LandUseCategory.OTHER,
+    'landfill': LandUseCategory.OTHER,
+    'quarry': LandUseCategory.OTHER,
+    'recreation_ground': LandUseCategory.OTHER,
+    'brownfield': LandUseCategory.OTHER,
 }
 AMENITY_INSTITUTIONAL_TAGS = [
     'university',

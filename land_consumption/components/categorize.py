@@ -102,6 +102,7 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
     leisure = tags.get('leisure')
     amenity = tags.get('amenity')
     water = tags.get('water')
+    aeroway = tags.get('aeroway')
     man_made = tags.get('man_made')
 
     if landuse_category := LANDUSE_VALUE_MAP.get(landuse):
@@ -124,6 +125,8 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
         return LandUseCategory.NATURAL
     elif water is not None:
         return LandUseCategory.OTHER
+    elif aeroway == 'aerodrome':
+        return LandUseCategory.INFRASTRUCTURE
     elif leisure is not None:
         return LandUseCategory.OTHER
     elif natural in NATURAL_EXCLUDE_VALUES:
