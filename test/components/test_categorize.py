@@ -1,6 +1,12 @@
+import geopandas as gpd
 import pytest
 
-from land_consumption.components.categorize import get_categories_gdf, get_land_object_filter, get_land_use_filter
+from land_consumption.components.categorize import (
+    clean_overlapping_features,
+    get_categories_gdf,
+    get_land_object_filter,
+    get_land_use_filter,
+)
 from land_consumption.components.landuse_category_mappings import LandObjectCategory, LandUseCategory
 
 
@@ -40,3 +46,12 @@ def test_get_landuse_filter():
     assert get_land_use_filter({'natural': 'water', 'water': 'harbour'}) == LandUseCategory.INFRASTRUCTURE
     assert get_land_use_filter({}) == LandUseCategory.UNKNOWN
     assert get_land_use_filter({'amenity': 'supermarket'}) == LandUseCategory.OTHER
+
+
+def test_clean_overlapping_features(categories_gdf, landuses_gdf):
+    result = clean_overlapping_features(categories_gdf.copy(), landuses_gdf.copy())
+
+    expected_area = landuses_gdf.union_all().area
+    actual_area = gpd.GeoSeries(result.geometry, crs=4326).area.sum()
+
+    assert actual_area == pytest.approx(expected_area)

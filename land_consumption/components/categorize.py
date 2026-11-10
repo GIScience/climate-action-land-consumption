@@ -141,7 +141,7 @@ def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: g
     category_priority = list(LandObjectCategory)
     landuse_priority = list(LandUseCategory)
 
-    categories_gdf = clip_geometries(categories_gdf)
+    categories_gdf = clip_geometries(categories_gdf).reset_index(drop=True)
     landuses_gdf = landuses_gdf.explode(ignore_index=True)
     landuses_gdf = landuses_gdf[landuses_gdf['geometry'].geom_type.isin(['Polygon', 'MultiPolygon'])]
 
@@ -164,7 +164,9 @@ def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: g
         if landuse_geom.is_empty:
             continue
 
-        clipped_categories_gdf = categories_gdf.clip(landuse_geom)
+        categories_gdf['orig_id'] = categories_gdf.index
+        clipped = categories_gdf.clip(landuse_geom, keep_geom_type=True)
+        clipped_categories_gdf = clipped.dissolve(by='orig_id')
         clipped_categories_gdf = clipped_categories_gdf.sort_values(
             'category', key=lambda x: x.map(lambda cat: category_priority.index(cat))
         )

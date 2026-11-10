@@ -1,12 +1,10 @@
 import geopandas as gpd
 from shapely.geometry.polygon import Polygon
 
-from land_consumption.components.landuse_category_mappings import LandObjectCategory
 from land_consumption.components.utils import clip_geometries, clip_to_aoi
 
 
 def test_clip_geometries_no_interior_intersection(categories_gdf):
-    categories_gdf['category'] = categories_gdf['category'].map(lambda x: LandObjectCategory[x])
     result = clip_geometries(categories_gdf)
 
     assert result.crs.to_string() == 'EPSG:4326'

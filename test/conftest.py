@@ -9,6 +9,7 @@ from climatoology.base.baseoperator import AoiProperties
 from climatoology.base.computation import ComputationScope
 from dotenv import load_dotenv
 from ohsome_py2.client import OhsomeClient
+from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
 
 from land_consumption.components.landuse_category_mappings import LandObjectCategory, LandUseCategory
@@ -85,14 +86,34 @@ def categories_gdf():
     # Create sample geometries
     data = {
         'category': [
-            LandObjectCategory.BUILDINGS.name,
-            LandObjectCategory.PARKING_LOTS.name,
-            LandObjectCategory.ROADS.name,
+            LandObjectCategory.BUILDINGS,
+            LandObjectCategory.PARKING_LOTS,
+            LandObjectCategory.ROADS,
         ],
         'geometry': [
             Polygon([(0, 0), (1, 0), (1, 1), (0, 1), (0, 0)]),  # Building polygon
             Polygon([(0.5, 0.5), (1.5, 0.5), (1.5, 1.5), (0.5, 1.5), (0.5, 0.5)]),  # Parking lot polygon
             Polygon([(0, 1), (2, 1), (2, 2), (0, 2), (0, 1)]),  # Paved road polygon
+        ],
+    }
+    gdf = gpd.GeoDataFrame(data, crs='EPSG:4326')
+    return gdf
+
+
+@pytest.fixture
+def landuses_gdf():
+    data = {
+        'landuse_category': [
+            LandUseCategory.COMMERCIAL,
+            LandUseCategory.RESIDENTIAL,
+            LandUseCategory.OTHER,
+            LandUseCategory.UNKNOWN,
+        ],
+        'geometry': [
+            Polygon([(-0.5, -0.5), (1, -0.5), (1, 1), (-0.5, 1), (-0.5, -0.5)]),
+            LineString([(0.5, 0.5), (1.5, 0.5), (1.5, 1.5), (0.5, 1.5)]),
+            Polygon([(1, -0.5), (2, -0.5), (2, 2), (1, 2), (1, -0.5)]),
+            Polygon([(-0.5, 1), (1, 1), (1, 2), (-0.5, 2), (-0.5, 1)]),
         ],
     }
     gdf = gpd.GeoDataFrame(data, crs='EPSG:4326')
