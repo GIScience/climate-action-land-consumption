@@ -4,6 +4,7 @@ import geopandas as gpd
 import pandas as pd
 import shapely
 from ohsome_py2.client import OhsomeClient
+from shapely import MultiPolygon
 
 from land_consumption.components.landuse_category_mappings import (
     AMENITY_INFRASTRUCTURE_TAGS,
@@ -175,6 +176,9 @@ def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: g
 
         remaining_landuse = landuse_geom.difference(clipped_categories_gdf.union_all())
         if not remaining_landuse.is_empty:
+            if remaining_landuse.geom_type == 'GeometryCollection':
+                parts = shapely.get_parts(remaining_landuse)
+                remaining_landuse = MultiPolygon([p for p in parts if p.geom_type == 'Polygon'])
             remaining_gdf = gpd.GeoDataFrame(
                 {
                     'geometry': [remaining_landuse],
