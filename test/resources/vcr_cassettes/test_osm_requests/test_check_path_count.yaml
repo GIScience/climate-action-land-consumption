@@ -20,19 +20,19 @@ interactions:
     uri: http://ohsome-secret-url/stats/features/count.json
   response:
     body:
-      string: "{\"apiVersion\":\"2.0.0\",\"attribution\":{\"url\":\"https://ohsome.org/copyrights\",\"text\":\"\xA9
-        OpenStreetMap contributors\"},\"result\":{\"timestamp\":[\"2026-11-02T11:39:44Z\"],\"value\":[54]}}"
+      string: "{\"apiVersion\":\"2.1.1\",\"attribution\":{\"url\":\"https://ohsome.org/copyrights\",\"text\":\"\xA9
+        OpenStreetMap contributors\"},\"result\":{\"timestamp\":[\"2026-11-17T15:13:34Z\"],\"value\":[54]}}"
     headers:
       content-length:
       - '176'
       content-type:
       - application/json
       date:
-      - Mon, 02 Nov 2026 11:40:44 GMT
+      - Tue, 17 Nov 2026 15:15:44 GMT
       server:
       - envoy
       x-envoy-upstream-service-time:
-      - '136'
+      - '144'
     status:
       code: 200
       message: OK

@@ -49,10 +49,16 @@ def test_get_landuse_filter():
 
 
 def test_clean_overlapping_features(categories_gdf, landuses_gdf):
+    aoi_geom = landuses_gdf.union_all().buffer(2)
+    result = clean_overlapping_features(categories_gdf.copy(), landuses_gdf.copy(), aoi_geom)
+
+    actual_area = gpd.GeoSeries(result.geometry, crs=4326).area.sum()
+
+    assert actual_area == pytest.approx(aoi_geom.area)
+
+
+def test_clean_overlapping_features_no_overlap(categories_gdf, landuses_gdf):
     aoi_geom = landuses_gdf.union_all()
     result = clean_overlapping_features(categories_gdf.copy(), landuses_gdf.copy(), aoi_geom)
 
-    expected_area = landuses_gdf.union_all().area
-    actual_area = gpd.GeoSeries(result.geometry, crs=4326).area.sum()
-
-    assert actual_area == pytest.approx(expected_area)
+    assert result.area.sum() == result.union_all().area

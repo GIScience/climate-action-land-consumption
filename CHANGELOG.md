@@ -22,6 +22,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 - Add landuses such as construction, landfill, quarry, recreation_ground and brownfield to the Other class, landuse=education to
 the Institutional class, aeroway=aerodrome to the Infrastructure class and landuse=greenhouse_horticulture to the Agricultural class
 ([#98](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/98))
+- Add test that there is no self-overlap in the result ([#102](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/102))
 
 ### Fixed
 
