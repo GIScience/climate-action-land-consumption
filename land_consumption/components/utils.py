@@ -2,6 +2,7 @@ import geopandas as gpd
 import pandas as pd
 import shapely
 from geopandas import GeoDataFrame
+from shapely import GeometryCollection, MultiPolygon
 
 from land_consumption.components.landuse_category_mappings import LandObjectCategory
 
@@ -75,4 +76,10 @@ def clip_geometries(categories_gdf: GeoDataFrame) -> GeoDataFrame:
                     category_gdf['geometry'] = category_gdf.geometry.difference(clipped_gdf.union_all())
             clipped_gdf = pd.concat([clipped_gdf, category_gdf])
     clipped_gdf = clipped_gdf.set_crs(4326)
+
+    for index, geom in clipped_gdf.geometry.items():
+        if isinstance(geom, GeometryCollection):
+            parts = shapely.get_parts(geom)
+            clipped_gdf.at[index, 'geometry'] = MultiPolygon([p for p in parts if p.geom_type == 'Polygon'])
+
     return clipped_gdf

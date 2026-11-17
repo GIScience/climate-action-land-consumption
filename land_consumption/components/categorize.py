@@ -32,7 +32,7 @@ def get_categories_gdf(
     ohsome_client: OhsomeClient,
 ) -> gpd.GeoDataFrame:
     features = request_osm_features(aoi_geom, ohsome_client)
-    return clean_overlapping_features(features['land_objects'], features['land_use'])
+    return clean_overlapping_features(features['land_objects'], features['land_use'], aoi_geom)
 
 
 def request_osm_features(
@@ -138,11 +138,14 @@ def get_land_use_filter(tags: dict) -> LandUseCategory | None:
         return LandUseCategory.OTHER
 
 
-def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: gpd.GeoDataFrame) -> pd.DataFrame:
+def clean_overlapping_features(
+    categories_gdf: gpd.GeoDataFrame, landuses_gdf: gpd.GeoDataFrame, aoi: shapely.Polygon | shapely.MultiPolygon
+) -> gpd.GeoDataFrame:
     category_priority = list(LandObjectCategory)
     landuse_priority = list(LandUseCategory)
 
-    categories_gdf = clip_geometries(categories_gdf).reset_index(drop=True)
+    categories_gdf = categories_gdf.reset_index(drop=True)
+    categories_gdf = clip_geometries(categories_gdf)
     landuses_gdf = landuses_gdf.explode(ignore_index=True)
     landuses_gdf = landuses_gdf[landuses_gdf['geometry'].geom_type.isin(['Polygon', 'MultiPolygon'])]
 
@@ -206,6 +209,15 @@ def clean_overlapping_features(categories_gdf: gpd.GeoDataFrame, landuses_gdf: g
         landobjects_with_landuse['landuse_category'] == LandUseCategory.UNKNOWN,
         'category',
     ] = LandObjectCategory.UNKNOWN
+
+    remainder = aoi.difference(landobjects_with_landuse.union_all())
+    if not remainder.is_empty:
+        unknown_remainder = gpd.GeoDataFrame(
+            {'category': [LandObjectCategory.UNKNOWN], 'landuse_category': [LandUseCategory.UNKNOWN]},
+            geometry=[remainder],
+            crs=landobjects_with_landuse.crs,
+        )
+        landobjects_with_landuse = pd.concat([landobjects_with_landuse, unknown_remainder], ignore_index=True)
 
     unknown = landobjects_with_landuse[landobjects_with_landuse['category'] == LandObjectCategory.UNKNOWN]
     known = landobjects_with_landuse[landobjects_with_landuse['category'] != LandObjectCategory.UNKNOWN]

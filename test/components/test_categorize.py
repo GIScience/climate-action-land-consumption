@@ -30,7 +30,7 @@ def test_get_categories_gdf_with_features(default_aoi, ohsome_client):
 
     assert not categories_gdf.empty
     assert 'category' in categories_gdf.columns
-    assert categories_gdf.union_all().area == pytest.approx(3.929e-5, abs=1e-3)
+    assert categories_gdf.union_all().area == pytest.approx(default_aoi.area)
 
 
 def test_get_landuse_filter():
@@ -49,7 +49,8 @@ def test_get_landuse_filter():
 
 
 def test_clean_overlapping_features(categories_gdf, landuses_gdf):
-    result = clean_overlapping_features(categories_gdf.copy(), landuses_gdf.copy())
+    aoi_geom = landuses_gdf.union_all()
+    result = clean_overlapping_features(categories_gdf.copy(), landuses_gdf.copy(), aoi_geom)
 
     expected_area = landuses_gdf.union_all().area
     actual_area = gpd.GeoSeries(result.geometry, crs=4326).area.sum()
