@@ -158,34 +158,34 @@ trio = ["trio (>=0.32.0)"]
 
 [[package]]
 name = "approval-utilities"
-version = "19.1.1"
+version = "20.0.1"
 description = "Utilities for your production code that work well with approvaltests"
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.11"
 groups = ["test"]
 files = [
-    {file = "approval_utilities-19.1.1-py3-none-any.whl", hash = "sha256:1c4e3dbf62d94da0bfc4da1199474744f7389b191d69b3d7c2a3eae524b0f97c"},
-    {file = "approval_utilities-19.1.1.tar.gz", hash = "sha256:33bd42b568bddae052f97e4d2b2061835b2ddba2262b857dedd895bde975f450"},
+    {file = "approval_utilities-20.0.1-py3-none-any.whl", hash = "sha256:f7106fc03c8933c7ffbd7e4e28b03f7f738f0900a6e74beab10b43890e6a7a57"},
+    {file = "approval_utilities-20.0.1.tar.gz", hash = "sha256:32c5db3059636b121b20888a0656db473a6c2c820dc3e26ea5b7864173c2809a"},
 ]
 
 [package.dependencies]
-typing_extensions = ">=4.12.0"
+typing_extensions = ">=4.16.0"
 
 [[package]]
 name = "approvaltests"
-version = "19.1.1"
+version = "20.0.1"
 description = "Assertion/verification library to aid testing"
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.11"
 groups = ["test"]
 files = [
-    {file = "approvaltests-19.1.1-py3-none-any.whl", hash = "sha256:b31c288107038742580105dbe0445524a86ae09add10271ba2342aef3a939045"},
-    {file = "approvaltests-19.1.1.tar.gz", hash = "sha256:0b049a815e5c8462a8dfde2b781bb5956c822e980b8ddd8c270a657a4d78dda3"},
+    {file = "approvaltests-20.0.1-py3-none-any.whl", hash = "sha256:d1c771b1a6b2dad4b66f3930249e1afc05d3bc842e87e7c62ea6c3decbe601f8"},
+    {file = "approvaltests-20.0.1.tar.gz", hash = "sha256:55f6e66a06bf0e2d5ddf3a8b40181a4c82dedf766d193adbf9c19cdb74992ce9"},
 ]
 
 [package.dependencies]
 allpairspy = ">=2.1.0"
-approval_utilities = "19.1.1"
+approval_utilities = "20.0.1"
 beautifulsoup4 = ">=4.9.0"
 empty-files = ">=0.0.3"
 mock = ">=5.1.0"
@@ -193,7 +193,7 @@ psutil = ">=5.9.0"
 pyperclip = ">=1.5.29"
 pytest = ">=8.0.0"
 testfixtures = ">=7.1.0,<12"
-typing_extensions = ">=4.12.0"
+typing_extensions = ">=4.16.0"
 
 [[package]]
 name = "attrs"
@@ -3802,4 +3802,4 @@ dev = ["pytest", "setuptools"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13.5,<3.14"
-content-hash = "67d7b2b9a797183578727cd70247728d1ce131f6d9eda942aa95a0d62a20c403"
+content-hash = "98c71540f4d1152cf0f48f439a0d0f74983fd7f639214a5e28422f8bca7c46d2"
