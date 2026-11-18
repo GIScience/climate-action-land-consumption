@@ -15,7 +15,7 @@ from land_consumption.components.landuse_category_mappings import LandObjectCate
 def test_aggregate_by_categories():
     area_df = gpd.GeoDataFrame(
         {
-            'category': [
+            'land_object_category': [
                 LandObjectCategory.BUILDINGS,
                 LandObjectCategory.BUILT_UP,
                 LandObjectCategory.BUILT_UP,

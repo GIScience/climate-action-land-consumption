@@ -66,7 +66,7 @@ def request_osm_features(
 
             processing_function = PROCESSING_REGISTRY.get(category)
             category_gdf = processing_function(category_gdf)
-            category_gdf['category'] = [category]
+            category_gdf['land_object_category'] = [category]
             categories_gdf = pd.concat([categories_gdf, category_gdf])
 
         polygon_gdf['landuse_category'] = polygon_gdf.tags.apply(get_land_use_filter)
@@ -172,7 +172,7 @@ def clean_overlapping_features(
         clipped = categories_gdf.clip(landuse_geom, keep_geom_type=True)
         clipped_categories_gdf = clipped.dissolve(by='orig_id')
         clipped_categories_gdf = clipped_categories_gdf.sort_values(
-            'category', key=lambda x: x.map(lambda cat: category_priority.index(cat))
+            'land_object_category', key=lambda x: x.map(lambda cat: category_priority.index(cat))
         )
         clipped_categories_gdf['landuse_category'] = landuse_category
         category_by_landuse.append(clipped_categories_gdf)
@@ -185,7 +185,7 @@ def clean_overlapping_features(
             remaining_gdf = gpd.GeoDataFrame(
                 {
                     'geometry': [remaining_landuse],
-                    'category': LandObjectCategory.BUILT_UP,
+                    'land_object_category': LandObjectCategory.BUILT_UP,
                     'landuse_category': landuse_category,
                 },
                 crs=categories_gdf.crs,
@@ -200,27 +200,27 @@ def clean_overlapping_features(
     landobjects_with_landuse = pd.concat(category_by_landuse + non_matching_landuse)
 
     landobjects_with_landuse.loc[
-        (landobjects_with_landuse['category'] == LandObjectCategory.BUILT_UP)
+        (landobjects_with_landuse['land_object_category'] == LandObjectCategory.BUILT_UP)
         & (landobjects_with_landuse['landuse_category'] == LandUseCategory.OTHER),
-        'category',
+        'land_object_category',
     ] = LandObjectCategory.OTHER
 
     landobjects_with_landuse.loc[
         landobjects_with_landuse['landuse_category'] == LandUseCategory.UNKNOWN,
-        'category',
+        'land_object_category',
     ] = LandObjectCategory.UNKNOWN
 
     remainder = aoi.difference(landobjects_with_landuse.union_all())
     if not remainder.is_empty:
         unknown_remainder = gpd.GeoDataFrame(
-            {'category': [LandObjectCategory.UNKNOWN], 'landuse_category': [LandUseCategory.UNKNOWN]},
+            {'land_object_category': [LandObjectCategory.UNKNOWN], 'landuse_category': [LandUseCategory.UNKNOWN]},
             geometry=[remainder],
             crs=landobjects_with_landuse.crs,
         )
         landobjects_with_landuse = pd.concat([landobjects_with_landuse, unknown_remainder], ignore_index=True)
 
-    unknown = landobjects_with_landuse[landobjects_with_landuse['category'] == LandObjectCategory.UNKNOWN]
-    known = landobjects_with_landuse[landobjects_with_landuse['category'] != LandObjectCategory.UNKNOWN]
+    unknown = landobjects_with_landuse[landobjects_with_landuse['land_object_category'] == LandObjectCategory.UNKNOWN]
+    known = landobjects_with_landuse[landobjects_with_landuse['land_object_category'] != LandObjectCategory.UNKNOWN]
 
     unknown_dissolved = unknown.dissolve()
 

@@ -16,7 +16,7 @@ def test_clip_geometries_no_interior_intersection(categories_gdf):
                 # DE-9IM relationship
                 assert geom1.relate(geom2) in ('FF*FF****', 'F0FFFF212', 'FF2F11212')
 
-    assert set(result['category']) == set(categories_gdf['category'])
+    assert set(result['land_object_category']) == set(categories_gdf['land_object_category'])
     assert len(result) == len(categories_gdf)
 
 

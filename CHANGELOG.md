@@ -13,6 +13,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 - Updated climatoology to 7.4.3, renamed `MINIO` env vars in env.base_template to `S3`
 - Update CI and dockerfile to simplify and correct poetry installing location
 - Assign leftovers of the AOI to the "unknown" class ([#99](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/99))
+- Rename category column in dataframe ([#94](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/94))
 
 ### Added
 

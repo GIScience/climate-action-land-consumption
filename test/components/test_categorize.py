@@ -29,7 +29,7 @@ def test_get_categories_gdf_with_features(default_aoi, ohsome_client):
     categories_gdf = get_categories_gdf(default_aoi, ohsome_client=ohsome_client)
 
     assert not categories_gdf.empty
-    assert 'category' in categories_gdf.columns
+    assert 'land_object_category' in categories_gdf.columns
     assert categories_gdf.union_all().area == pytest.approx(default_aoi.area)
 
 

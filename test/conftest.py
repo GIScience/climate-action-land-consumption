@@ -85,7 +85,7 @@ def categories_gdf():
     """Fixture to create a sample GeoDataFrame for testing."""
     # Create sample geometries
     data = {
-        'category': [
+        'land_object_category': [
             LandObjectCategory.BUILDINGS,
             LandObjectCategory.PARKING_LOTS,
             LandObjectCategory.ROADS,
@@ -125,23 +125,23 @@ def categorized_land():
     features = pd.DataFrame(
         [
             {
-                'category': LandObjectCategory.BUILDINGS,
+                'land_object_category': LandObjectCategory.BUILDINGS,
                 'landuse_category': LandUseCategory.COMMERCIAL,
             },
             {
-                'category': LandObjectCategory.BUILDINGS,
+                'land_object_category': LandObjectCategory.BUILDINGS,
                 'landuse_category': LandUseCategory.AGRICULTURAL,
             },
             {
-                'category': LandObjectCategory.BUILT_UP,
+                'land_object_category': LandObjectCategory.BUILT_UP,
                 'landuse_category': LandUseCategory.AGRICULTURAL,
             },
             {
-                'category': LandObjectCategory.BUILT_UP,
+                'land_object_category': LandObjectCategory.BUILT_UP,
                 'landuse_category': LandUseCategory.NATURAL,
             },
             {
-                'category': LandObjectCategory.BUILT_UP,
+                'land_object_category': LandObjectCategory.BUILT_UP,
                 'landuse_category': LandUseCategory.WATER,
             },
         ]

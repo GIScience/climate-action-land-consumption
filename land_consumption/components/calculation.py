@@ -25,10 +25,10 @@ def aggregate_by_categories(area_df: GeoDataFrame) -> pd.DataFrame:
     consumed_land = area_df.apply(lambda x: x['area'] if is_land_consumed(x) else None, axis='columns')
     area_df['% of Consumed Land Area'] = consumed_land / consumed_land.sum() * 100
 
-    area_df['Land Use Object'] = area_df['category'].apply(lambda x: x.value)
+    area_df['Land Use Object'] = area_df['land_object_category'].apply(lambda x: x.value)
     area_df['Land Use Class'] = area_df['landuse_category'].apply(lambda x: x.value)
 
-    mask = (area_df['category'] == LandObjectCategory.BUILT_UP) & (
+    mask = (area_df['land_object_category'] == LandObjectCategory.BUILT_UP) & (
         area_df['landuse_category'].isin([LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL, LandUseCategory.WATER])
     )
 
@@ -67,24 +67,24 @@ def calculate_area(gdf: GeoDataFrame) -> GeoDataFrame:
 
 
 def is_land_consumed(feature: pd.Series) -> bool:
-    if feature['category'] == LandObjectCategory.OTHER:
+    if feature['land_object_category'] == LandObjectCategory.OTHER:
         return False
-    elif (feature['category'] == LandObjectCategory.BUILT_UP) and (
+    elif (feature['land_object_category'] == LandObjectCategory.BUILT_UP) and (
         feature['landuse_category'] in [LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL, LandUseCategory.WATER]
     ):
         return False
-    elif feature['category'] == LandObjectCategory.UNKNOWN:
+    elif feature['land_object_category'] == LandObjectCategory.UNKNOWN:
         return False
 
     return True
 
 
 def is_land_settled(feature: pd.Series) -> bool:
-    if (feature['category'] == LandObjectCategory.BUILT_UP) and (
+    if (feature['land_object_category'] == LandObjectCategory.BUILT_UP) and (
         feature['landuse_category'] in [LandUseCategory.NATURAL, LandUseCategory.WATER]
     ):
         return False
-    elif feature['category'] == LandObjectCategory.UNKNOWN:
+    elif feature['land_object_category'] == LandObjectCategory.UNKNOWN:
         return False
 
     return True

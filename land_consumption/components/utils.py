@@ -70,7 +70,7 @@ def clip_geometries(categories_gdf: GeoDataFrame) -> GeoDataFrame:
     clipped_gdf = gpd.GeoDataFrame()
     for category in LandObjectCategory:
         if category != LandObjectCategory.OTHER:
-            category_gdf = categories_gdf[categories_gdf['category'] == category].copy()
+            category_gdf = categories_gdf[categories_gdf['land_object_category'] == category].copy()
             if not category_gdf['geometry'].isnull().all():
                 if not clipped_gdf.empty:
                     category_gdf['geometry'] = category_gdf.geometry.difference(clipped_gdf.union_all())
