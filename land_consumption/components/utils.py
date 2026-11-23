@@ -67,13 +67,13 @@ def clip_to_aoi(
 
 
 def clip_geometries(categories_gdf: GeoDataFrame) -> GeoDataFrame:
+    # TODO explain this code and refactor
     clipped_gdf = gpd.GeoDataFrame()
     for category in LandObjectCategory:
         if category != LandObjectCategory.OTHER:
             category_gdf = categories_gdf[categories_gdf['land_object_category'] == category].copy()
-            if not category_gdf['geometry'].isnull().all():
-                if not clipped_gdf.empty:
-                    category_gdf['geometry'] = category_gdf.geometry.difference(clipped_gdf.union_all())
+            if not category_gdf['geometry'].isnull().all() and not clipped_gdf.empty:
+                category_gdf['geometry'] = category_gdf.geometry.difference(clipped_gdf.union_all())
             clipped_gdf = pd.concat([clipped_gdf, category_gdf])
     clipped_gdf = clipped_gdf.set_crs(4326)
 

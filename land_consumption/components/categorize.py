@@ -32,7 +32,8 @@ def get_categories_gdf(
     ohsome_client: OhsomeClient,
 ) -> gpd.GeoDataFrame:
     features = request_osm_features(aoi_geom, ohsome_client)
-    return clean_overlapping_features(features['land_objects'], features['land_use'], aoi_geom)
+    cleaned_features = clean_overlapping_features(features['land_objects'], features['land_use'], aoi_geom)
+    return cleaned_features
 
 
 def request_osm_features(
@@ -142,16 +143,10 @@ def clean_overlapping_features(
     categories_gdf: gpd.GeoDataFrame, landuses_gdf: gpd.GeoDataFrame, aoi: shapely.Polygon | shapely.MultiPolygon
 ) -> gpd.GeoDataFrame:
     category_priority = list(LandObjectCategory)
-    landuse_priority = list(LandUseCategory)
-
     categories_gdf = categories_gdf.reset_index(drop=True)
     categories_gdf = clip_geometries(categories_gdf)
-    landuses_gdf = landuses_gdf.explode(ignore_index=True)
-    landuses_gdf = landuses_gdf[landuses_gdf['geometry'].geom_type.isin(['Polygon', 'MultiPolygon'])]
 
-    landuses_gdf = landuses_gdf.dissolve(by='landuse_category', sort=False)
-    landuses_gdf['priority'] = landuses_gdf.index.map(landuse_priority.index)
-    landuses_gdf = landuses_gdf.sort_values('priority')
+    landuses_gdf = clean_landuses(landuses_gdf, aoi=aoi)
 
     category_by_landuse = []
     non_matching_landuse = []
@@ -205,20 +200,6 @@ def clean_overlapping_features(
         'land_object_category',
     ] = LandObjectCategory.OTHER
 
-    landobjects_with_landuse.loc[
-        landobjects_with_landuse['landuse_category'] == LandUseCategory.UNKNOWN,
-        'land_object_category',
-    ] = LandObjectCategory.UNKNOWN
-
-    remainder = aoi.difference(landobjects_with_landuse.union_all())
-    if not remainder.is_empty:
-        unknown_remainder = gpd.GeoDataFrame(
-            {'land_object_category': [LandObjectCategory.UNKNOWN], 'landuse_category': [LandUseCategory.UNKNOWN]},
-            geometry=[remainder],
-            crs=landobjects_with_landuse.crs,
-        )
-        landobjects_with_landuse = pd.concat([landobjects_with_landuse, unknown_remainder], ignore_index=True)
-
     unknown = landobjects_with_landuse[landobjects_with_landuse['land_object_category'] == LandObjectCategory.UNKNOWN]
     known = landobjects_with_landuse[landobjects_with_landuse['land_object_category'] != LandObjectCategory.UNKNOWN]
 
@@ -227,3 +208,19 @@ def clean_overlapping_features(
     landobjects_unknown_dissolved = pd.concat([known, unknown_dissolved], ignore_index=True)
 
     return landobjects_unknown_dissolved
+
+
+def clean_landuses(landuses_gdf: gpd.GeoDataFrame, aoi: shapely.MultiPolygon | shapely.Polygon) -> gpd.GeoDataFrame:
+    landuse_priority = list(LandUseCategory)
+
+    unknown_landuse = aoi.difference(landuses_gdf.union_all())
+    if not unknown_landuse.is_empty:
+        landuses_gdf.loc[-1] = pd.Series({'landuse_category': LandUseCategory.UNKNOWN, 'geometry': unknown_landuse})
+
+    landuses_gdf = landuses_gdf.explode(ignore_index=True)
+    landuses_gdf = landuses_gdf[landuses_gdf['geometry'].geom_type.isin(['Polygon', 'MultiPolygon'])]
+    landuses_gdf = landuses_gdf.dissolve(by='landuse_category', sort=False)
+    landuses_gdf['priority'] = landuses_gdf.index.map(landuse_priority.index)
+    landuses_gdf = landuses_gdf.sort_values('priority')
+
+    return landuses_gdf

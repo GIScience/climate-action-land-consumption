@@ -29,6 +29,7 @@ the Institutional class, aeroway=aerodrome to the Infrastructure class and landu
 
 - Fix bug that removed certain buildings and roads in clean_overlapping_features ([#100](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/100))
 - Fix bug that removed remaining landuse in clean_overlapping_features ([#101](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/101))
+- Keep land objects in areas without landuse in osm and assign built up to areas with unclassified landuse to `BUILT_UP` ([#84](https://gitlab.heigit.org/climate-action/plugins/land-consumption/-/work_items/84))
 
 ### Removed
 

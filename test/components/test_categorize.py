@@ -1,7 +1,10 @@
 import geopandas as gpd
 import pytest
+import shapely
+from geopandas.testing import assert_geodataframe_equal
 
 from land_consumption.components.categorize import (
+    clean_landuses,
     clean_overlapping_features,
     get_categories_gdf,
     get_land_object_filter,
@@ -49,6 +52,7 @@ def test_get_landuse_filter():
 
 
 def test_clean_overlapping_features(categories_gdf, landuses_gdf):
+    """Test that the entire aoi is covered"""
     aoi_geom = landuses_gdf.union_all().buffer(2)
     result = clean_overlapping_features(categories_gdf.copy(), landuses_gdf.copy(), aoi_geom)
 
@@ -58,7 +62,88 @@ def test_clean_overlapping_features(categories_gdf, landuses_gdf):
 
 
 def test_clean_overlapping_features_no_overlap(categories_gdf, landuses_gdf):
+    """Test that there's no overlapping features"""
     aoi_geom = landuses_gdf.union_all()
     result = clean_overlapping_features(categories_gdf.copy(), landuses_gdf.copy(), aoi_geom)
 
     assert result.area.sum() == result.union_all().area
+
+
+@pytest.fixture
+def simple_aoi():
+    return shapely.box(0, 0, 1, 1)
+
+
+@pytest.mark.parametrize(
+    ['land_object_category', 'landuse_category'],
+    argvalues=[
+        (LandObjectCategory.BUILDINGS, LandUseCategory.UNKNOWN),
+        (LandObjectCategory.ROADS, LandUseCategory.UNKNOWN),
+        (LandObjectCategory.PARKING_LOTS, LandUseCategory.UNKNOWN),
+    ],
+)
+def test_clean_overlapping_features_combinations(landuse_category, land_object_category, simple_aoi):
+    land_object = gpd.GeoDataFrame(
+        data={'land_object_category': [land_object_category]},
+        geometry=[shapely.box(0, 0, 0.5, 0.5)],
+    )
+
+    landuse = gpd.GeoDataFrame(data={'landuse_category': [landuse_category]}, geometry=[simple_aoi])
+
+    received = clean_overlapping_features(categories_gdf=land_object, landuses_gdf=landuse, aoi=simple_aoi)
+
+    assert received.loc[0, 'land_object_category'] == land_object_category
+
+
+@pytest.mark.parametrize(
+    'land_object_category',
+    argvalues=[LandObjectCategory.ROADS, LandObjectCategory.PARKING_LOTS, LandObjectCategory.BUILDINGS],
+)
+def test_clean_overlapping_features_unknown_landuse(land_object_category, simple_aoi):
+    object_geometry = shapely.box(2, 2, 2.5, 2.5)
+    landuse_geometry = simple_aoi
+
+    land_object = gpd.GeoDataFrame(
+        data={'land_object_category': [land_object_category]},
+        geometry=[object_geometry],
+    )
+
+    landuse = gpd.GeoDataFrame(data={'landuse_category': [LandUseCategory.RESIDENTIAL]}, geometry=[landuse_geometry])
+
+    expected = gpd.GeoDataFrame(
+        data={
+            'land_object_category': [land_object_category, LandObjectCategory.BUILT_UP, LandObjectCategory.BUILT_UP],
+            'landuse_category': [LandUseCategory.UNKNOWN, LandUseCategory.RESIDENTIAL, LandUseCategory.UNKNOWN],
+        },
+        geometry=[
+            object_geometry,
+            landuse_geometry,
+            shapely.from_wkt('POLYGON ((2.5 0, 1 0, 1 1, 0 1, 0 2.5, 2 2.5, 2 2, 2.5 2, 2.5 0))'),
+        ],
+        crs=4326,
+    )
+
+    received = clean_overlapping_features(
+        categories_gdf=land_object, landuses_gdf=landuse, aoi=shapely.box(0, 0, 2.5, 2.5)
+    )
+
+    assert_geodataframe_equal(received, expected, check_like=True)
+
+
+def test_clean_landuses(simple_aoi):
+    input_landuses = gpd.GeoDataFrame(
+        data={'landuse_category': [LandUseCategory.RESIDENTIAL, LandUseCategory.COMMERCIAL, LandUseCategory.UNKNOWN]},
+        geometry=[shapely.box(0, 0, 0.5, 0.5), shapely.box(0.5, 0, 1.0, 0.5), shapely.box(0.5, 0.5, 1.0, 1.0)],
+        crs=4326,
+    )
+
+    expected = gpd.GeoDataFrame(
+        index=[LandUseCategory.COMMERCIAL, LandUseCategory.RESIDENTIAL, LandUseCategory.UNKNOWN],
+        data={'priority': [0, 1, 9]},
+        geometry=[shapely.box(0.5, 0, 1.0, 0.5), shapely.box(0, 0, 0.5, 0.5), shapely.box(0, 0.5, 1, 1)],
+        crs=4326,
+    )
+
+    received = clean_landuses(landuses_gdf=input_landuses, aoi=simple_aoi)
+
+    assert_geodataframe_equal(received, expected, check_like=True)
