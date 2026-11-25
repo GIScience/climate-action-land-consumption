@@ -44,7 +44,7 @@ The Land Consumption plugin currently considers the following land use objects w
 In addition to land use objects, the Land Consumption plugin also considers the following land use classes in its calculations:
 
 1. **Residential**: Includes land primarily used for housing and dwellings. OSM landuse value: `residential`.
-2. **Commercial**: Includes land used for business, retail, and service-related functions. OSM landuse values: `commercial`, `retail`.
+2. **Commercial**: Includes land used for business, retail, and service-related functions. OSM `landuse` values: `commercial`, `retail`.
 3. **Industrial**: Includes land designated for manufacturing, warehousing, or other industrial activities. OSM landuse value: `industrial`.
 4. **Infrastructure**: Covers land used for public infrastructure such as transport. OSM landuse values: `garages`, `railway`, `harbour`, `port`, `lock`, `marina` or OSM amenity values: `bus_station`,`ferry_terminal` or OSM tag: `aeroway=aerodrome`.
 5. **Institutional**: Covers land used for public infrastructure and institutional functions such as religious facilities and universities. OSM landuse values: `military`, `religious`, `cemetery`, `education` or OSM amenity values: `university`, `school`, `college`, `hospital`, `clinic`, `community_centre`,

@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 from geopandas import GeoDataFrame
 
-from land_consumption.components.landuse_category_mappings import LandObjectCategory, LandUseCategory
+from land_consumption.components.land_use_category_mappings import LandObjectCategory, LandUseCategory
 
 log = logging.getLogger(__name__)
 
@@ -11,6 +11,7 @@ SQM_TO_HA_FACTOR = 1.0 / (100.0 * 100.0)
 
 
 def calculate_land_consumption(categories_gdf: GeoDataFrame) -> pd.DataFrame:
+    log.info('Calculating land consumption.')
     area_df = calculate_area(categories_gdf)
 
     return aggregate_by_categories(area_df)
@@ -26,10 +27,12 @@ def aggregate_by_categories(area_df: GeoDataFrame) -> pd.DataFrame:
     area_df['% of Consumed Land Area'] = consumed_land / consumed_land.sum() * 100
 
     area_df['Land Use Object'] = area_df['land_object_category'].apply(lambda x: x.value)
-    area_df['Land Use Class'] = area_df['landuse_category'].apply(lambda x: x.value)
+    area_df['Land Use Class'] = area_df['land_use_category'].apply(lambda x: x.value)
 
     mask = (area_df['land_object_category'] == LandObjectCategory.BUILT_UP) & (
-        area_df['landuse_category'].isin([LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL, LandUseCategory.WATER])
+        area_df['land_use_category'].isin(
+            [LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL, LandUseCategory.WATER]
+        )
     )
 
     area_df.loc[mask, 'Land Use Object'] = area_df.loc[mask, 'Land Use Class'].map(
@@ -70,7 +73,7 @@ def is_land_consumed(feature: pd.Series) -> bool:
     if feature['land_object_category'] == LandObjectCategory.OTHER:
         return False
     elif (feature['land_object_category'] == LandObjectCategory.BUILT_UP) and (
-        feature['landuse_category'] in [LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL, LandUseCategory.WATER]
+        feature['land_use_category'] in [LandUseCategory.AGRICULTURAL, LandUseCategory.NATURAL, LandUseCategory.WATER]
     ):
         return False
     elif feature['land_object_category'] == LandObjectCategory.UNKNOWN:
@@ -81,7 +84,7 @@ def is_land_consumed(feature: pd.Series) -> bool:
 
 def is_land_settled(feature: pd.Series) -> bool:
     if (feature['land_object_category'] == LandObjectCategory.BUILT_UP) and (
-        feature['landuse_category'] in [LandUseCategory.NATURAL, LandUseCategory.WATER]
+        feature['land_use_category'] in [LandUseCategory.NATURAL, LandUseCategory.WATER]
     ):
         return False
     elif feature['land_object_category'] == LandObjectCategory.UNKNOWN:

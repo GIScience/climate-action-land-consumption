@@ -3,7 +3,7 @@ import pandas as pd
 from geopandas import GeoDataFrame
 from pandas import DataFrame
 
-from land_consumption.components.landuse_category_mappings import LandObjectCategory
+from land_consumption.components.land_use_category_mappings import LandObjectCategory
 
 
 def get_union(category_gdf: GeoDataFrame) -> GeoDataFrame:

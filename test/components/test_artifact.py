@@ -1,8 +1,11 @@
+import geopandas as gpd
 import pandas as pd
 import plotly.express as px
+import shapely
 from climatoology.base.artifact import ArtifactModality
 
-from land_consumption.components.artifact import build_table_artifact, build_treemap_artifact
+from land_consumption.components.artifact import build_map_artifacts, build_table_artifact, build_treemap_artifact
+from land_consumption.components.land_use_category_mappings import LandObjectCategory, LandUseCategory
 
 
 def test_build_table_artifact(compute_resources):
@@ -46,3 +49,22 @@ def test_build_treemap_artifact(compute_resources):
     assert computed_output.modality == ArtifactModality.CHART_PLOTLY
     assert computed_output.name == 'Land Consumption Treemap'
     assert computed_output.filename == expected_filename
+
+
+def test_build_map_artifacts(compute_resources):
+    data = gpd.GeoDataFrame(
+        data={
+            'land_object_category': [
+                LandObjectCategory.ROADS,
+                LandObjectCategory.BUILT_UP,
+                LandObjectCategory.BUILT_UP,
+            ],
+            'land_use_category': [LandUseCategory.UNKNOWN, LandUseCategory.RESIDENTIAL, LandUseCategory.UNKNOWN],
+        },
+        geometry=[shapely.box(2, 2, 2.5, 2.5)] * 3,
+        crs=4326,
+    )
+    computed_output = build_map_artifacts(data, compute_resources)
+
+    for artifact in computed_output:
+        assert artifact.modality == ArtifactModality.VECTOR_MAP_LAYER

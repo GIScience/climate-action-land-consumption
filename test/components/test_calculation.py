@@ -9,7 +9,7 @@ from land_consumption.components.calculation import (
     is_land_consumed,
     is_land_settled,
 )
-from land_consumption.components.landuse_category_mappings import LandObjectCategory, LandUseCategory
+from land_consumption.components.land_use_category_mappings import LandObjectCategory, LandUseCategory
 
 
 def test_aggregate_by_categories():
@@ -21,7 +21,7 @@ def test_aggregate_by_categories():
                 LandObjectCategory.BUILT_UP,
                 LandObjectCategory.OTHER,
             ],
-            'landuse_category': [
+            'land_use_category': [
                 LandUseCategory.COMMERCIAL,
                 LandUseCategory.AGRICULTURAL,
                 LandUseCategory.NATURAL,

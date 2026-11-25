@@ -12,7 +12,7 @@ from ohsome_py2.client import OhsomeClient
 from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
 
-from land_consumption.components.landuse_category_mappings import LandObjectCategory, LandUseCategory
+from land_consumption.components.land_use_category_mappings import LandObjectCategory, LandUseCategory
 from land_consumption.core.input import ComputeInput
 from land_consumption.core.operator_worker import LandConsumption
 
@@ -101,9 +101,9 @@ def categories_gdf():
 
 
 @pytest.fixture
-def landuses_gdf():
+def land_uses_gdf():
     data = {
-        'landuse_category': [
+        'land_use_category': [
             LandUseCategory.COMMERCIAL,
             LandUseCategory.RESIDENTIAL,
             LandUseCategory.OTHER,
@@ -126,23 +126,23 @@ def categorized_land():
         [
             {
                 'land_object_category': LandObjectCategory.BUILDINGS,
-                'landuse_category': LandUseCategory.COMMERCIAL,
+                'land_use_category': LandUseCategory.COMMERCIAL,
             },
             {
                 'land_object_category': LandObjectCategory.BUILDINGS,
-                'landuse_category': LandUseCategory.AGRICULTURAL,
+                'land_use_category': LandUseCategory.AGRICULTURAL,
             },
             {
                 'land_object_category': LandObjectCategory.BUILT_UP,
-                'landuse_category': LandUseCategory.AGRICULTURAL,
+                'land_use_category': LandUseCategory.AGRICULTURAL,
             },
             {
                 'land_object_category': LandObjectCategory.BUILT_UP,
-                'landuse_category': LandUseCategory.NATURAL,
+                'land_use_category': LandUseCategory.NATURAL,
             },
             {
                 'land_object_category': LandObjectCategory.BUILT_UP,
-                'landuse_category': LandUseCategory.WATER,
+                'land_use_category': LandUseCategory.WATER,
             },
         ]
     )

@@ -4,7 +4,7 @@ import shapely
 from geopandas import GeoDataFrame
 from shapely import GeometryCollection, MultiPolygon
 
-from land_consumption.components.landuse_category_mappings import LandObjectCategory
+from land_consumption.components.land_use_category_mappings import LandObjectCategory
 
 
 def sort_land_consumption_table(

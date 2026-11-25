@@ -24,6 +24,6 @@ def test_plugin_compute_request(
         language=DEFAULT_LANGUAGE,
     )
 
-    assert len(computed_artifacts) == 3
+    assert len(computed_artifacts) == 5
     for artifact in computed_artifacts:
         assert isinstance(artifact, Artifact)

@@ -8,7 +8,7 @@ from climatoology.base.computation import ComputationResources
 from ohsome_py2.client import OhsomeClient
 from plotly.graph_objs import Figure
 
-from land_consumption.components.artifact import build_table_artifact, build_treemap_artifact
+from land_consumption.components.artifact import build_map_artifacts, build_table_artifact, build_treemap_artifact
 from land_consumption.components.calculation import calculate_land_consumption
 from land_consumption.components.categorize import get_categories_gdf
 from land_consumption.components.utils import sort_land_consumption_table
@@ -25,7 +25,7 @@ def get_land_consumption_artifacts(
 
     land_consumption_df = calculate_land_consumption(categories_gdf)
 
-    landobjects_consumption_table = get_basic_table(land_consumption_df)
+    land_objects_consumption_table = get_basic_table(land_consumption_df)
     landconsumer_consumption_table = get_detailed_table(land_consumption_df)
     treemap = create_treemap(land_consumption_df)
 
@@ -35,8 +35,8 @@ def get_land_consumption_artifacts(
         title='detailed',
     )
 
-    landobjects_table_artifact = build_table_artifact(
-        data=landobjects_consumption_table,
+    land_objects_table_artifact = build_table_artifact(
+        data=land_objects_consumption_table,
         resources=resources,
         title='basic',
     )
@@ -46,11 +46,13 @@ def get_land_consumption_artifacts(
         resources=resources,
     )
 
-    return [landconsumer_table_artifact, landobjects_table_artifact, treemap_artifact]
+    map_artifacts = build_map_artifacts(categories_gdf=categories_gdf, resources=resources)
+
+    return [landconsumer_table_artifact, land_objects_table_artifact, treemap_artifact] + map_artifacts
 
 
 def get_basic_table(land_consumption_df: pd.DataFrame) -> pd.DataFrame:
-    log.debug('Creating basic table artifact for land consumption data.')
+    log.info('Creating basic table for land consumption data.')
 
     land_consumption_df = (
         land_consumption_df.groupby('Land Use Object', as_index=False)
@@ -80,7 +82,7 @@ def get_basic_table(land_consumption_df: pd.DataFrame) -> pd.DataFrame:
 
 
 def get_detailed_table(land_consumption_df: pd.DataFrame) -> pd.DataFrame:
-    log.debug('Creating detailed table artifact for land consumption data.')
+    log.info('Creating detailed table for land consumption data.')
 
     total_land_area = land_consumption_df['Total Land Area [ha]'].sum()
     total_row = pd.DataFrame(
@@ -116,7 +118,7 @@ def get_detailed_table(land_consumption_df: pd.DataFrame) -> pd.DataFrame:
 
 
 def create_treemap(landconsumer_consumption_table: pd.DataFrame) -> Figure:
-    log.debug('Creating treemap for land consumption.')
+    log.info('Creating treemap for land consumption.')
 
     landconsumer_consumption_table = landconsumer_consumption_table.fillna(0)
 

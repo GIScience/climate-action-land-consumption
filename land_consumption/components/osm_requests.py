@@ -6,7 +6,7 @@ from climatoology.base.exception import ClimatoologyUserError
 from geopandas import GeoDataFrame
 from ohsome_py2.client import OhsomeAPIError, OhsomeClient
 
-from land_consumption.components.landuse_category_mappings import (
+from land_consumption.components.land_use_category_mappings import (
     AMENITY_INFRASTRUCTURE_TAGS,
     AMENITY_INSTITUTIONAL_TAGS,
     LANDUSE_VALUE_MAP,
@@ -52,8 +52,8 @@ def build_ohsome_filter(
         row_filter.append('(building=*)')
         row_filter.append('(amenity=parking and parking=surface)')
 
-        landuse_values = ','.join(LANDUSE_VALUE_MAP.keys())
-        row_filter.append(f'(landuse in ({landuse_values}))')
+        land_use_values = ','.join(LANDUSE_VALUE_MAP.keys())
+        row_filter.append(f'(landuse in ({land_use_values}))')
 
         row_filter.append('(natural=*)')
         row_filter.append('(leisure=*)')

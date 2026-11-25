@@ -1,4 +1,4 @@
-Land Consumption reports how much land is consumed and used for each land use object (e.g., buildings, roads, parking lots) and land use class (e.g., commercial, residential, industrial) in a treemap and as a detailed table. The basic table provides a summary of this data.
+Land Consumption reports how much land is consumed and used for each land use object (e.g., buildings, roads, parking lots) and land use class (e.g., commercial, residential, industrial) in a treemap and as a detailed table. The basic table provides a summary of this data. Additionally, two maps visualize the distribution of land use objects and classes.
 
 The conversion of natural landscapes to altered land uses, e.g. for industry or agriculture, releases stored carbon and drives climate change, making the protection and restoration of natural ecosystems an essential component of climate action.
 
